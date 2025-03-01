@@ -1,0 +1,1825 @@
+2024-01-09 10:05:42 - Initializing OCR Tool UI
+2024-01-09 10:05:42 - Icon file not found: conti2.png
+2024-01-09 10:05:42 - Creating tool buttons
+2024-01-09 10:05:42 - Creating menu bar
+2024-01-09 10:05:42 - Image file not found: conti2.png
+2024-01-09 10:05:42 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-09 10:05:42 - Creating top bar panel
+2024-01-09 10:05:42 - Creating tool panel
+2024-01-09 10:05:42 - Background image is null
+2024-01-09 10:05:42 - Background image is null
+2024-01-09 10:06:01 - Background image is null
+2024-01-09 10:11:16 - Initializing OCR Tool UI
+2024-01-09 10:11:16 - Icon file not found: conti2.png
+2024-01-09 10:11:16 - Creating tool buttons
+2024-01-09 10:11:16 - Creating menu bar
+2024-01-09 10:11:16 - Image file not found: conti2.png
+2024-01-09 10:11:16 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-09 10:11:16 - Creating top bar panel
+2024-01-09 10:11:16 - Creating tool panel
+2024-01-09 10:11:16 - Background image is null
+2024-01-09 10:11:16 - Background image is null
+2024-01-09 10:11:17 - Clicked tool button: Coordinate Maker
+2024-01-09 10:11:17 - Launching Tool 1
+2024-01-09 10:11:17 - Background image is null
+2024-01-09 10:11:19 - Background image is null
+2024-01-09 10:11:25 - Background image is null
+2024-01-09 10:11:46 - Background image is null
+2024-01-09 10:11:46 - Closing OCR Tool UI
+2024-01-09 15:02:40 - Initializing OCR Tool UI
+2024-01-09 15:02:40 - Icon file not found: conti2.png
+2024-01-09 15:02:40 - Creating tool buttons
+2024-01-09 15:02:40 - Creating menu bar
+2024-01-09 15:02:40 - Image file not found: conti2.png
+2024-01-09 15:02:40 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-09 15:02:40 - Creating top bar panel
+2024-01-09 15:02:40 - Creating tool panel
+2024-01-09 15:02:40 - Background image is null
+2024-01-09 15:02:40 - Background image is null
+2024-01-09 15:02:43 - Background image is null
+2024-01-09 15:02:43 - Background image is null
+2024-01-09 15:50:56 - Background image is null
+2024-01-09 16:18:18 - Background image is null
+2024-01-11 09:50:13 - Background image is null
+2024-01-11 09:50:13 - Background image is null
+2024-01-11 09:50:13 - Background image is null
+2024-01-11 09:50:14 - Background image is null
+2024-01-11 09:50:15 - Closing OCR Tool UI
+2024-01-11 11:02:22 - Initializing OCR Tool UI
+2024-01-11 11:02:22 - Icon file not found: conti2.png
+2024-01-11 11:02:22 - Creating tool button for Manual Testing
+2024-01-11 11:02:22 - Creating tool buttons
+2024-01-11 11:02:22 - Creating menu bar
+2024-01-11 11:02:22 - Image file not found: conti2.png
+2024-01-11 11:02:22 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 11:02:22 - Creating top bar panel
+2024-01-11 11:02:22 - Creating tool panel
+2024-01-11 11:02:22 - Background image is null
+2024-01-11 11:02:22 - Background image is null
+2024-01-11 11:02:26 - Clicked tool button: Manual Testing
+2024-01-11 11:02:26 - Manual Testing Tool
+2024-01-11 11:02:26 - Opening ImageExplorer for Manual Testing
+2024-01-11 11:02:46 - Closing OCR Tool UI
+2024-01-11 11:04:02 - Initializing OCR Tool UI
+2024-01-11 11:04:02 - Icon file not found: conti2.png
+2024-01-11 11:04:02 - Creating tool button for Manual Testing
+2024-01-11 11:04:02 - Creating tool buttons
+2024-01-11 11:04:02 - Creating menu bar
+2024-01-11 11:04:02 - Image file not found: conti2.png
+2024-01-11 11:04:02 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 11:04:02 - Creating top bar panel
+2024-01-11 11:04:02 - Creating tool panel
+2024-01-11 11:04:02 - Background image is null
+2024-01-11 11:04:02 - Background image is null
+2024-01-11 11:04:03 - Clicked tool button: Manual Testing
+2024-01-11 11:04:03 - Manual Testing Tool
+2024-01-11 11:04:03 - Opening ImageExplorer for Manual Testing
+2024-01-11 11:04:03 - Background image is null
+2024-01-11 11:32:33 - Initializing OCR Tool UI
+2024-01-11 11:32:33 - Icon file not found: conti2.png
+2024-01-11 11:32:33 - Creating tool button for Manual Testing
+2024-01-11 11:32:33 - Creating tool buttons
+2024-01-11 11:32:33 - Creating menu bar
+2024-01-11 11:32:33 - Image file not found: conti2.png
+2024-01-11 11:32:33 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 11:32:33 - Creating top bar panel
+2024-01-11 11:32:33 - Creating tool panel
+2024-01-11 11:32:33 - Background image is null
+2024-01-11 11:32:34 - Background image is null
+2024-01-11 11:34:07 - Clicked tool button: Manual Testing
+2024-01-11 11:34:07 - Manual Testing Tool
+2024-01-11 11:34:07 - Opening ImageExplorer for Manual Testing
+2024-01-11 11:34:07 - Background image is null
+2024-01-11 12:22:30 - Initializing OCR Tool UI
+2024-01-11 12:22:30 - Icon file not found: conti2.png
+2024-01-11 12:22:30 - Creating tool button for Manual Testing
+2024-01-11 12:22:30 - Creating tool buttons
+2024-01-11 12:22:30 - Creating menu bar
+2024-01-11 12:22:30 - Image file not found: conti2.png
+2024-01-11 12:22:30 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:22:30 - Creating top bar panel
+2024-01-11 12:22:30 - Creating tool panel
+2024-01-11 12:22:30 - Background image is null
+2024-01-11 12:22:30 - Background image is null
+2024-01-11 12:22:32 - Clicked tool button: Manual Testing
+2024-01-11 12:22:32 - Manual Testing Tool
+2024-01-11 12:22:32 - Opening ImageExplorer for Manual Testing
+2024-01-11 12:22:32 - Background image is null
+2024-01-11 12:26:32 - Initializing OCR Tool UI
+2024-01-11 12:26:32 - Icon file not found: conti2.png
+2024-01-11 12:26:32 - Creating tool button for Manual Testing
+2024-01-11 12:26:32 - Creating tool buttons
+2024-01-11 12:26:32 - Creating menu bar
+2024-01-11 12:26:32 - Image file not found: conti2.png
+2024-01-11 12:26:32 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:26:32 - Creating top bar panel
+2024-01-11 12:26:32 - Creating tool panel
+2024-01-11 12:26:32 - Background image is null
+2024-01-11 12:26:32 - Background image is null
+2024-01-11 12:26:35 - Closing OCR Tool UI
+2024-01-11 12:31:03 - Initializing OCR Tool UI
+2024-01-11 12:31:03 - Icon file not found using class loader: conti2.png
+2024-01-11 12:31:03 - Creating tool button for Manual Testing
+2024-01-11 12:31:03 - Creating tool buttons
+2024-01-11 12:31:03 - Creating menu bar
+2024-01-11 12:31:03 - Image file not found: conti2.png
+2024-01-11 12:31:03 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:31:03 - Creating top bar panel
+2024-01-11 12:31:03 - Creating tool panel
+2024-01-11 12:31:03 - Background image is null
+2024-01-11 12:31:03 - Background image is null
+2024-01-11 12:31:05 - Background image is null
+2024-01-11 12:31:08 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:14 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:15 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:16 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:17 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:18 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:19 - Background image is null
+2024-01-11 12:31:20 - Closing OCR Tool UI
+2024-01-11 12:39:14 - Initializing OCR Tool UI
+2024-01-11 12:39:14 - Icon file not found using class loader: conti2.png
+2024-01-11 12:39:14 - Creating tool button for Manual Testing
+2024-01-11 12:39:14 - Creating tool buttons
+2024-01-11 12:39:14 - Creating menu bar
+2024-01-11 12:39:14 - Background image not found using class loader: conti2.png
+2024-01-11 12:39:14 - Image file not found: BufferedImage@7004568f: type = 6 ColorModel: #pixelBits = 32 numComponents = 4 color space = java.awt.color.ICC_ColorSpace@75fbb6e1 transparency = 3 has alpha = true isAlphaPre = false ByteInterleavedRaster: width = 500 height = 500 #numDataElements 4 dataOff[0] = 3
+2024-01-11 12:39:14 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:39:14 - Creating top bar panel
+2024-01-11 12:39:14 - Creating tool panel
+2024-01-11 12:39:14 - Background image is null
+2024-01-11 12:39:15 - Background image is null
+2024-01-11 12:39:20 - Background image is null
+2024-01-11 12:39:20 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:21 - Background image is null
+2024-01-11 12:39:24 - Closing OCR Tool UI
+2024-01-11 12:41:03 - Initializing OCR Tool UI
+2024-01-11 12:41:03 - Icon file not found using class loader: conti2.png
+2024-01-11 12:41:03 - Creating tool button for Manual Testing
+2024-01-11 12:41:03 - Creating tool buttons
+2024-01-11 12:41:03 - Creating menu bar
+2024-01-11 12:41:03 - Image file not found: conti2.png
+2024-01-11 12:41:03 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:41:03 - Creating top bar panel
+2024-01-11 12:41:03 - Creating tool panel
+2024-01-11 12:41:03 - Background image is null
+2024-01-11 12:41:04 - Background image is null
+2024-01-11 12:41:06 - Closing OCR Tool UI
+2024-01-11 12:54:11 - Initializing OCR Tool UI
+2024-01-11 12:54:11 - Icon file not found using class loader: conti2.png
+2024-01-11 12:54:11 - Creating tool button for Manual Testing
+2024-01-11 12:54:11 - Creating tool buttons
+2024-01-11 12:54:11 - Creating menu bar
+2024-01-11 12:54:11 - Image file not found: conti2.png
+2024-01-11 12:54:11 - Current Path: F:\Java\IdeaProjects\ExcelManager
+2024-01-11 12:54:11 - Creating top bar panel
+2024-01-11 12:54:11 - Creating tool panel
+2024-01-11 12:54:11 - Background image is null
+2024-01-11 12:54:12 - Background image is null
+2024-01-11 12:54:14 - Closing OCR Tool UI
+2024-01-11 12:59:21 - Initializing OCR Tool UI
+2024-01-11 12:59:21 - Icon file not found using class loader: conti2.png
+2024-01-11 12:59:21 - Creating tool button for Manual Testing
+2024-01-11 12:59:21 - Creating menu bar
+2024-01-11 12:59:21 - Image file not found: conti2.png
+2024-01-11 12:59:21 - Creating top bar panel
+2024-01-11 12:59:21 - Background image is null
+2024-01-11 12:59:21 - Background image is null
+2024-01-11 12:59:24 - Background image is null
+2024-01-11 12:59:24 - Background image is null
+2024-01-11 12:59:28 - Background image is null
+2024-01-11 12:59:28 - Background image is null
+2024-01-11 12:59:39 - Background image is null
+2024-01-11 13:03:34 - Initializing OCR Tool UI
+2024-01-11 13:03:34 - Icon file not found using class loader: conti2.png
+2024-01-11 13:03:34 - Creating tool button for Manual Testing
+2024-01-11 13:03:34 - Creating menu bar
+2024-01-11 13:03:34 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:03:34 - Image file not found using relative path: your-image-file.png
+2024-01-11 13:03:34 - Creating top bar panel
+2024-01-11 13:03:37 - Clicked tool button: Manual Testing
+2024-01-11 13:03:37 - Manual Testing Tool
+2024-01-11 13:03:37 - Opening ImageExplorer for Manual Testing
+2024-01-11 13:03:43 - Initializing OCR Tool UI
+2024-01-11 13:03:43 - Icon file not found using class loader: conti2.png
+2024-01-11 13:03:43 - Creating tool button for Manual Testing
+2024-01-11 13:03:43 - Creating menu bar
+2024-01-11 13:03:43 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:03:43 - Image file not found using relative path: your-image-file.png
+2024-01-11 13:03:43 - Creating top bar panel
+2024-01-11 13:03:46 - Closing OCR Tool UI
+2024-01-11 13:04:06 - Initializing OCR Tool UI
+2024-01-11 13:04:06 - Icon file not found using class loader: conti2.png
+2024-01-11 13:04:06 - Creating tool button for Manual Testing
+2024-01-11 13:04:06 - Creating menu bar
+2024-01-11 13:04:06 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:04:06 - Creating top bar panel
+2024-01-11 13:04:18 - Closing OCR Tool UI
+2024-01-11 13:04:51 - Initializing OCR Tool UI
+2024-01-11 13:04:51 - Icon file not found using class loader: conti2.png
+2024-01-11 13:04:51 - Creating tool button for Manual Testing
+2024-01-11 13:04:51 - Creating menu bar
+2024-01-11 13:04:52 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:04:52 - Creating top bar panel
+2024-01-11 13:04:58 - Closing OCR Tool UI
+2024-01-11 13:06:02 - Initializing OCR Tool UI
+2024-01-11 13:06:02 - Icon file not found using class loader: conti2.png
+2024-01-11 13:06:02 - Creating tool button for Manual Testing
+2024-01-11 13:06:02 - Creating menu bar
+2024-01-11 13:06:02 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:06:02 - Creating top bar panel
+2024-01-11 13:06:10 - Clicked tool button: Manual Testing
+2024-01-11 13:06:10 - Manual Testing Tool
+2024-01-11 13:06:10 - Opening ImageExplorer for Manual Testing
+2024-01-11 13:07:04 - Initializing OCR Tool UI
+2024-01-11 13:07:05 - Icon file not found using class loader: conti2.png
+2024-01-11 13:07:05 - Creating tool button for Manual Testing
+2024-01-11 13:07:05 - Creating menu bar
+2024-01-11 13:07:05 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:07:05 - Creating top bar panel
+2024-01-11 13:07:15 - Closing OCR Tool UI
+2024-01-11 13:11:43 - Initializing OCR Tool UI
+2024-01-11 13:11:43 - Icon file not found using class loader: conti2.png
+2024-01-11 13:11:43 - Creating tool button for Manual Testing
+2024-01-11 13:11:43 - Creating menu bar
+2024-01-11 13:11:43 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:11:43 - Creating top bar panel
+2024-01-11 13:12:03 - Closing OCR Tool UI
+2024-01-11 13:12:08 - Initializing OCR Tool UI
+2024-01-11 13:12:08 - Icon file not found using class loader: conti2.png
+2024-01-11 13:12:08 - Creating tool button for Manual Testing
+2024-01-11 13:12:08 - Creating menu bar
+2024-01-11 13:12:08 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:12:08 - Creating top bar panel
+2024-01-11 13:12:11 - Closing OCR Tool UI
+2024-01-11 13:20:27 - Initializing OCR Tool UI
+2024-01-11 13:20:28 - Icon file not found using class loader: conti2.png
+2024-01-11 13:20:28 - Creating tool button for Manual Testing
+2024-01-11 13:20:28 - Creating menu bar
+2024-01-11 13:20:28 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:20:28 - Creating top bar panel
+2024-01-11 13:20:31 - About action clicked
+2024-01-11 13:20:33 - Clicked tool button: Coordinate Maker
+2024-01-11 13:20:33 - Coordinate Maker
+2024-01-11 13:20:37 - Clicked tool button: Repetitive Column Copier
+2024-01-11 13:20:37 - Repetitive Column Copier
+2024-01-11 13:20:37 - Opening Class CopyRowsToFollowingSheets
+2024-01-11 13:20:39 - Clicked tool button: Copy Reference
+2024-01-11 13:20:39 - Copy Reference
+2024-01-11 13:20:45 - Initializing OCR Tool UI
+2024-01-11 13:20:45 - Icon file not found using class loader: conti2.png
+2024-01-11 13:20:45 - Creating tool button for Manual Testing
+2024-01-11 13:20:45 - Creating menu bar
+2024-01-11 13:20:45 - Image file not found using class loader: your-image-file.png
+2024-01-11 13:20:45 - Creating top bar panel
+2024-01-11 13:20:46 - Clicked tool button: Manual Testing
+2024-01-11 13:20:46 - Manual Testing Tool
+2024-01-11 13:20:46 - Opening ImageExplorer for Manual Testing
+2024-01-11 14:48:16 - Initializing OCR Tool UI
+2024-01-11 14:48:16 - Icon file not found using class loader: conti2.png
+2024-01-11 14:48:16 - Creating tool button for Manual Testing
+2024-01-11 14:48:16 - Creating menu bar
+2024-01-11 14:48:16 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:48:16 - Creating top bar panel
+2024-01-11 14:48:24 - Closing OCR Tool UI
+2024-01-11 14:48:41 - Initializing OCR Tool UI
+2024-01-11 14:48:41 - Icon file not found using class loader: conti2.png
+2024-01-11 14:48:41 - Creating tool button for Manual Testing
+2024-01-11 14:48:41 - Creating menu bar
+2024-01-11 14:48:41 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:48:41 - Creating top bar panel
+2024-01-11 14:49:13 - Initializing OCR Tool UI
+2024-01-11 14:49:13 - Icon file not found using class loader: conti2.png
+2024-01-11 14:49:13 - Creating tool button for Manual Testing
+2024-01-11 14:49:13 - Creating menu bar
+2024-01-11 14:49:13 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:49:13 - Creating top bar panel
+2024-01-11 14:49:55 - Initializing OCR Tool UI
+2024-01-11 14:49:55 - Icon file not found using class loader: conti2.png
+2024-01-11 14:49:55 - Creating tool button for Manual Testing
+2024-01-11 14:49:55 - Creating menu bar
+2024-01-11 14:49:55 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:49:55 - Creating top bar panel
+2024-01-11 14:50:22 - Initializing OCR Tool UI
+2024-01-11 14:50:22 - Icon file not found using class loader: conti2.png
+2024-01-11 14:50:22 - Creating tool button for Manual Testing
+2024-01-11 14:50:22 - Creating menu bar
+2024-01-11 14:50:22 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:50:22 - Creating top bar panel
+2024-01-11 14:53:32 - Initializing OCR Tool UI
+2024-01-11 14:53:32 - Icon file not found using class loader: conti2.png
+2024-01-11 14:53:32 - Creating tool button for Manual Testing
+2024-01-11 14:53:32 - Creating menu bar
+2024-01-11 14:53:32 - Image file not found using class loader: your-image-file.png
+2024-01-11 14:53:32 - Creating top bar panel
+2024-01-11 14:53:39 - Closing OCR Tool UI
+2024-01-12 09:21:31 - Initializing OCR Tool UI
+2024-01-12 09:21:31 - Icon file not found using class loader: conti2.png
+2024-01-12 09:21:31 - Creating tool button for Manual Testing
+2024-01-12 09:21:31 - Creating menu bar
+2024-01-12 09:21:31 - Image file not found using class loader: your-image-file.png
+2024-01-12 09:21:31 - Creating top bar panel
+2024-01-12 16:26:37 - Closing OCR Tool UI
+2024-01-15 08:58:18 - Initializing OCR Tool UI
+2024-01-15 08:58:18 - Icon file not found using class loader: conti2.png
+2024-01-15 08:58:18 - Creating tool button for Manual Testing
+2024-01-15 08:58:18 - Creating menu bar
+2024-01-15 08:58:18 - Image file not found using class loader: your-image-file.png
+2024-01-15 08:58:18 - Creating top bar panel
+2024-01-15 09:08:37 - Closing OCR Tool UI
+2024-01-15 09:40:54 - Initializing OCR Tool UI
+2024-01-15 09:40:54 - Icon file not found using class loader: conti2.png
+2024-01-15 09:40:54 - Creating tool button for Manual Testing
+2024-01-15 09:40:54 - Creating menu bar
+2024-01-15 09:40:54 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:40:54 - Creating top bar panel
+2024-01-15 09:41:41 - Clicked tool button: Coordinate Maker
+2024-01-15 09:41:41 - Coordinate Maker
+2024-01-15 09:41:46 - Closing OCR Tool UI
+2024-01-15 09:41:49 - Initializing OCR Tool UI
+2024-01-15 09:41:49 - Icon file not found using class loader: conti2.png
+2024-01-15 09:41:49 - Creating tool button for Manual Testing
+2024-01-15 09:41:49 - Creating menu bar
+2024-01-15 09:41:49 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:41:49 - Creating top bar panel
+2024-01-15 09:41:51 - Clicked tool button: Coordinate Maker
+2024-01-15 09:41:51 - Coordinate Maker
+2024-01-15 09:46:48 - Initializing OCR Tool UI
+2024-01-15 09:46:48 - Icon file not found using class loader: conti2.png
+2024-01-15 09:46:48 - Creating tool button for Manual Testing
+2024-01-15 09:46:48 - Creating menu bar
+2024-01-15 09:46:48 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:46:48 - Creating top bar panel
+2024-01-15 09:46:50 - Clicked tool button: Coordinate Maker
+2024-01-15 09:46:50 - Coordinate Maker
+2024-01-15 09:56:22 - Initializing OCR Tool UI
+2024-01-15 09:56:22 - Icon file not found using class loader: conti2.png
+2024-01-15 09:56:22 - Creating tool button for Manual Testing
+2024-01-15 09:56:22 - Creating menu bar
+2024-01-15 09:56:22 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:56:22 - Creating top bar panel
+2024-01-15 09:57:14 - Initializing OCR Tool UI
+2024-01-15 09:57:14 - Icon file not found using class loader: conti2.png
+2024-01-15 09:57:14 - Creating tool button for Manual Testing
+2024-01-15 09:57:14 - Creating menu bar
+2024-01-15 09:57:15 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:57:15 - Creating top bar panel
+2024-01-15 09:57:17 - Clicked tool button: Coordinate Maker
+2024-01-15 09:57:17 - Coordinate Maker
+2024-01-15 09:57:45 - Initializing OCR Tool UI
+2024-01-15 09:57:45 - Icon file not found using class loader: conti2.png
+2024-01-15 09:57:45 - Creating tool button for Manual Testing
+2024-01-15 09:57:45 - Creating menu bar
+2024-01-15 09:57:45 - Image file not found using class loader: your-image-file.png
+2024-01-15 09:57:45 - Creating top bar panel
+2024-01-15 10:00:52 - Clicked tool button: Coordinate Maker
+2024-01-15 10:00:52 - Coordinate Maker
+2024-01-15 10:01:02 - Closing OCR Tool UI
+2024-01-15 10:01:43 - Initializing OCR Tool UI
+2024-01-15 10:01:43 - Icon file not found using class loader: conti2.png
+2024-01-15 10:01:43 - Creating tool button for Manual Testing
+2024-01-15 10:01:43 - Creating menu bar
+2024-01-15 10:01:43 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:01:43 - Creating top bar panel
+2024-01-15 10:01:44 - Clicked tool button: Copy Reference
+2024-01-15 10:01:44 - Copy Reference
+2024-01-15 10:01:50 - Initializing OCR Tool UI
+2024-01-15 10:01:50 - Icon file not found using class loader: conti2.png
+2024-01-15 10:01:50 - Creating tool button for Manual Testing
+2024-01-15 10:01:50 - Creating menu bar
+2024-01-15 10:01:50 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:01:50 - Creating top bar panel
+2024-01-15 10:01:53 - Closing OCR Tool UI
+2024-01-15 10:02:56 - Initializing OCR Tool UI
+2024-01-15 10:02:56 - Icon file not found using class loader: conti2.png
+2024-01-15 10:02:56 - Creating tool button for Manual Testing
+2024-01-15 10:02:56 - Creating menu bar
+2024-01-15 10:02:56 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:02:56 - Creating top bar panel
+2024-01-15 10:03:10 - Clicked tool button: Copy Reference
+2024-01-15 10:03:10 - Copy Reference
+2024-01-15 10:03:12 - Clicked tool button: Manual Testing
+2024-01-15 10:03:12 - Manual Testing Tool
+2024-01-15 10:03:12 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:03:54 - Initializing OCR Tool UI
+2024-01-15 10:03:54 - Icon file not found using class loader: conti2.png
+2024-01-15 10:03:54 - Creating tool button for Manual Testing
+2024-01-15 10:03:54 - Creating menu bar
+2024-01-15 10:03:54 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:03:54 - Creating top bar panel
+2024-01-15 10:03:56 - Clicked tool button: Manual Testing
+2024-01-15 10:03:56 - Manual Testing Tool
+2024-01-15 10:03:56 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:04:00 - Closing OCR Tool UI
+2024-01-15 10:05:31 - Initializing OCR Tool UI
+2024-01-15 10:05:31 - Icon file not found using class loader: conti2.png
+2024-01-15 10:05:32 - Creating tool button for Manual Testing
+2024-01-15 10:05:32 - Creating menu bar
+2024-01-15 10:05:32 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:05:32 - Creating top bar panel
+2024-01-15 10:05:33 - Clicked tool button: Coordinate Maker
+2024-01-15 10:05:33 - Coordinate Maker
+2024-01-15 10:06:34 - Initializing OCR Tool UI
+2024-01-15 10:06:34 - Icon file not found using class loader: conti2.png
+2024-01-15 10:06:34 - Creating tool button for Manual Testing
+2024-01-15 10:06:34 - Creating menu bar
+2024-01-15 10:06:34 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:06:34 - Creating top bar panel
+2024-01-15 10:06:36 - Clicked tool button: Coordinate Maker
+2024-01-15 10:06:36 - Coordinate Maker
+2024-01-15 10:06:40 - Clicked tool button: Repetitive Column Copier
+2024-01-15 10:06:40 - Repetitive Column Copier
+2024-01-15 10:06:40 - Opening Class CopyRowsToFollowingSheets
+2024-01-15 10:06:42 - Clicked tool button: Copy Reference
+2024-01-15 10:06:42 - Copy Reference
+2024-01-15 10:06:44 - Clicked tool button: Copy Reference
+2024-01-15 10:06:44 - Copy Reference
+2024-01-15 10:06:47 - Clicked tool button: Manual Testing
+2024-01-15 10:06:47 - Manual Testing Tool
+2024-01-15 10:06:47 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:06:53 - Closing OCR Tool UI
+2024-01-15 10:10:26 - Initializing OCR Tool UI
+2024-01-15 10:10:26 - Icon file not found using class loader: conti2.png
+2024-01-15 10:10:26 - Creating tool button for Manual Testing
+2024-01-15 10:10:26 - Creating menu bar
+2024-01-15 10:10:26 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:10:26 - Creating top bar panel
+2024-01-15 10:10:27 - Clicked tool button: Copy Reference
+2024-01-15 10:10:27 - Copy Reference
+2024-01-15 10:10:30 - Clicked tool button: Manual Testing
+2024-01-15 10:10:30 - Manual Testing Tool
+2024-01-15 10:10:32 - Closing OCR Tool UI
+2024-01-15 10:13:00 - Initializing OCR Tool UI
+2024-01-15 10:13:00 - Icon file not found using class loader: conti2.png
+2024-01-15 10:13:00 - Creating tool button for Manual Testing
+2024-01-15 10:13:00 - Creating menu bar
+2024-01-15 10:13:00 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:13:00 - Creating top bar panel
+2024-01-15 10:13:05 - Clicked tool button: Manual Testing
+2024-01-15 10:13:05 - Manual Testing Tool
+2024-01-15 10:13:05 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:16:27 - Initializing OCR Tool UI
+2024-01-15 10:16:27 - Icon file not found using class loader: conti2.png
+2024-01-15 10:16:27 - Creating tool button for Manual Testing
+2024-01-15 10:16:27 - Creating menu bar
+2024-01-15 10:16:27 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:16:27 - Creating top bar panel
+2024-01-15 10:16:36 - Clicked tool button: Manual Testing
+2024-01-15 10:16:36 - Manual Testing Tool
+2024-01-15 10:16:37 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:23:58 - Initializing OCR Tool UI
+2024-01-15 10:23:58 - Icon file not found using class loader: conti2.png
+2024-01-15 10:23:58 - Creating tool button for Manual Testing
+2024-01-15 10:23:58 - Creating menu bar
+2024-01-15 10:23:58 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:23:58 - Creating top bar panel
+2024-01-15 10:24:00 - Clicked tool button: Manual Testing
+2024-01-15 10:24:00 - Manual Testing Tool
+2024-01-15 10:24:00 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:26:39 - Closing OCR Tool UI
+2024-01-15 10:27:05 - Initializing OCR Tool UI
+2024-01-15 10:27:05 - Icon file not found using class loader: conti2.png
+2024-01-15 10:27:05 - Creating tool button for Manual Testing
+2024-01-15 10:27:05 - Creating menu bar
+2024-01-15 10:27:05 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:27:05 - Creating top bar panel
+2024-01-15 10:27:07 - Clicked tool button: Manual Testing
+2024-01-15 10:27:07 - Manual Testing Tool
+2024-01-15 10:27:07 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:48:03 - Initializing OCR Tool UI
+2024-01-15 10:48:03 - Icon file not found using class loader: conti2.png
+2024-01-15 10:48:03 - Creating tool button for Manual Testing
+2024-01-15 10:48:03 - Creating menu bar
+2024-01-15 10:48:03 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:48:03 - Creating top bar panel
+2024-01-15 10:48:05 - Clicked tool button: Manual Testing
+2024-01-15 10:48:05 - Manual Testing Tool
+2024-01-15 10:48:05 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:49:07 - Initializing OCR Tool UI
+2024-01-15 10:49:07 - Icon file not found using class loader: conti2.png
+2024-01-15 10:49:07 - Creating tool button for Manual Testing
+2024-01-15 10:49:07 - Creating menu bar
+2024-01-15 10:49:07 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:49:07 - Creating top bar panel
+2024-01-15 10:49:08 - Clicked tool button: Manual Testing
+2024-01-15 10:49:08 - Manual Testing Tool
+2024-01-15 10:49:08 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:53:35 - Initializing OCR Tool UI
+2024-01-15 10:53:35 - Icon file not found using class loader: conti2.png
+2024-01-15 10:53:35 - Creating tool button for Manual Testing
+2024-01-15 10:53:35 - Creating menu bar
+2024-01-15 10:53:35 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:53:35 - Creating top bar panel
+2024-01-15 10:53:37 - Clicked tool button: Manual Testing
+2024-01-15 10:53:37 - Manual Testing Tool
+2024-01-15 10:53:37 - Opening ImageExplorer for Manual Testing
+2024-01-15 10:56:22 - Initializing OCR Tool UI
+2024-01-15 10:56:22 - Icon file not found using class loader: conti2.png
+2024-01-15 10:56:22 - Creating tool button for Manual Testing
+2024-01-15 10:56:22 - Creating menu bar
+2024-01-15 10:56:22 - Image file not found using class loader: your-image-file.png
+2024-01-15 10:56:22 - Creating top bar panel
+2024-01-15 10:56:38 - Clicked tool button: Manual Testing
+2024-01-15 10:56:38 - Manual Testing Tool
+2024-01-15 10:56:38 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:00:12 - Initializing OCR Tool UI
+2024-01-15 11:00:12 - Icon file not found using class loader: conti2.png
+2024-01-15 11:00:12 - Creating tool button for Manual Testing
+2024-01-15 11:00:12 - Creating menu bar
+2024-01-15 11:00:12 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:00:12 - Creating top bar panel
+2024-01-15 11:00:13 - Clicked tool button: Manual Testing
+2024-01-15 11:00:13 - Manual Testing Tool
+2024-01-15 11:00:13 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:01:37 - Initializing OCR Tool UI
+2024-01-15 11:01:38 - Icon file not found using class loader: conti2.png
+2024-01-15 11:01:38 - Creating tool button for Manual Testing
+2024-01-15 11:01:38 - Creating menu bar
+2024-01-15 11:01:38 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:01:38 - Creating top bar panel
+2024-01-15 11:01:39 - Clicked tool button: Manual Testing
+2024-01-15 11:01:39 - Manual Testing Tool
+2024-01-15 11:01:39 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:02:32 - Clicked tool button: Manual Testing
+2024-01-15 11:02:32 - Manual Testing Tool
+2024-01-15 11:02:32 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:02:39 - Closing OCR Tool UI
+2024-01-15 11:42:48 - Initializing OCR Tool UI
+2024-01-15 11:42:48 - Icon file not found using class loader: conti2.png
+2024-01-15 11:42:48 - Creating tool button for Manual Testing
+2024-01-15 11:42:48 - Creating menu bar
+2024-01-15 11:42:48 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:42:48 - Creating top bar panel
+2024-01-15 11:42:52 - Clicked tool button: Manual Testing
+2024-01-15 11:42:52 - Manual Testing Tool
+2024-01-15 11:42:52 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:47:03 - Initializing OCR Tool UI
+2024-01-15 11:47:03 - Icon file not found using class loader: conti2.png
+2024-01-15 11:47:03 - Creating tool button for Manual Testing
+2024-01-15 11:47:03 - Creating menu bar
+2024-01-15 11:47:03 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:47:03 - Creating top bar panel
+2024-01-15 11:47:05 - Clicked tool button: Manual Testing
+2024-01-15 11:47:05 - Manual Testing Tool
+2024-01-15 11:47:05 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:47:21 - Clicked tool button: Manual Testing
+2024-01-15 11:47:21 - Manual Testing Tool
+2024-01-15 11:47:21 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:49:37 - Initializing OCR Tool UI
+2024-01-15 11:49:37 - Icon file not found using class loader: conti2.png
+2024-01-15 11:49:37 - Creating tool button for Manual Testing
+2024-01-15 11:49:37 - Creating menu bar
+2024-01-15 11:49:37 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:49:37 - Creating top bar panel
+2024-01-15 11:49:40 - Clicked tool button: Manual Testing
+2024-01-15 11:49:40 - Manual Testing Tool
+2024-01-15 11:49:40 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:52:03 - Initializing OCR Tool UI
+2024-01-15 11:52:03 - Icon file not found using class loader: conti2.png
+2024-01-15 11:52:03 - Creating tool button for Manual Testing
+2024-01-15 11:52:03 - Creating menu bar
+2024-01-15 11:52:03 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:52:03 - Creating top bar panel
+2024-01-15 11:52:05 - Clicked tool button: Manual Testing
+2024-01-15 11:52:05 - Manual Testing Tool
+2024-01-15 11:52:05 - Opening ImageExplorer for Manual Testing
+2024-01-15 11:52:54 - Closing OCR Tool UI
+2024-01-15 11:53:48 - Initializing OCR Tool UI
+2024-01-15 11:53:49 - Icon file not found using class loader: conti2.png
+2024-01-15 11:53:49 - Creating tool button for Manual Testing
+2024-01-15 11:53:49 - Creating menu bar
+2024-01-15 11:53:49 - Image file not found using class loader: your-image-file.png
+2024-01-15 11:53:49 - Creating top bar panel
+2024-01-15 14:44:19 - Clicked tool button: Manual Testing
+2024-01-15 14:44:19 - Manual Testing Tool
+2024-01-15 14:44:19 - Opening ImageExplorer for Manual Testing
+2024-01-15 14:45:33 - Initializing OCR Tool UI
+2024-01-15 14:45:33 - Icon file not found using class loader: conti2.png
+2024-01-15 14:45:33 - Creating tool button for Manual Testing
+2024-01-15 14:45:33 - Creating menu bar
+2024-01-15 14:45:33 - Image file not found using class loader: your-image-file.png
+2024-01-15 14:45:34 - Creating top bar panel
+2024-01-15 14:45:40 - Clicked tool button: Manual Testing
+2024-01-15 14:45:40 - Manual Testing Tool
+2024-01-15 14:45:40 - Opening ImageExplorer for Manual Testing
+2024-01-15 14:46:49 - Closing OCR Tool UI
+2024-01-15 14:47:44 - Initializing OCR Tool UI
+2024-01-15 14:47:44 - Icon file not found using class loader: conti2.png
+2024-01-15 14:47:44 - Creating tool button for Manual Testing
+2024-01-15 14:47:44 - Creating menu bar
+2024-01-15 14:47:44 - Image file not found using class loader: your-image-file.png
+2024-01-15 14:47:44 - Creating top bar panel
+2024-01-15 14:47:46 - Clicked tool button: Manual Testing
+2024-01-15 14:47:46 - Manual Testing Tool
+2024-01-15 14:47:46 - Opening ImageExplorer for Manual Testing
+2024-01-15 14:48:29 - Initializing OCR Tool UI
+2024-01-15 14:48:29 - Icon file not found using class loader: conti2.png
+2024-01-15 14:48:29 - Creating tool button for Manual Testing
+2024-01-15 14:48:29 - Creating menu bar
+2024-01-15 14:48:29 - Image file not found using class loader: your-image-file.png
+2024-01-15 14:48:29 - Creating top bar panel
+2024-01-15 14:48:31 - Clicked tool button: Manual Testing
+2024-01-15 14:48:31 - Manual Testing Tool
+2024-01-15 14:48:31 - Opening ImageExplorer for Manual Testing
+2024-01-15 14:49:38 - Initializing OCR Tool UI
+2024-01-15 14:49:38 - Icon file not found using class loader: conti2.png
+2024-01-15 14:49:38 - Creating tool button for Manual Testing
+2024-01-15 14:49:38 - Creating menu bar
+2024-01-15 14:49:38 - Image file not found using class loader: your-image-file.png
+2024-01-15 14:49:38 - Creating top bar panel
+2024-01-15 14:49:40 - Clicked tool button: Manual Testing
+2024-01-15 14:49:40 - Manual Testing Tool
+2024-01-15 14:49:40 - Opening ImageExplorer for Manual Testing
+2024-01-15 14:49:43 - Closing OCR Tool UI
+2024-01-15 15:34:57 - Initializing OCR Tool UI
+2024-01-15 15:34:58 - Icon file not found using class loader: conti2.png
+2024-01-15 15:34:58 - Creating tool button for Manual Testing
+2024-01-15 15:34:58 - Creating menu bar
+2024-01-15 15:34:58 - Image file not found using class loader: your-image-file.png
+2024-01-15 15:34:58 - Creating top bar panel
+2024-01-15 15:35:09 - Clicked tool button: Coordinate Maker
+2024-01-15 15:35:09 - Coordinate Maker
+2024-01-15 15:35:31 - Clicked tool button: Coordinate Maker
+2024-01-15 15:35:31 - Coordinate Maker
+2024-01-15 15:35:44 - Clicked tool button: Coordinate Maker
+2024-01-15 15:35:44 - Coordinate Maker
+2024-01-15 15:35:57 - Closing OCR Tool UI
+2024-01-15 15:36:00 - Initializing OCR Tool UI
+2024-01-15 15:36:00 - Icon file not found using class loader: conti2.png
+2024-01-15 15:36:00 - Creating tool button for Manual Testing
+2024-01-15 15:36:00 - Creating menu bar
+2024-01-15 15:36:00 - Image file not found using class loader: your-image-file.png
+2024-01-15 15:36:00 - Creating top bar panel
+2024-01-15 15:36:02 - Clicked tool button: Coordinate Maker
+2024-01-15 15:36:02 - Coordinate Maker
+2024-01-15 15:36:29 - Clicked tool button: Repetitive Column Copier
+2024-01-15 15:36:29 - Repetitive Column Copier
+2024-01-15 15:36:29 - Opening Class CopyRowsToFollowingSheets
+2024-01-15 15:37:25 - Clicked tool button: Repetitive Column Copier
+2024-01-15 15:37:25 - Repetitive Column Copier
+2024-01-15 15:37:25 - Opening Class CopyRowsToFollowingSheets
+2024-01-15 15:37:57 - Clicked tool button: Copy Reference
+2024-01-15 15:37:57 - Copy Reference
+2024-01-15 15:41:05 - Clicked tool button: Manual Testing
+2024-01-15 15:41:05 - Manual Testing Tool
+2024-01-15 15:41:05 - Opening ImageExplorer for Manual Testing
+2024-01-15 15:55:03 - Closing OCR Tool UI
+2024-01-16 08:49:47 - Initializing OCR Tool UI
+2024-01-16 08:49:47 - Icon file not found using class loader: conti2.png
+2024-01-16 08:49:47 - Creating tool button for Manual Testing
+2024-01-16 08:49:47 - Creating menu bar
+2024-01-16 08:49:47 - Image file not found using class loader: your-image-file.png
+2024-01-16 08:49:47 - Creating top bar panel
+2024-01-16 08:53:52 - Exit action clicked
+2024-01-16 08:54:07 - Initializing OCR Tool UI
+2024-01-16 08:54:08 - Icon file not found using class loader: conti2.png
+2024-01-16 08:54:08 - Creating tool button for Manual Testing
+2024-01-16 08:54:08 - Creating menu bar
+2024-01-16 08:54:08 - Image file not found using class loader: your-image-file.png
+2024-01-16 08:54:08 - Creating top bar panel
+2024-01-16 08:54:12 - About action clicked
+2024-01-16 09:00:34 - Initializing OCR Tool UI
+2024-01-16 09:00:34 - Icon file not found using class loader: conti2.png
+2024-01-16 09:00:34 - Creating tool button for Manual Testing
+2024-01-16 09:00:34 - Creating menu bar
+2024-01-16 09:00:34 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:00:34 - Creating top bar panel
+2024-01-16 09:00:37 - About action clicked
+2024-01-16 09:00:42 - Closing OCR Tool UI
+2024-01-16 09:02:20 - Initializing OCR Tool UI
+2024-01-16 09:02:20 - Icon file not found using class loader: conti2.png
+2024-01-16 09:02:20 - Creating tool button for Manual Testing
+2024-01-16 09:02:20 - Creating menu bar
+2024-01-16 09:02:20 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:02:20 - Creating top bar panel
+2024-01-16 09:02:25 - About action clicked
+2024-01-16 09:04:07 - Initializing OCR Tool UI
+2024-01-16 09:04:07 - Icon file not found using class loader: conti2.png
+2024-01-16 09:04:07 - Creating tool button for Manual Testing
+2024-01-16 09:04:07 - Creating menu bar
+2024-01-16 09:04:07 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:04:07 - Creating top bar panel
+2024-01-16 09:04:23 - About action clicked
+2024-01-16 09:04:50 - Initializing OCR Tool UI
+2024-01-16 09:04:50 - Icon file not found using class loader: conti2.png
+2024-01-16 09:04:50 - Creating tool button for Manual Testing
+2024-01-16 09:04:50 - Creating menu bar
+2024-01-16 09:04:50 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:04:50 - Creating top bar panel
+2024-01-16 09:04:52 - About action clicked
+2024-01-16 09:09:55 - About action clicked
+2024-01-16 09:10:35 - Initializing OCR Tool UI
+2024-01-16 09:10:35 - Icon file not found using class loader: conti2.png
+2024-01-16 09:10:35 - Creating tool button for Manual Testing
+2024-01-16 09:10:35 - Creating menu bar
+2024-01-16 09:10:35 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:10:35 - Creating top bar panel
+2024-01-16 09:10:37 - About action clicked
+2024-01-16 09:14:01 - Zoom In action clicked
+2024-01-16 09:42:38 - Initializing OCR Tool UI
+2024-01-16 09:42:38 - Icon file not found using class loader: conti2.png
+2024-01-16 09:42:38 - Creating tool button for Manual Testing
+2024-01-16 09:42:38 - Creating menu bar
+2024-01-16 09:42:38 - Image file not found using class loader: your-image-file.png
+2024-01-16 09:42:38 - Creating top bar panel
+2024-01-16 09:43:05 - Clicked tool button: Process Results
+2024-01-16 09:43:05 - Process Results action clicked
+2024-01-16 09:43:05 - Opening FinalResults class
+2024-01-16 09:43:25 - Closing OCR Tool UI
+2024-01-16 13:38:39 - Initializing OCR Tool UI
+2024-01-16 13:38:40 - Icon file not found using class loader: conti2.png
+2024-01-16 13:38:40 - Creating tool button for Manual Testing
+2024-01-16 13:38:40 - Creating menu bar
+2024-01-16 13:38:40 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:38:40 - Creating top bar panel
+2024-01-16 13:38:45 - Clicked tool button: Process Results
+2024-01-16 13:38:45 - Process Results action clicked
+2024-01-16 13:38:45 - Opening FinalResults class
+2024-01-16 13:39:08 - Closing OCR Tool UI
+2024-01-16 13:39:36 - Initializing OCR Tool UI
+2024-01-16 13:39:36 - Icon file not found using class loader: conti2.png
+2024-01-16 13:39:36 - Creating tool button for Manual Testing
+2024-01-16 13:39:36 - Creating menu bar
+2024-01-16 13:39:36 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:39:36 - Creating top bar panel
+2024-01-16 13:39:46 - Closing OCR Tool UI
+2024-01-16 13:44:35 - Initializing OCR Tool UI
+2024-01-16 13:44:35 - Icon file not found using class loader: conti2.png
+2024-01-16 13:44:35 - Creating tool button for Manual Testing
+2024-01-16 13:44:35 - Creating menu bar
+2024-01-16 13:44:35 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:44:35 - Creating top bar panel
+2024-01-16 13:44:37 - Clicked tool button: Process Results
+2024-01-16 13:44:37 - Process Results action clicked
+2024-01-16 13:44:37 - Opening FinalResults class
+2024-01-16 13:47:25 - Initializing OCR Tool UI
+2024-01-16 13:47:25 - Icon file not found using class loader: conti2.png
+2024-01-16 13:47:25 - Creating tool button for Manual Testing
+2024-01-16 13:47:25 - Creating menu bar
+2024-01-16 13:47:25 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:47:25 - Creating top bar panel
+2024-01-16 13:47:26 - Clicked tool button: Process Results
+2024-01-16 13:47:26 - Process Results action clicked
+2024-01-16 13:47:26 - Opening FinalResults class
+2024-01-16 13:47:29 - Clicked tool button: Process Results
+2024-01-16 13:47:29 - Process Results action clicked
+2024-01-16 13:47:29 - Opening FinalResults class
+2024-01-16 13:49:29 - Initializing OCR Tool UI
+2024-01-16 13:49:29 - Icon file not found using class loader: conti2.png
+2024-01-16 13:49:29 - Creating tool button for Manual Testing
+2024-01-16 13:49:29 - Creating menu bar
+2024-01-16 13:49:29 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:49:29 - Creating top bar panel
+2024-01-16 13:49:35 - Closing OCR Tool UI
+2024-01-16 13:50:01 - Initializing OCR Tool UI
+2024-01-16 13:50:01 - Icon file not found using class loader: conti2.png
+2024-01-16 13:50:01 - Creating tool button for Manual Testing
+2024-01-16 13:50:01 - Creating menu bar
+2024-01-16 13:50:01 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:50:01 - Creating top bar panel
+2024-01-16 13:50:03 - Clicked tool button: Process Results
+2024-01-16 13:50:03 - Process Results action clicked
+2024-01-16 13:50:03 - Opening FinalResults class
+2024-01-16 13:50:51 - Clicked tool button: Process Results
+2024-01-16 13:50:51 - Process Results action clicked
+2024-01-16 13:50:51 - Opening FinalResults class
+2024-01-16 13:51:48 - Initializing OCR Tool UI
+2024-01-16 13:51:48 - Icon file not found using class loader: conti2.png
+2024-01-16 13:51:48 - Creating tool button for Manual Testing
+2024-01-16 13:51:48 - Creating menu bar
+2024-01-16 13:51:48 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:51:48 - Creating top bar panel
+2024-01-16 13:51:53 - Clicked tool button: Process Results
+2024-01-16 13:51:53 - Process Results action clicked
+2024-01-16 13:51:53 - Opening FinalResults class
+2024-01-16 13:54:02 - Initializing OCR Tool UI
+2024-01-16 13:54:02 - Icon file not found using class loader: conti2.png
+2024-01-16 13:54:02 - Creating tool button for Manual Testing
+2024-01-16 13:54:02 - Creating menu bar
+2024-01-16 13:54:02 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:54:02 - Creating top bar panel
+2024-01-16 13:54:06 - Clicked tool button: Process Results
+2024-01-16 13:54:06 - Process Results action clicked
+2024-01-16 13:54:06 - Opening FinalResults class
+2024-01-16 13:55:57 - Initializing OCR Tool UI
+2024-01-16 13:55:57 - Icon file not found using class loader: conti2.png
+2024-01-16 13:55:57 - Creating tool button for Manual Testing
+2024-01-16 13:55:57 - Creating menu bar
+2024-01-16 13:55:57 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:55:57 - Creating top bar panel
+2024-01-16 13:56:00 - Clicked tool button: Process Results
+2024-01-16 13:56:00 - Process Results action clicked
+2024-01-16 13:56:00 - Opening FinalResults class
+2024-01-16 13:59:49 - Initializing OCR Tool UI
+2024-01-16 13:59:49 - Icon file not found using class loader: conti2.png
+2024-01-16 13:59:49 - Creating tool button for Manual Testing
+2024-01-16 13:59:49 - Creating menu bar
+2024-01-16 13:59:49 - Image file not found using class loader: your-image-file.png
+2024-01-16 13:59:49 - Creating top bar panel
+2024-01-16 13:59:53 - Clicked tool button: Process Results
+2024-01-16 13:59:53 - Process Results action clicked
+2024-01-16 13:59:53 - Opening FinalResults class
+2024-01-16 15:51:39 - Initializing OCR Tool UI
+2024-01-16 15:51:40 - Icon file not found using class loader: conti2.png
+2024-01-16 15:51:40 - Creating tool button for Manual Testing
+2024-01-16 15:51:40 - Creating menu bar
+2024-01-16 15:51:40 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:51:40 - Creating top bar panel
+2024-01-16 15:51:48 - Closing OCR Tool UI
+2024-01-16 15:52:04 - Initializing OCR Tool UI
+2024-01-16 15:52:04 - Icon file not found using class loader: conti2.png
+2024-01-16 15:52:04 - Creating tool button for Manual Testing
+2024-01-16 15:52:04 - Creating menu bar
+2024-01-16 15:52:04 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:52:04 - Creating top bar panel
+2024-01-16 15:52:13 - Closing OCR Tool UI
+2024-01-16 15:52:20 - Initializing OCR Tool UI
+2024-01-16 15:52:21 - Icon file not found using class loader: conti2.png
+2024-01-16 15:52:21 - Creating tool button for Manual Testing
+2024-01-16 15:52:21 - Creating menu bar
+2024-01-16 15:52:21 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:52:21 - Creating top bar panel
+2024-01-16 15:53:44 - Initializing OCR Tool UI
+2024-01-16 15:53:44 - Icon file not found using class loader: conti2.png
+2024-01-16 15:53:44 - Creating tool button for Manual Testing
+2024-01-16 15:53:44 - Creating menu bar
+2024-01-16 15:53:44 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:53:44 - Creating top bar panel
+2024-01-16 15:54:34 - Initializing OCR Tool UI
+2024-01-16 15:54:35 - Icon file not found using class loader: conti2.png
+2024-01-16 15:54:35 - Creating tool button for Manual Testing
+2024-01-16 15:54:35 - Creating menu bar
+2024-01-16 15:54:35 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:54:35 - Creating top bar panel
+2024-01-16 15:54:39 - Closing OCR Tool UI
+2024-01-16 15:58:45 - Initializing OCR Tool UI
+2024-01-16 15:58:45 - Icon file not found using class loader: conti2.png
+2024-01-16 15:58:45 - Creating tool button for Manual Testing
+2024-01-16 15:58:45 - Creating menu bar
+2024-01-16 15:58:45 - Image file not found using class loader: your-image-file.png
+2024-01-16 15:58:45 - Creating top bar panel
+2024-01-16 15:58:59 - Closing OCR Tool UI
+2024-01-16 16:04:45 - Initializing OCR Tool UI
+2024-01-16 16:04:45 - Icon file not found using class loader: conti2.png
+2024-01-16 16:04:45 - Creating tool button for Manual Testing
+2024-01-16 16:04:45 - Creating menu bar
+2024-01-16 16:04:45 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:04:45 - Creating top bar panel
+2024-01-16 16:06:18 - Closing OCR Tool UI
+2024-01-16 16:07:09 - Initializing OCR Tool UI
+2024-01-16 16:07:10 - Icon file not found using class loader: conti2.png
+2024-01-16 16:07:10 - Creating tool button for Manual Testing
+2024-01-16 16:07:10 - Creating menu bar
+2024-01-16 16:07:10 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:07:10 - Creating top bar panel
+2024-01-16 16:07:14 - Process Results action clicked
+2024-01-16 16:07:14 - Opening FinalResults class
+2024-01-16 16:08:00 - Initializing OCR Tool UI
+2024-01-16 16:08:00 - Icon file not found using class loader: conti2.png
+2024-01-16 16:08:00 - Creating tool button for Manual Testing
+2024-01-16 16:08:00 - Creating menu bar
+2024-01-16 16:08:00 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:08:00 - Creating top bar panel
+2024-01-16 16:08:06 - About action clicked
+2024-01-16 16:08:17 - Closing OCR Tool UI
+2024-01-16 16:08:44 - Initializing OCR Tool UI
+2024-01-16 16:08:44 - Icon file not found using class loader: conti2.png
+2024-01-16 16:08:44 - Creating tool button for Manual Testing
+2024-01-16 16:08:44 - Creating menu bar
+2024-01-16 16:08:44 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:08:44 - Creating top bar panel
+2024-01-16 16:08:46 - About action clicked
+2024-01-16 16:09:51 - Initializing OCR Tool UI
+2024-01-16 16:09:51 - Icon file not found using class loader: conti2.png
+2024-01-16 16:09:51 - Creating tool button for Manual Testing
+2024-01-16 16:09:51 - Creating menu bar
+2024-01-16 16:09:51 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:09:51 - Creating top bar panel
+2024-01-16 16:09:53 - About action clicked
+2024-01-16 16:12:07 - Closing OCR Tool UI
+2024-01-16 16:18:58 - Initializing OCR Tool UI
+2024-01-16 16:18:58 - Icon file not found using class loader: conti2.png
+2024-01-16 16:18:58 - Creating tool button for Manual Testing
+2024-01-16 16:18:58 - Creating menu bar
+2024-01-16 16:18:58 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:18:58 - Creating top bar panel
+2024-01-16 16:19:01 - Closing OCR Tool UI
+2024-01-16 16:22:30 - Initializing OCR Tool UI
+2024-01-16 16:22:30 - Icon file not found using class loader: conti2.png
+2024-01-16 16:22:30 - Creating tool button for Manual Testing
+2024-01-16 16:22:30 - Creating menu bar
+2024-01-16 16:22:30 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:22:30 - Creating top bar panel
+2024-01-16 16:22:33 - About action clicked
+2024-01-16 16:22:56 - Initializing OCR Tool UI
+2024-01-16 16:22:56 - Icon file not found using class loader: conti2.png
+2024-01-16 16:22:56 - Creating tool button for Manual Testing
+2024-01-16 16:22:56 - Creating menu bar
+2024-01-16 16:22:56 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:22:56 - Creating top bar panel
+2024-01-16 16:23:04 - About action clicked
+2024-01-16 16:24:48 - Initializing OCR Tool UI
+2024-01-16 16:24:48 - Icon file not found using class loader: conti2.png
+2024-01-16 16:24:48 - Creating tool button for Manual Testing
+2024-01-16 16:24:48 - Creating menu bar
+2024-01-16 16:24:48 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:24:49 - Creating top bar panel
+2024-01-16 16:24:51 - About action clicked
+2024-01-16 16:25:42 - Initializing OCR Tool UI
+2024-01-16 16:25:42 - Icon file not found using class loader: conti2.png
+2024-01-16 16:25:42 - Creating tool button for Manual Testing
+2024-01-16 16:25:42 - Creating menu bar
+2024-01-16 16:25:42 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:25:42 - Creating top bar panel
+2024-01-16 16:25:45 - About action clicked
+2024-01-16 16:26:35 - Initializing OCR Tool UI
+2024-01-16 16:26:35 - Icon file not found using class loader: conti2.png
+2024-01-16 16:26:35 - Creating tool button for Manual Testing
+2024-01-16 16:26:35 - Creating menu bar
+2024-01-16 16:26:35 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:26:35 - Creating top bar panel
+2024-01-16 16:26:37 - About action clicked
+2024-01-16 16:27:00 - Initializing OCR Tool UI
+2024-01-16 16:27:00 - Icon file not found using class loader: conti2.png
+2024-01-16 16:27:00 - Creating tool button for Manual Testing
+2024-01-16 16:27:00 - Creating menu bar
+2024-01-16 16:27:00 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:27:00 - Creating top bar panel
+2024-01-16 16:27:02 - About action clicked
+2024-01-16 16:28:09 - Initializing OCR Tool UI
+2024-01-16 16:28:10 - Icon file not found using class loader: conti2.png
+2024-01-16 16:28:10 - Creating tool button for Manual Testing
+2024-01-16 16:28:10 - Creating menu bar
+2024-01-16 16:28:10 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:28:10 - Creating top bar panel
+2024-01-16 16:28:12 - About action clicked
+2024-01-16 16:30:23 - Initializing OCR Tool UI
+2024-01-16 16:30:23 - Icon file not found using class loader: conti2.png
+2024-01-16 16:30:23 - Creating tool button for Manual Testing
+2024-01-16 16:30:23 - Creating menu bar
+2024-01-16 16:30:23 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:30:24 - Creating top bar panel
+2024-01-16 16:30:25 - About action clicked
+2024-01-16 16:31:20 - Initializing OCR Tool UI
+2024-01-16 16:31:20 - Icon file not found using class loader: conti2.png
+2024-01-16 16:31:20 - Creating tool button for Manual Testing
+2024-01-16 16:31:20 - Creating menu bar
+2024-01-16 16:31:20 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:31:20 - Creating top bar panel
+2024-01-16 16:31:22 - About action clicked
+2024-01-16 16:32:13 - Initializing OCR Tool UI
+2024-01-16 16:32:13 - Icon file not found using class loader: conti2.png
+2024-01-16 16:32:13 - Creating tool button for Manual Testing
+2024-01-16 16:32:13 - Creating menu bar
+2024-01-16 16:32:13 - Image file not found using class loader: your-image-file.png
+2024-01-16 16:32:13 - Creating top bar panel
+2024-01-16 16:32:15 - About action clicked
+2024-01-16 16:32:34 - Closing OCR Tool UI
+2024-01-17 12:40:19 - Initializing OCR Tool UI
+2024-01-17 12:40:19 - Icon file not found using class loader: conti2.png
+2024-01-17 12:40:19 - Creating tool button for Manual Testing
+2024-01-17 12:40:19 - Creating menu bar
+2024-01-17 12:40:19 - Image file not found using class loader: your-image-file.png
+2024-01-17 12:40:19 - Creating top bar panel
+2024-01-17 12:40:23 - Clicked tool button: Coordinate Maker
+2024-01-17 12:40:23 - Coordinate Maker
+2024-01-17 12:43:20 - Closing OCR Tool UI
+2024-01-17 12:44:10 - Initializing OCR Tool UI
+2024-01-17 12:44:10 - Icon file not found using class loader: conti2.png
+2024-01-17 12:44:10 - Creating tool button for Manual Testing
+2024-01-17 12:44:10 - Creating menu bar
+2024-01-17 12:44:10 - Image file not found using class loader: your-image-file.png
+2024-01-17 12:44:10 - Creating top bar panel
+2024-01-17 12:44:12 - Clicked tool button: Coordinate Maker
+2024-01-17 12:44:12 - Coordinate Maker
+2024-01-17 12:44:53 - Closing OCR Tool UI
+2024-01-17 13:37:09 - Initializing OCR Tool UI
+2024-01-17 13:37:09 - Icon file not found using class loader: conti2.png
+2024-01-17 13:37:09 - Creating tool button for Manual Testing
+2024-01-17 13:37:09 - Creating menu bar
+2024-01-17 13:37:09 - Image file not found using class loader: your-image-file.png
+2024-01-17 13:37:10 - Creating top bar panel
+2024-01-17 13:37:13 - Clicked tool button: Coordinate Maker
+2024-01-17 13:37:13 - Coordinate Maker
+2024-01-17 13:37:24 - Clicked tool button: Process Results
+2024-01-17 13:37:24 - Process Results action clicked
+2024-01-17 13:37:24 - Opening FinalResults class
+2024-01-17 13:37:34 - Clicked tool button: Process Results
+2024-01-17 13:37:34 - Process Results action clicked
+2024-01-17 13:37:34 - Opening FinalResults class
+2024-01-17 13:37:53 - Clicked tool button: Coordinate Maker
+2024-01-17 13:37:53 - Coordinate Maker
+2024-01-17 16:14:23 - Initializing OCR Tool UI
+2024-01-17 16:14:23 - Icon file not found using class loader: conti2.png
+2024-01-17 16:14:23 - Creating tool button for Manual Testing
+2024-01-17 16:14:23 - Creating menu bar
+2024-01-17 16:14:23 - Image file not found using class loader: your-image-file.png
+2024-01-17 16:14:23 - Creating top bar panel
+2024-01-17 16:39:49 - Clicked tool button: Coordinate Maker
+2024-01-17 16:39:49 - Coordinate Maker
+2024-03-12 13:30:32 - Initializing OCR Tool UI
+2024-03-12 13:30:33 - Icon file not found using class loader: conti2.png
+2024-03-12 13:30:33 - Creating tool button for Manual Testing
+2024-03-12 13:30:33 - Creating menu bar
+2024-03-12 13:30:33 - Image file not found using class loader: your-image-file.png
+2024-03-12 13:30:33 - Creating top bar panel
+2024-03-12 13:30:37 - Closing OCR Tool UI
+2024-03-21 11:24:17 - Initializing OCR Tool UI
+2024-03-21 11:24:17 - Icon file not found using class loader: conti2.png
+2024-03-21 11:24:17 - Creating tool button for Manual Testing
+2024-03-21 11:24:17 - Creating menu bar
+2024-03-21 11:24:17 - Image file not found using class loader: your-image-file.png
+2024-03-21 11:24:17 - Creating top bar panel
+2024-03-21 11:24:21 - Clicked tool button: Manual Testing
+2024-03-21 11:24:21 - Manual Testing Tool
+2024-03-21 11:24:21 - Opening ImageExplorer for Manual Testing
+2024-03-21 11:36:00 - Initializing OCR Tool UI
+2024-03-21 11:36:00 - Icon file not found using class loader: conti2.png
+2024-03-21 11:36:00 - Creating tool button for Manual Testing
+2024-03-21 11:36:00 - Creating menu bar
+2024-03-21 11:36:00 - Image file not found using class loader: your-image-file.png
+2024-03-21 11:36:00 - Creating top bar panel
+2024-03-21 11:36:06 - Clicked tool button: Manual Testing
+2024-03-21 11:36:06 - Manual Testing Tool
+2024-03-21 11:36:06 - Opening ImageExplorer for Manual Testing
+2024-03-21 11:48:56 - Initializing OCR Tool UI
+2024-03-21 11:48:56 - Icon file not found using class loader: conti2.png
+2024-03-21 11:48:56 - Creating tool button for Manual Testing
+2024-03-21 11:48:56 - Creating menu bar
+2024-03-21 11:48:56 - Image file not found using class loader: your-image-file.png
+2024-03-21 11:48:56 - Creating top bar panel
+2024-03-21 11:51:09 - Clicked tool button: Manual Testing
+2024-03-21 11:51:09 - Manual Testing Tool
+2024-03-21 11:51:09 - Opening ImageExplorer for Manual Testing
+2024-03-21 11:56:10 - Initializing OCR Tool UI
+2024-03-21 11:56:10 - Icon file not found using class loader: conti2.png
+2024-03-21 11:56:10 - Creating tool button for Manual Testing
+2024-03-21 11:56:10 - Creating menu bar
+2024-03-21 11:56:10 - Image file not found using class loader: your-image-file.png
+2024-03-21 11:56:10 - Creating top bar panel
+2024-03-21 11:56:25 - Clicked tool button: Manual Testing
+2024-03-21 11:56:25 - Manual Testing Tool
+2024-03-21 11:56:25 - Opening ImageExplorer for Manual Testing
+2024-03-21 12:58:07 - Initializing OCR Tool UI
+2024-03-21 12:58:07 - Icon file not found using class loader: conti2.png
+2024-03-21 12:58:07 - Creating tool button for Manual Testing
+2024-03-21 12:58:07 - Creating menu bar
+2024-03-21 12:58:07 - Image file not found using class loader: your-image-file.png
+2024-03-21 12:58:07 - Creating top bar panel
+2024-03-21 12:58:19 - Clicked tool button: Manual Testing
+2024-03-21 12:58:19 - Manual Testing Tool
+2024-03-21 12:58:19 - Opening ImageExplorer for Manual Testing
+2024-03-21 13:03:04 - Closing OCR Tool UI
+2024-08-05 13:21:29 - Initializing OCR Tool UI
+2024-08-05 13:21:30 - Icon file not found using class loader: conti2.png
+2024-08-05 13:21:30 - Creating tool button for Manual Testing
+2024-08-05 13:21:30 - Creating menu bar
+2024-08-05 13:21:30 - Image file not found using class loader: your-image-file.png
+2024-08-05 13:21:30 - Creating top bar panel
+2024-08-05 13:21:34 - Clicked tool button: Manual Testing
+2024-08-05 13:21:34 - Manual Testing Tool
+2024-08-05 13:21:34 - Opening ImageExplorer for Manual Testing
+2024-08-05 13:24:25 - Initializing OCR Tool UI
+2024-08-05 13:24:25 - Icon file not found using class loader: conti2.png
+2024-08-05 13:24:25 - Creating tool button for Manual Testing
+2024-08-05 13:24:25 - Creating menu bar
+2024-08-05 13:24:25 - Image file not found using class loader: your-image-file.png
+2024-08-05 13:24:25 - Creating top bar panel
+2024-08-05 13:24:29 - Clicked tool button: Manual Testing
+2024-08-05 13:24:29 - Manual Testing Tool
+2024-08-05 13:24:29 - Opening ImageExplorer for Manual Testing
+2024-08-05 13:26:25 - Initializing OCR Tool UI
+2024-08-05 13:26:25 - Icon file not found using class loader: conti2.png
+2024-08-05 13:26:25 - Creating tool button for Manual Testing
+2024-08-05 13:26:25 - Creating menu bar
+2024-08-05 13:26:25 - Image file not found using class loader: your-image-file.png
+2024-08-05 13:26:25 - Creating top bar panel
+2024-08-05 13:26:26 - Clicked tool button: Manual Testing
+2024-08-05 13:26:26 - Manual Testing Tool
+2024-08-05 13:26:27 - Opening ImageExplorer for Manual Testing
+2024-08-05 13:26:49 - Closing OCR Tool UI
+2024-08-05 13:34:36 - Initializing OCR Tool UI
+2024-08-05 13:34:36 - Icon file not found using class loader: conti2.png
+2024-08-05 13:34:36 - Creating tool button for Manual Testing
+2024-08-05 13:34:36 - Creating menu bar
+2024-08-05 13:34:36 - Image file not found using class loader: your-image-file.png
+2024-08-05 13:34:36 - Creating top bar panel
+2024-08-05 13:34:38 - Closing OCR Tool UI
+2025-01-11 05:50:05 - Initializing OCR Tool UI
+2025-01-11 05:50:05 - Icon file not found using class loader: conti2.png
+2025-01-11 05:50:05 - Creating tool button for Manual Testing
+2025-01-11 05:50:05 - Creating menu bar
+2025-01-11 05:50:06 - Image file not found using class loader: your-image-file.png
+2025-01-11 05:50:06 - Creating top bar panel
+2025-01-11 05:50:15 - Clicked tool button: Manual Testing
+2025-01-11 05:50:15 - Manual Testing Tool
+2025-01-11 05:50:15 - Opening ImageExplorer for Manual Testing
+2025-01-11 05:50:29 - Closing OCR Tool UI
+2025-01-11 17:53:50 - Initializing OCR Tool UI
+2025-01-11 17:53:50 - Icon file not found using class loader: conti2.png
+2025-01-11 17:53:50 - Creating tool button for Manual Testing
+2025-01-11 17:53:50 - Creating menu bar
+2025-01-11 17:53:50 - Image file not found using class loader: your-image-file.png
+2025-01-11 17:53:50 - Creating top bar panel
+2025-01-11 17:53:57 - About action clicked
+2025-01-11 17:54:04 - Closing OCR Tool UI
+2025-01-11 17:55:55 - Initializing OCR Tool UI
+2025-01-11 17:55:55 - Icon file not found using class loader: conti2.png
+2025-01-11 17:55:55 - Creating tool button for Manual Testing
+2025-01-11 17:55:55 - Creating menu bar
+2025-01-11 17:55:55 - Image file not found using class loader: your-image-file.png
+2025-01-11 17:55:55 - Creating top bar panel
+2025-01-11 17:55:56 - Closing OCR Tool UI
+2025-01-11 17:56:59 - Initializing OCR Tool UI
+2025-01-11 17:56:59 - Icon file not found using class loader: conti2.png
+2025-01-11 17:56:59 - Creating tool button for Manual Testing
+2025-01-11 17:56:59 - Creating menu bar
+2025-01-11 17:56:59 - Image file not found using class loader: your-image-file.png
+2025-01-11 17:56:59 - Creating top bar panel
+2025-01-11 17:57:02 - Closing OCR Tool UI
+2025-01-12 00:01:37 - Initializing OCR Tool UI
+2025-01-12 00:01:37 - Icon file not found using class loader: conti2.png
+2025-01-12 00:01:37 - Creating tool button for Manual Testing
+2025-01-12 00:01:37 - Creating menu bar
+2025-01-12 00:01:37 - Image file not found using class loader: your-image-file.png
+2025-01-12 00:01:37 - Creating top bar panel
+2025-01-12 00:05:09 - Initializing OCR Tool UI
+2025-01-12 00:05:10 - Icon file not found using class loader: logo3.png
+2025-01-12 00:05:10 - Creating menu bar
+2025-01-12 00:05:18 - Clicked tool button: Manual Icon Testing
+2025-01-12 00:05:18 - Manual Icon Testing Tool
+2025-01-12 00:05:18 - Opening Manual Icon Testing Tool
+2025-01-12 00:05:24 - Clicked tool button: Manual Testing
+2025-01-12 00:05:24 - Manual Testing Tool
+2025-01-12 00:05:24 - Opening ImageExplorer for Manual Testing
+2025-01-12 00:05:40 - Clicked tool button: Manual Testing
+2025-01-12 00:05:40 - Manual Testing Tool
+2025-01-12 00:05:40 - Opening ImageExplorer for Manual Testing
+2025-01-12 00:06:46 - Initializing OCR Tool UI
+2025-01-12 00:06:46 - Icon file not found using class loader: logo3.png
+2025-01-12 00:06:46 - Creating menu bar
+2025-01-12 00:06:48 - Closing OCR Tool UI
+2025-01-12 00:09:48 - Initializing OCR Tool UI
+2025-01-12 00:09:48 - Icon file not found using class loader: logo3.png
+2025-01-12 00:09:48 - Creating menu bar
+2025-01-12 00:09:48 - Image file not found using class loader: conti4.png
+2025-01-12 00:09:54 - Closing OCR Tool UI
+2025-01-12 00:11:31 - Initializing OCR Tool UI
+2025-01-12 00:11:31 - Icon file not found using class loader: logo3.png
+2025-01-12 00:11:31 - Creating menu bar
+2025-01-12 00:11:31 - Image file not found using class loader: conti4.png
+2025-01-12 00:12:17 - Clicked tool button: Name Changing Tool
+2025-01-12 00:12:17 - Name Changing Tool
+2025-01-12 00:12:17 - Opening Name Changing Tool
+2025-01-12 00:12:20 - Clicked tool button: Manual Testing
+2025-01-12 00:12:20 - Manual Testing Tool
+2025-01-12 00:12:20 - Opening ImageExplorer for Manual Testing
+2025-01-12 00:12:27 - Closing OCR Tool UI
+2025-01-12 00:15:17 - Initializing OCR Tool UI
+2025-01-12 00:15:17 - Icon file not found using class loader: logo3.png
+2025-01-12 00:15:17 - Creating menu bar
+2025-01-12 00:15:17 - Image file not found using class loader: conti4.png
+2025-01-12 00:15:19 - Clicked tool button: Manual Testing
+2025-01-12 00:15:19 - Manual Testing Tool
+2025-01-12 00:15:19 - Opening ImageExplorer for Manual Testing
+2025-01-12 00:15:21 - Closing OCR Tool UI
+2025-01-12 00:29:11 - Initializing OCR Tool UI
+2025-01-12 00:29:12 - Icon file not found using class loader: logo3.png
+2025-01-12 00:29:12 - Creating menu bar
+2025-01-12 00:29:12 - Image file not found using class loader: conti4.png
+2025-01-12 00:29:13 - Clicked tool button: Manual Testing
+2025-01-12 00:29:13 - Manual Testing Tool
+2025-01-12 00:29:13 - Opening ImageExplorer for Manual Testing
+2025-01-12 00:29:20 - Closing OCR Tool UI
+2025-01-12 08:21:07 - Initializing OCR Tool UI
+2025-01-12 08:21:07 - Icon file not found using class loader: logo3.png
+2025-01-12 08:21:07 - Creating menu bar
+2025-01-12 08:21:07 - Image file not found using class loader: conti4.png
+2025-01-12 08:21:09 - Closing OCR Tool UI
+2025-01-12 08:21:49 - Initializing OCR Tool UI
+2025-01-12 08:21:49 - Icon file not found using class loader: logo3.png
+2025-01-12 08:21:49 - Creating menu bar
+2025-01-12 08:21:49 - Image file not found using class loader: conti4.png
+2025-01-12 08:21:51 - Clicked tool button: Name Changing Tool
+2025-01-12 08:21:51 - Name Changing Tool
+2025-01-12 08:21:51 - Opening Name Changing Tool
+2025-01-12 08:25:57 - Initializing OCR Tool UI
+2025-01-12 08:25:57 - Icon file not found using class loader: logo3.png
+2025-01-12 08:25:57 - Creating menu bar
+2025-01-12 08:25:57 - Image file not found using class loader: conti4.png
+2025-01-12 08:25:59 - Clicked tool button: Name Changing Tool
+2025-01-12 08:25:59 - Name Changing Tool
+2025-01-12 08:25:59 - Opening Name Changing Tool
+2025-01-12 08:27:14 - Initializing OCR Tool UI
+2025-01-12 08:27:14 - Icon file not found using class loader: logo3.png
+2025-01-12 08:27:14 - Creating menu bar
+2025-01-12 08:27:14 - Image file not found using class loader: conti4.png
+2025-01-12 08:27:15 - Clicked tool button: Name Changing Tool
+2025-01-12 08:27:15 - Name Changing Tool
+2025-01-12 08:27:15 - Opening Name Changing Tool
+2025-01-12 08:28:30 - Initializing OCR Tool UI
+2025-01-12 08:28:31 - Icon file not found using class loader: logo3.png
+2025-01-12 08:28:31 - Creating menu bar
+2025-01-12 08:28:31 - Image file not found using class loader: conti4.png
+2025-01-12 08:28:32 - Clicked tool button: Name Changing Tool
+2025-01-12 08:28:32 - Name Changing Tool
+2025-01-12 08:28:32 - Opening Name Changing Tool
+2025-01-12 08:28:49 - Clicked tool button: Name Changing Tool
+2025-01-12 08:28:49 - Name Changing Tool
+2025-01-12 08:28:49 - Opening Name Changing Tool
+2025-01-12 11:49:52 - Initializing OCR Tool UI
+2025-01-12 11:49:52 - Icon file not found using class loader: logo3.png
+2025-01-12 11:49:52 - Creating menu bar
+2025-01-12 11:49:52 - Image file not found using class loader: conti4.png
+2025-01-12 11:50:23 - Clicked tool button: Manual Testing
+2025-01-12 11:50:23 - Manual Testing Tool
+2025-01-12 11:50:23 - Opening ImageExplorer for Manual Testing
+2025-01-12 11:50:34 - Clicked tool button: Name Changing Tool
+2025-01-12 11:50:34 - Name Changing Tool
+2025-01-12 11:50:34 - Opening Name Changing Tool
+2025-01-12 11:50:50 - Closing OCR Tool UI
+2025-01-15 12:57:00 - Initializing OCR Tool UI
+2025-01-15 12:57:00 - Icon file not found using class loader: logo3.png
+2025-01-15 12:57:00 - Creating menu bar
+2025-01-15 12:57:00 - Image file not found using class loader: conti4.png
+2025-01-15 12:57:05 - Clicked tool button: Manual Testing
+2025-01-15 12:57:05 - Manual Testing Tool
+2025-01-15 12:57:06 - Opening ImageExplorer for Manual Testing
+2025-01-15 12:57:55 - Clicked tool button: Name Changing Tool
+2025-01-15 12:57:55 - Name Changing Tool
+2025-01-15 12:57:55 - Opening Name Changing Tool
+2025-01-15 12:58:20 - Closing OCR Tool UI
+2025-01-22 23:32:00 - Initializing OCR Tool UI
+2025-01-22 23:32:00 - Icon file not found using class loader: logo3.png
+2025-01-22 23:32:00 - Creating menu bar
+2025-01-22 23:32:00 - Image file not found using class loader: conti4.png
+2025-01-22 23:32:17 - Clicked tool button: Manual Testing
+2025-01-22 23:32:17 - Manual Testing Tool
+2025-01-22 23:32:17 - Opening ImageExplorer for Manual Testing
+2025-01-22 23:35:28 - Clicked tool button: Name Changing Tool
+2025-01-22 23:35:28 - Name Changing Tool
+2025-01-22 23:35:28 - Opening Name Changing Tool
+2025-01-22 23:37:56 - Closing OCR Tool UI
+2025-01-24 07:26:52 - Initializing OCR Tool UI
+2025-01-24 07:26:53 - Icon file not found using class loader: logo3.png
+2025-01-24 07:26:53 - Creating menu bar
+2025-01-24 07:26:53 - Image file not found using class loader: conti4.png
+2025-01-24 07:26:54 - Clicked tool button: Name Changing Tool
+2025-01-24 07:26:54 - Name Changing Tool
+2025-01-24 07:26:54 - Opening Name Changing Tool
+2025-01-24 07:27:50 - Clicked tool button: Name Changing Tool
+2025-01-24 07:27:50 - Name Changing Tool
+2025-01-24 07:27:50 - Opening Name Changing Tool
+2025-01-24 07:29:29 - Initializing OCR Tool UI
+2025-01-24 07:29:29 - Icon file not found using class loader: logo3.png
+2025-01-24 07:29:29 - Creating menu bar
+2025-01-24 07:29:29 - Image file not found using class loader: conti4.png
+2025-01-24 07:29:31 - Clicked tool button: Name Changing Tool
+2025-01-24 07:29:31 - Name Changing Tool
+2025-01-24 07:29:31 - Opening Name Changing Tool
+2025-01-24 07:30:58 - Clicked tool button: Manual Icon Testing
+2025-01-24 07:30:58 - Manual Icon Testing Tool
+2025-01-24 07:30:58 - Opening Manual Icon Testing Tool
+2025-01-24 07:30:59 - Clicked tool button: Manual Testing
+2025-01-24 07:30:59 - Manual Testing Tool
+2025-01-24 07:30:59 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:31:04 - Clicked tool button: Manual Testing
+2025-01-24 07:31:04 - Manual Testing Tool
+2025-01-24 07:31:04 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:31:10 - Closing OCR Tool UI
+2025-01-24 07:31:52 - Initializing OCR Tool UI
+2025-01-24 07:31:52 - Icon file not found using class loader: logo3.png
+2025-01-24 07:31:52 - Creating menu bar
+2025-01-24 07:31:52 - Image file not found using class loader: conti4.png
+2025-01-24 07:31:55 - Clicked tool button: Manual Testing
+2025-01-24 07:31:55 - Manual Testing Tool
+2025-01-24 07:31:55 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:37:47 - Initializing OCR Tool UI
+2025-01-24 07:37:47 - Icon file not found using class loader: logo3.png
+2025-01-24 07:37:47 - Creating menu bar
+2025-01-24 07:37:47 - Image file not found using class loader: conti4.png
+2025-01-24 07:37:48 - Clicked tool button: Manual Testing
+2025-01-24 07:37:48 - Manual Testing Tool
+2025-01-24 07:37:48 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:38:10 - Initializing OCR Tool UI
+2025-01-24 07:38:11 - Icon file not found using class loader: logo3.png
+2025-01-24 07:38:11 - Creating menu bar
+2025-01-24 07:38:11 - Image file not found using class loader: conti4.png
+2025-01-24 07:38:13 - Clicked tool button: Manual Testing
+2025-01-24 07:38:13 - Manual Testing Tool
+2025-01-24 07:38:13 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:38:32 - Initializing OCR Tool UI
+2025-01-24 07:38:32 - Icon file not found using class loader: logo3.png
+2025-01-24 07:38:32 - Creating menu bar
+2025-01-24 07:38:32 - Image file not found using class loader: conti4.png
+2025-01-24 07:38:33 - Clicked tool button: Manual Testing
+2025-01-24 07:38:33 - Manual Testing Tool
+2025-01-24 07:38:33 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:41:09 - Initializing OCR Tool UI
+2025-01-24 07:41:09 - Icon file not found using class loader: logo3.png
+2025-01-24 07:41:09 - Creating menu bar
+2025-01-24 07:41:09 - Image file not found using class loader: conti4.png
+2025-01-24 07:41:12 - Clicked tool button: Manual Testing
+2025-01-24 07:41:12 - Manual Testing Tool
+2025-01-24 07:41:12 - Opening ImageExplorer for Manual Testing
+2025-01-24 07:41:17 - Clicked tool button: Manual Icon Testing
+2025-01-24 07:41:17 - Manual Icon Testing Tool
+2025-01-24 07:41:17 - Opening Manual Icon Testing Tool
+2025-01-24 07:42:21 - Closing OCR Tool UI
+2025-01-24 10:55:24 - Initializing OCR Tool UI
+2025-01-24 10:55:24 - Icon file not found using class loader: logo3.png
+2025-01-24 10:55:24 - Creating menu bar
+2025-01-24 10:55:24 - Image file not found using class loader: conti4.png
+2025-01-24 10:55:26 - Clicked tool button: Name Changing Tool
+2025-01-24 10:55:26 - Name Changing Tool
+2025-01-24 10:55:26 - Opening Name Changing Tool
+2025-01-24 11:00:05 - Closing OCR Tool UI
+2025-01-24 12:45:21 - Initializing OCR Tool UI
+2025-01-24 12:45:21 - Icon file not found using class loader: logo3.png
+2025-01-24 12:45:21 - Creating menu bar
+2025-01-24 12:45:21 - Image file not found using class loader: conti4.png
+2025-01-24 12:45:23 - Clicked tool button: Manual Icon Testing
+2025-01-24 12:45:23 - Manual Icon Testing Tool
+2025-01-24 12:45:23 - Opening Manual Icon Testing Tool
+2025-01-24 12:45:23 - Clicked tool button: Manual Icon Testing
+2025-01-24 12:45:23 - Manual Icon Testing Tool
+2025-01-24 12:45:23 - Opening Manual Icon Testing Tool
+2025-01-24 12:45:25 - Closing OCR Tool UI
+2025-01-24 12:45:39 - Initializing OCR Tool UI
+2025-01-24 12:45:39 - Icon file not found using class loader: logo3.png
+2025-01-24 12:45:39 - Creating menu bar
+2025-01-24 12:45:39 - Image file not found using class loader: conti4.png
+2025-01-24 12:45:41 - Clicked tool button: Manual Icon Testing
+2025-01-24 12:45:41 - Manual Icon Testing Tool
+2025-01-24 12:45:41 - Opening Manual Icon Testing Tool
+2025-01-24 12:46:15 - Closing OCR Tool UI
+2025-01-24 13:06:35 - Initializing OCR Tool UI
+2025-01-24 13:06:35 - Icon file not found using class loader: logo3.png
+2025-01-24 13:06:35 - Creating menu bar
+2025-01-24 13:06:35 - Image file not found using class loader: conti4.png
+2025-01-24 13:07:39 - Closing OCR Tool UI
+2025-01-24 13:08:25 - Initializing OCR Tool UI
+2025-01-24 13:08:25 - Icon file not found using class loader: logo3.png
+2025-01-24 13:08:25 - Creating menu bar
+2025-01-24 13:08:26 - Image file not found using class loader: conti4.png
+2025-01-24 13:08:38 - Closing OCR Tool UI
+2025-01-24 13:09:05 - Initializing OCR Tool UI
+2025-01-24 13:09:05 - Icon file not found using class loader: logo3.png
+2025-01-24 13:09:05 - Creating menu bar
+2025-01-24 13:09:05 - Image file not found using class loader: conti4.png
+2025-01-24 13:09:26 - Initializing OCR Tool UI
+2025-01-24 13:09:27 - Icon file not found using class loader: logo3.png
+2025-01-24 13:09:27 - Creating menu bar
+2025-01-24 13:09:27 - Image file not found using class loader: conti4.png
+2025-01-24 13:10:26 - Initializing OCR Tool UI
+2025-01-24 13:10:26 - Icon file not found using class loader: logo3.png
+2025-01-24 13:10:26 - Creating menu bar
+2025-01-24 13:10:26 - Image file not found using class loader: conti4.png
+2025-01-24 13:10:36 - Clicked tool button: Create warning excel
+2025-01-24 13:10:36 - Warning Excel Tool
+2025-01-24 13:10:36 - Opening Warning Excel Tool
+2025-01-24 13:10:47 - Clicked tool button: Manual Icon Testing
+2025-01-24 13:10:47 - Manual Icon Testing Tool
+2025-01-24 13:10:47 - Opening Manual Icon Testing Tool
+2025-01-24 13:11:46 - About action clicked
+2025-01-24 13:12:27 - Clicked tool button: Manual Testing
+2025-01-24 13:12:27 - Manual Testing Tool
+2025-01-24 13:12:27 - Opening ImageExplorer for Manual Testing
+2025-01-24 13:12:56 - Clicked tool button: Manual Icon Testing
+2025-01-24 13:12:56 - Manual Icon Testing Tool
+2025-01-24 13:12:56 - Opening Manual Icon Testing Tool
+2025-01-24 13:13:07 - Closing OCR Tool UI
+2025-01-24 13:25:07 - Initializing OCR Tool UI
+2025-01-24 13:25:07 - Icon file not found using class loader: logo3.png
+2025-01-24 13:25:07 - Creating menu bar
+2025-01-24 13:25:07 - Image file not found using class loader: conti4.png
+2025-01-24 13:25:45 - Clicked tool button: Name Changing Tool
+2025-01-24 13:25:45 - Name Changing Tool
+2025-01-24 13:25:45 - Opening Name Changing Tool
+2025-01-24 13:25:49 - Closing OCR Tool UI
+2025-01-24 13:46:21 - Initializing OCR Tool UI
+2025-01-24 13:46:21 - Icon file not found using class loader: logo3.png
+2025-01-24 13:46:21 - Creating menu bar
+2025-01-24 13:46:21 - Image file not found using class loader: conti4.png
+2025-01-24 13:47:27 - Initializing OCR Tool UI
+2025-01-24 13:47:27 - Icon file not found using class loader: logo3.png
+2025-01-24 13:47:27 - Creating menu bar
+2025-01-24 13:47:28 - Image file not found using class loader: conti4.png
+2025-01-24 14:15:59 - Closing OCR Tool UI
+2025-01-24 14:17:07 - Initializing OCR Tool UI
+2025-01-24 14:17:08 - Icon file not found using class loader: logo3.png
+2025-01-24 14:17:08 - Creating menu bar
+2025-01-24 14:17:08 - Image file not found using class loader: conti4.png
+2025-01-24 14:17:09 - Clicked tool button: Parse XML file
+2025-01-24 14:17:09 - Parse XML Tool
+2025-01-24 14:17:09 - Opening XML Parsing Tool
+2025-01-24 14:17:10 - Clicked tool button: Parse XML file
+2025-01-24 14:17:10 - Parse XML Tool
+2025-01-24 14:17:10 - Opening XML Parsing Tool
+2025-01-24 14:17:12 - Closing OCR Tool UI
+2025-01-24 14:19:08 - Initializing OCR Tool UI
+2025-01-24 14:19:08 - Icon file not found using class loader: logo3.png
+2025-01-24 14:19:08 - Creating menu bar
+2025-01-24 14:19:08 - Image file not found using class loader: conti4.png
+2025-01-24 14:19:10 - Clicked tool button: Parse XML file
+2025-01-24 14:19:10 - Parse XML Tool
+2025-01-24 14:19:10 - Opening XML Parsing Tool
+2025-01-24 14:19:19 - Closing OCR Tool UI
+2025-01-24 14:20:31 - Initializing OCR Tool UI
+2025-01-24 14:20:31 - Icon file not found using class loader: logo3.png
+2025-01-24 14:20:32 - Creating menu bar
+2025-01-24 14:20:32 - Image file not found using class loader: conti4.png
+2025-01-24 14:20:33 - Clicked tool button: Parse XML file
+2025-01-24 14:20:33 - Parse XML Tool
+2025-01-24 14:20:33 - Opening XML Parsing Tool
+2025-01-24 14:21:03 - Clicked tool button: Parse XML file
+2025-01-24 14:21:03 - Parse XML Tool
+2025-01-24 14:21:03 - Opening XML Parsing Tool
+2025-01-24 14:22:48 - Closing OCR Tool UI
+2025-01-24 14:34:06 - Initializing OCR Tool UI
+2025-01-24 14:34:06 - Icon file not found using class loader: logo3.png
+2025-01-24 14:34:06 - Creating menu bar
+2025-01-24 14:34:06 - Image file not found using class loader: conti4.png
+2025-01-24 14:34:08 - Clicked tool button: Parse XML file
+2025-01-24 14:34:08 - Parse XML Tool
+2025-01-24 14:34:08 - Opening XML Parsing Tool
+2025-01-24 14:42:16 - Initializing OCR Tool UI
+2025-01-24 14:42:16 - Icon file not found using class loader: logo3.png
+2025-01-24 14:42:16 - Creating menu bar
+2025-01-24 14:42:17 - Image file not found using class loader: conti4.png
+2025-01-24 14:42:19 - Clicked tool button: Parse XML file
+2025-01-24 14:42:19 - Parse XML Tool
+2025-01-24 14:42:19 - Opening XML Parsing Tool
+2025-01-24 16:40:59 - Clicked tool button: Name Changing Tool
+2025-01-24 16:40:59 - Name Changing Tool
+2025-01-24 16:40:59 - Opening Name Changing Tool
+2025-01-24 16:41:06 - Clicked tool button: Parse XML file
+2025-01-24 16:41:06 - Parse XML Tool
+2025-01-24 16:41:06 - Opening XML Parsing Tool
+2025-01-24 16:41:11 - Clicked tool button: Manual Testing
+2025-01-24 16:41:11 - Manual Testing Tool
+2025-01-24 16:41:11 - Opening ImageExplorer for Manual Testing
+2025-01-24 16:41:14 - Clicked tool button: Manual Icon Testing
+2025-01-24 16:41:14 - Manual Icon Testing Tool
+2025-01-24 16:41:14 - Opening Manual Icon Testing Tool
+2025-01-24 16:41:17 - Closing OCR Tool UI
+2025-01-29 12:57:40 - Initializing OCR Tool UI
+2025-01-29 12:57:41 - Icon file not found using class loader: logo3.png
+2025-01-29 12:57:41 - Creating menu bar
+2025-01-29 12:57:41 - Image file not found using class loader: conti4.png
+2025-01-29 12:58:26 - Clicked tool button: Parse XML file
+2025-01-29 12:58:26 - Parse XML Tool
+2025-01-29 12:58:26 - Opening XML Parsing Tool
+2025-03-01 16:17:30 - Initializing OCR Tool UI
+2025-03-01 16:17:30 - Icon file not found using class loader: logo3.png
+2025-03-01 16:17:30 - Creating menu bar
+2025-03-01 16:17:30 - Image file not found using class loader: conti4.png
+2025-03-01 16:17:33 - Closing OCR Tool UI
