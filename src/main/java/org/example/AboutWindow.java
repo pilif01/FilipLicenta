@@ -32,8 +32,7 @@ public class AboutWindow {
         contentPanel.add(titleLabel, BorderLayout.NORTH);
 
         // Description Label
-        JLabel aboutLabel = new JLabel("<html><center>This App is developed by Prindii Gabriel with the scope of facilitating the testing of text menus / warnings."
-                + "<br>Version v1.0.<br>CONTINENTAL.<br>For internal use only.</center></html>");
+        JLabel aboutLabel = new JLabel("Thesis Project by Bulc Filip");
         aboutLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPanel.add(aboutLabel, BorderLayout.CENTER);
 
