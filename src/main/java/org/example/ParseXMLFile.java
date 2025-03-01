@@ -13,7 +13,7 @@ import java.util.*;
 
 public class ParseXMLFile {
 
-    public static void convertXMLToExcel(String[] strings) {
+    public static void convertXMLToExcel() {
         SwingUtilities.invokeLater(() -> {
             try {
                 // Select XML file

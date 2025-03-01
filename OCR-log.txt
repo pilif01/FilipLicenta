@@ -1923,3 +1923,35 @@
 2025-03-01 19:45:23 - Warning Excel Tool
 2025-03-01 19:45:23 - Opening Warning Excel Tool
 2025-03-01 19:46:16 - Closing OCR Tool UI
+2025-03-01 19:51:08 - Initializing OCR Tool UI
+2025-03-01 19:51:08 - Icon file not found using class loader: logo3.png
+2025-03-01 19:51:08 - Creating menu bar
+2025-03-01 19:51:08 - Image file not found using class loader: conti4.png
+2025-03-01 19:51:11 - Closing OCR Tool UI
+2025-03-01 19:51:24 - Initializing OCR Tool UI
+2025-03-01 19:51:24 - Icon file not found using class loader: logo3.png
+2025-03-01 19:51:24 - Creating menu bar
+2025-03-01 19:51:24 - Image file not found using class loader: conti4.png
+2025-03-01 19:51:25 - Clicked tool button: Manual Icon Testing
+2025-03-01 19:51:25 - Manual Icon Testing Tool
+2025-03-01 19:51:25 - Opening Manual Icon Testing Tool
+2025-03-01 19:51:28 - Clicked tool button: Manual Icon Testing
+2025-03-01 19:51:28 - Manual Icon Testing Tool
+2025-03-01 19:51:28 - Opening Manual Icon Testing Tool
+2025-03-01 19:51:31 - Clicked tool button: Manual Icon Testing
+2025-03-01 19:51:31 - Manual Icon Testing Tool
+2025-03-01 19:51:31 - Opening Manual Icon Testing Tool
+2025-03-01 19:51:38 - Clicked tool button: Manual Testing
+2025-03-01 19:51:38 - Manual Testing Tool
+2025-03-01 19:51:38 - Opening ImageExplorer for Manual Testing
+2025-03-01 19:51:53 - Closing OCR Tool UI
+2025-03-01 19:56:49 - Initializing OCR Tool UI
+2025-03-01 19:57:10 - Clicked tool button: Parse XML file
+2025-03-01 19:57:12 - Clicked tool button: Create warning excel
+2025-03-01 19:57:13 - Clicked tool button: Create image excel
+2025-03-01 19:57:15 - Clicked tool button: Manual Testing
+2025-03-01 19:57:16 - Clicked tool button: Manual Icon Testing
+2025-03-01 19:57:18 - Clicked tool button: Name Changing Tool
+2025-03-01 19:57:42 - Closing OCR Tool UI
+2025-03-01 19:58:26 - Initializing OCR Tool UI
+2025-03-01 19:58:34 - Closing OCR Tool UI

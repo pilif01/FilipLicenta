@@ -9,7 +9,7 @@ import java.util.*;
 
 public class TextExcelTool {
 
-    public static void filterExcelFile(String[] strings) {
+    public static void filterExcelFile() {
         SwingUtilities.invokeLater(() -> {
             try {
                 // Select the original Excel file

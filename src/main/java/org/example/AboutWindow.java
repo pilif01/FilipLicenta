@@ -9,7 +9,6 @@ import java.io.InputStream;
 
 import static org.example.Logger.logException;
 
-// --------------------- Butonul de Help, poza -------------------
 
 public class AboutWindow {
 

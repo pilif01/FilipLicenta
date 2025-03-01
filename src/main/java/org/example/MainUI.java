@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -42,117 +41,41 @@ public class MainUI extends JFrame {
         return dateFormat.format(new Date());
     }
 
-    private JPanel mainPanel;
-
     public MainUI() {
         // Log initialization
         log("Initializing OCR Tool UI");
 
         setTitle("OCR - TOOL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 1200);
+        setSize(650, 800); // Increased window size
 
-        // Set custom window decoration
-        setUndecorated(true);
-        getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-
-        // Set custom icon for the application
-        try {
-            InputStream iconStream = getClass().getClassLoader().getResourceAsStream("logo3.png");
-            if (iconStream != null) {
-                Image iconImage = ImageIO.read(iconStream);
-                setIconImage(iconImage);
-            } else {
-                log("Icon file not found using class loader: logo3.png");
-                File iconFile = new File("logo3.png");
-                if (iconFile.exists()) {
-                    Image iconImage = ImageIO.read(iconFile);
-                    setIconImage(iconImage);
-                } else {
-                    log("Icon file not found using relative path: logo3.png");
-                }
-            }
-        } catch (IOException e) {
-            logException("Error loading icon", e);
-        }
-
-        // Log creating a menu bar
-        log("Creating menu bar");
-        JMenuBar menuBar = new JMenuBar();
-        createMenuBar(menuBar);
-        setJMenuBar(menuBar);
-
-        // Set layout manager for the main frame
+        // Set layout manager
         setLayout(new BorderLayout());
 
-        // Create a panel for the buttons
+        // Create a panel for the buttons with a GridLayout (2 buttons per row)
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPanel.setLayout(new GridLayout(0, 2, 20, 20)); // 2 columns, vertical spacing
 
         // Create and add buttons
-        JButton parseXmlButton = createToolButton("Parse XML file", "Used to parse the TextWarnings.xml file");
-        JButton createWrnExcelButton = createToolButton("Create warning excel", "Used to create the excel file for manual warning testing");
-        JButton createImgExcelButton = createToolButton("Create image excel", "Used to create the excel file for manual warning testing");
-        JButton manualTestingButton = createToolButton("Manual Testing", "Used to check manually the failed comparisons");
-        JButton manualIconTestingButton = createToolButton("Manual Icon Testing", "Test icons manually");
-        JButton nameChangingToolButton = createToolButton("Name Changing Tool", "Tool for changing names");
+        buttonPanel.add(createToolButton("Parse XML file", "Parse the TextWarnings.xml file"));
+        buttonPanel.add(createToolButton("Create warning excel", "Create the Excel file for warnings"));
+        buttonPanel.add(createToolButton("Create image excel", "Generate the image Excel file"));
+        buttonPanel.add(createToolButton("Manual Testing", "Check failed comparisons manually"));
+        buttonPanel.add(createToolButton("Manual Icon Testing", "Test icons manually"));
+        buttonPanel.add(createToolButton("Name Changing Tool", "Tool for changing names"));
 
-        buttonPanel.add(Box.createVerticalGlue()); // Add spacing at the top
-        buttonPanel.add(parseXmlButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(createWrnExcelButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(createImgExcelButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(manualTestingButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(manualIconTestingButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(nameChangingToolButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Add spacing
-        buttonPanel.add(Box.createVerticalGlue()); // Add spacing at the bottom
+        // Add spacing around the button panel
+        JPanel paddedPanel = new JPanel(new BorderLayout());
+        paddedPanel.add(buttonPanel, BorderLayout.CENTER);
+        paddedPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Add the button panel to the center
-        getContentPane().add(buttonPanel, BorderLayout.CENTER);
+        // Add buttons panel to the window
+        getContentPane().add(paddedPanel, BorderLayout.CENTER);
 
-        // Add an image to the bottom of the UI
-        JLabel imageLabel = new JLabel();
-        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-            InputStream imageStream = getClass().getClassLoader().getResourceAsStream("conti4.png");
-            if (imageStream != null) {
-                Image image = ImageIO.read(imageStream);
-                imageLabel.setIcon(new ImageIcon(image));
-            } else {
-                log("Image file not found using class loader: conti4.png");
-                File imageFile = new File("conti4.png");
-                if (imageFile.exists()) {
-                    Image image = ImageIO.read(imageFile);
-                    imageLabel.setIcon(new ImageIcon(image));
-                } else {
-                    log("Image file not found using relative path: conti4.png");
-                }
-            }
-        } catch (IOException e) {
-            logException("Error loading image", e);
-        }
-
-        //scroll
-        JScrollPane scrollPane = new JScrollPane(buttonPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        // Set faster scrolling speed
-        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30); // Increase this value for faster scrolling
-        verticalScrollBar.setBlockIncrement(60);
-
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-
-        getContentPane().add(imageLabel, BorderLayout.SOUTH);
-
+        // Set window position to center of screen
+        setLocationRelativeTo(null);
         setResizable(false);
+
         mainUIInstance = this;
 
         // Add a listener to handle the close button
@@ -165,45 +88,10 @@ public class MainUI extends JFrame {
         });
     }
 
-    private void createMenuBar(JMenuBar menuBar) {
-        createFileMenu(menuBar);
-        createHelpMenu(menuBar);
-    }
-
-    private void createFileMenu(JMenuBar menuBar) {
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem exitMenuItem = createMenuItem("Exit", this::handleExitAction);
-        fileMenu.add(exitMenuItem);
-        menuBar.add(fileMenu);
-    }
-
-    private void createHelpMenu(JMenuBar menuBar) {
-        JMenu helpMenu = new JMenu("Help");
-        JMenuItem aboutMenuItem = createMenuItem("About", this::handleAboutAction);
-        helpMenu.add(aboutMenuItem);
-        menuBar.add(helpMenu);
-    }
-
-    private JMenuItem createMenuItem(String label, ActionListener actionListener) {
-        JMenuItem menuItem = new JMenuItem(label);
-        menuItem.addActionListener(actionListener);
-        return menuItem;
-    }
-
-    private void handleExitAction(ActionEvent event) {
-        log("Exit action clicked");
-        System.exit(0);
-    }
-
-    private void handleAboutAction(ActionEvent event) {
-        log("About action clicked");
-        JOptionPane.showMessageDialog(this, "OCR Tool Version 1.0", "About", JOptionPane.INFORMATION_MESSAGE);
-    }
-
     private JButton createToolButton(String text, String description) {
         JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
-        button.setFont(new Font("Arial", Font.PLAIN, 18));
-        button.setPreferredSize(new Dimension(450, 100));
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setPreferredSize(new Dimension(250, 80)); // Adjusted button size
 
         Color brighterOrangeYellow = new Color(255, 200, 0);
         button.setBackground(brighterOrangeYellow);
@@ -222,98 +110,31 @@ public class MainUI extends JFrame {
             }
         });
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                log("Clicked tool button: " + text);
-                switch (text) {
-                    case "Parse XML file":
-                        launchParseXMLTool();
-                        break;
-
-                    case "Create warning excel":
-                        launchWrnExcelTool();
-                        break;
-
-                    case "Create image excel":
-                        launchImgExcelTool();
-                        break;
-
-                    case "Manual Testing":
-                        launchManualTestingTool();
-                        break;
-
-                    case "Manual Icon Testing":
-                        launchManualIconTestingTool();
-                        break;
-
-                    case "Name Changing Tool":
-                        launchNameChangingTool();
-                        break;
-                }
+        button.addActionListener(e -> {
+            log("Clicked tool button: " + text);
+            switch (text) {
+                case "Parse XML file":
+                    ParseXMLFile.convertXMLToExcel();
+                    break;
+                case "Create warning excel":
+                    ImgExcelTool.filterExcelFile();
+                    break;
+                case "Create image excel":
+                    TextExcelTool.filterExcelFile();
+                    break;
+                case "Manual Testing":
+                    ImageExplorerApp.main(new String[]{});
+                    break;
+                case "Manual Icon Testing":
+                    ManualIconTestTool.main(new String[]{});
+                    break;
+                case "Name Changing Tool":
+                    NameChangingTool.main(new String[]{});
+                    break;
             }
         });
+
         return button;
-    }
-
-    private void launchParseXMLTool() {
-        log("Parse XML Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening XML Parsing Tool");
-            ParseXMLFile.convertXMLToExcel(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
-    }
-
-    private void launchWrnExcelTool() {
-        log("Warning Excel Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening Warning Excel Tool");
-            TextExcelTool.filterExcelFile(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
-    }
-
-    private void launchImgExcelTool() {
-        log("Image Excel Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening Image Excel Tool");
-            ImgExcelTool.filterExcelFile(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
-    }
-
-    private void launchManualTestingTool() {
-        log("Manual Testing Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening ImageExplorer for Manual Testing");
-            ImageExplorerApp.main(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
-    }
-
-    private void launchManualIconTestingTool() {
-        log("Manual Icon Testing Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening Manual Icon Testing Tool");
-            ManualIconTestTool.main(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
-    }
-
-    private void launchNameChangingTool() {
-        log("Name Changing Tool");
-        SwingUtilities.invokeLater(() -> {
-            mainUIInstance.setVisible(false);
-            log("Opening Name Changing Tool");
-            NameChangingTool.main(new String[]{});
-            mainUIInstance.setVisible(true);
-        });
     }
 
     public static void main(String[] args) {
