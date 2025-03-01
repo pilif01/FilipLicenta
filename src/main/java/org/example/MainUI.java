@@ -261,7 +261,7 @@ public class MainUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             mainUIInstance.setVisible(false);
             log("Opening XML Parsing Tool");
-            ParseXMLFile.main(new String[]{});
+            ParseXMLFile.convertXMLToExcel(new String[]{});
             mainUIInstance.setVisible(true);
         });
     }
@@ -271,7 +271,7 @@ public class MainUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             mainUIInstance.setVisible(false);
             log("Opening Warning Excel Tool");
-            //include logic here
+            TextExcelTool.filterExcelFile(new String[]{});
             mainUIInstance.setVisible(true);
         });
     }
@@ -281,7 +281,7 @@ public class MainUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             mainUIInstance.setVisible(false);
             log("Opening Image Excel Tool");
-            //include logic here
+            ImgExcelTool.filterExcelFile(new String[]{});
             mainUIInstance.setVisible(true);
         });
     }

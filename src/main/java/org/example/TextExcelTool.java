@@ -5,8 +5,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.*;
 
-public class ImgExcelTool {
+public class TextExcelTool {
 
     public static void filterExcelFile(String[] strings) {
         SwingUtilities.invokeLater(() -> {
@@ -22,8 +23,8 @@ public class ImgExcelTool {
                 File inputFile = fileChooser.getSelectedFile();
 
                 // Select save location for the filtered Excel file
-                fileChooser.setDialogTitle("Save Filtered Excel File");
-                fileChooser.setSelectedFile(new File("Filtered_Warnings.xlsx"));
+                fileChooser.setDialogTitle("Save Filtered Excel File with Languages");
+                fileChooser.setSelectedFile(new File("Filtered_Warnings_Languages.xlsx"));
                 result = fileChooser.showSaveDialog(null);
                 if (result != JFileChooser.APPROVE_OPTION) {
                     return; // User cancelled
@@ -48,20 +49,26 @@ public class ImgExcelTool {
         Sheet sheet = workbook.getSheetAt(0);
 
         Workbook newWorkbook = new XSSFWorkbook();
-        Sheet newSheet = newWorkbook.createSheet("Filtered Warnings");
+        Sheet newSheet = newWorkbook.createSheet("Filtered Warnings Languages");
 
         // Read header row and find column indexes
         Row headerRow = sheet.getRow(0);
-        int tControlIndex = -1, hilIdIndex = -1, iconIndex = -1;
+        int tControlIndex = -1, hilIdIndex = -1;
+        List<Integer> languageIndexes = new ArrayList<>();
+        List<String> languageHeaders = new ArrayList<>();
 
         for (int i = 0; i < headerRow.getLastCellNum(); i++) {
             String header = headerRow.getCell(i).getStringCellValue().trim();
             if (header.equalsIgnoreCase("TControl")) tControlIndex = i;
             else if (header.equalsIgnoreCase("HilID")) hilIdIndex = i;
-            else if (header.equalsIgnoreCase("Icon")) iconIndex = i;
+            else {
+                // Assume all other columns are language texts
+                languageIndexes.add(i);
+                languageHeaders.add(header);
+            }
         }
 
-        if (tControlIndex == -1 || hilIdIndex == -1 || iconIndex == -1) {
+        if (tControlIndex == -1 || hilIdIndex == -1 || languageIndexes.isEmpty()) {
             throw new Exception("Required columns not found in the original Excel file.");
         }
 
@@ -69,7 +76,11 @@ public class ImgExcelTool {
         Row newHeaderRow = newSheet.createRow(0);
         newHeaderRow.createCell(0).setCellValue("TControl");
         newHeaderRow.createCell(1).setCellValue("HilID");
-        newHeaderRow.createCell(2).setCellValue("Warning Image");
+
+        // Add language headers dynamically
+        for (int i = 0; i < languageHeaders.size(); i++) {
+            newHeaderRow.createCell(2 + i).setCellValue(languageHeaders.get(i));
+        }
 
         int newRowNum = 1;
 
@@ -82,19 +93,24 @@ public class ImgExcelTool {
             if (tControl.equals("SKIP")) continue; // Skip "SKIP" rows
             if (!tControl.equals("RUN")) continue; // Only keep "RUN" rows
 
-            // Extract HilID and Icon
+            // Extract HilID
             String hilID = row.getCell(hilIdIndex).getStringCellValue().trim();
-            String warningImage = row.getCell(iconIndex).getStringCellValue().trim();
 
             // Add row to new Excel file
             Row newRow = newSheet.createRow(newRowNum++);
             newRow.createCell(0).setCellValue(tControl);
             newRow.createCell(1).setCellValue(hilID);
-            newRow.createCell(2).setCellValue(warningImage);
+
+            // Extract language texts
+            for (int j = 0; j < languageIndexes.size(); j++) {
+                Cell cell = row.getCell(languageIndexes.get(j));
+                String text = (cell != null) ? cell.getStringCellValue().trim() : "";
+                newRow.createCell(2 + j).setCellValue(text);
+            }
         }
 
         // Auto-size columns
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2 + languageHeaders.size(); i++) {
             newSheet.autoSizeColumn(i);
         }
 

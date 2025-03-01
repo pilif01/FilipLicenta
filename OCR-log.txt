@@ -1823,3 +1823,103 @@
 2025-03-01 16:17:30 - Creating menu bar
 2025-03-01 16:17:30 - Image file not found using class loader: conti4.png
 2025-03-01 16:17:33 - Closing OCR Tool UI
+2025-03-01 17:05:47 - Initializing OCR Tool UI
+2025-03-01 17:05:47 - Icon file not found using class loader: logo3.png
+2025-03-01 17:05:47 - Creating menu bar
+2025-03-01 17:05:48 - Image file not found using class loader: conti4.png
+2025-03-01 17:05:56 - Clicked tool button: Name Changing Tool
+2025-03-01 17:05:56 - Name Changing Tool
+2025-03-01 17:05:56 - Opening Name Changing Tool
+2025-03-01 17:05:58 - Closing OCR Tool UI
+2025-03-01 19:07:13 - Initializing OCR Tool UI
+2025-03-01 19:07:13 - Icon file not found using class loader: logo3.png
+2025-03-01 19:07:13 - Creating menu bar
+2025-03-01 19:07:13 - Image file not found using class loader: conti4.png
+2025-03-01 19:07:14 - Initializing OCR Tool UI
+2025-03-01 19:07:14 - Icon file not found using class loader: logo3.png
+2025-03-01 19:07:14 - Creating menu bar
+2025-03-01 19:07:14 - Image file not found using class loader: conti4.png
+2025-03-01 19:07:16 - Clicked tool button: Parse XML file
+2025-03-01 19:07:16 - Parse XML Tool
+2025-03-01 19:07:16 - Opening XML Parsing Tool
+2025-03-01 19:07:21 - Closing OCR Tool UI
+2025-03-01 19:07:23 - Closing OCR Tool UI
+2025-03-01 19:13:08 - Initializing OCR Tool UI
+2025-03-01 19:13:09 - Icon file not found using class loader: logo3.png
+2025-03-01 19:13:09 - Creating menu bar
+2025-03-01 19:13:09 - Image file not found using class loader: conti4.png
+2025-03-01 19:13:11 - Clicked tool button: Parse XML file
+2025-03-01 19:13:11 - Parse XML Tool
+2025-03-01 19:13:11 - Opening XML Parsing Tool
+2025-03-01 19:18:30 - Closing OCR Tool UI
+2025-03-01 19:18:50 - Initializing OCR Tool UI
+2025-03-01 19:18:50 - Icon file not found using class loader: logo3.png
+2025-03-01 19:18:50 - Creating menu bar
+2025-03-01 19:18:50 - Image file not found using class loader: conti4.png
+2025-03-01 19:18:51 - Clicked tool button: Parse XML file
+2025-03-01 19:18:51 - Parse XML Tool
+2025-03-01 19:18:51 - Opening XML Parsing Tool
+2025-03-01 19:22:06 - Initializing OCR Tool UI
+2025-03-01 19:22:06 - Icon file not found using class loader: logo3.png
+2025-03-01 19:22:06 - Creating menu bar
+2025-03-01 19:22:06 - Image file not found using class loader: conti4.png
+2025-03-01 19:22:15 - Clicked tool button: Parse XML file
+2025-03-01 19:22:15 - Parse XML Tool
+2025-03-01 19:22:15 - Opening XML Parsing Tool
+2025-03-01 19:25:39 - Initializing OCR Tool UI
+2025-03-01 19:25:39 - Icon file not found using class loader: logo3.png
+2025-03-01 19:25:39 - Creating menu bar
+2025-03-01 19:25:39 - Image file not found using class loader: conti4.png
+2025-03-01 19:25:47 - Clicked tool button: Parse XML file
+2025-03-01 19:25:47 - Parse XML Tool
+2025-03-01 19:25:47 - Opening XML Parsing Tool
+2025-03-01 19:26:21 - Closing OCR Tool UI
+2025-03-01 19:30:01 - Initializing OCR Tool UI
+2025-03-01 19:30:01 - Icon file not found using class loader: logo3.png
+2025-03-01 19:30:01 - Creating menu bar
+2025-03-01 19:30:01 - Image file not found using class loader: conti4.png
+2025-03-01 19:31:58 - Initializing OCR Tool UI
+2025-03-01 19:31:58 - Icon file not found using class loader: logo3.png
+2025-03-01 19:31:58 - Creating menu bar
+2025-03-01 19:31:58 - Image file not found using class loader: conti4.png
+2025-03-01 19:32:07 - Clicked tool button: Create image excel
+2025-03-01 19:32:07 - Image Excel Tool
+2025-03-01 19:32:07 - Opening Image Excel Tool
+2025-03-01 19:32:08 - Clicked tool button: Create image excel
+2025-03-01 19:32:08 - Image Excel Tool
+2025-03-01 19:32:08 - Opening Image Excel Tool
+2025-03-01 19:33:09 - Initializing OCR Tool UI
+2025-03-01 19:33:09 - Icon file not found using class loader: logo3.png
+2025-03-01 19:33:09 - Creating menu bar
+2025-03-01 19:33:09 - Image file not found using class loader: conti4.png
+2025-03-01 19:33:11 - Clicked tool button: Create image excel
+2025-03-01 19:33:11 - Image Excel Tool
+2025-03-01 19:33:11 - Opening Image Excel Tool
+2025-03-01 19:34:42 - Closing OCR Tool UI
+2025-03-01 19:35:23 - Initializing OCR Tool UI
+2025-03-01 19:35:23 - Icon file not found using class loader: logo3.png
+2025-03-01 19:35:23 - Creating menu bar
+2025-03-01 19:35:23 - Image file not found using class loader: conti4.png
+2025-03-01 19:35:55 - Clicked tool button: Parse XML file
+2025-03-01 19:35:55 - Parse XML Tool
+2025-03-01 19:35:55 - Opening XML Parsing Tool
+2025-03-01 19:35:59 - Clicked tool button: Create image excel
+2025-03-01 19:35:59 - Image Excel Tool
+2025-03-01 19:35:59 - Opening Image Excel Tool
+2025-03-01 19:37:08 - Clicked tool button: Create image excel
+2025-03-01 19:37:08 - Image Excel Tool
+2025-03-01 19:37:08 - Opening Image Excel Tool
+2025-03-01 19:37:39 - Clicked tool button: Create image excel
+2025-03-01 19:37:39 - Image Excel Tool
+2025-03-01 19:37:39 - Opening Image Excel Tool
+2025-03-01 19:45:01 - Initializing OCR Tool UI
+2025-03-01 19:45:01 - Icon file not found using class loader: logo3.png
+2025-03-01 19:45:01 - Creating menu bar
+2025-03-01 19:45:01 - Image file not found using class loader: conti4.png
+2025-03-01 19:45:06 - Clicked tool button: Create warning excel
+2025-03-01 19:45:06 - Warning Excel Tool
+2025-03-01 19:45:06 - Opening Warning Excel Tool
+2025-03-01 19:45:23 - Clicked tool button: Create warning excel
+2025-03-01 19:45:23 - Warning Excel Tool
+2025-03-01 19:45:23 - Opening Warning Excel Tool
+2025-03-01 19:46:16 - Closing OCR Tool UI
