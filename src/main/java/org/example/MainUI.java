@@ -98,10 +98,10 @@ public class MainUI extends JFrame {
                     ParseXMLFile.convertXMLToExcel();
                     break;
                 case "Create warning excel":
-                    ImgExcelTool.filterExcelFile();
+                    TextExcelTool.filterExcelFile();
                     break;
                 case "Create image excel":
-                    TextExcelTool.filterExcelFile();
+                    ImgExcelTool.filterExcelFile();
                     break;
                 case "Manual Testing":
                     ImageExplorerApp.main(new String[]{});
