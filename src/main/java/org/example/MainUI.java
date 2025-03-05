@@ -16,38 +16,29 @@ import static org.example.Logger.logException;
 
 public class MainUI extends JFrame {
     private static MainUI mainUIInstance;
-
     private static final String LOG_FILE = "OCR-log.txt";
+    private JLabel greetingLabel;
 
-    private static void log(String message) {
-        System.out.println(message);
-        writeToFile(getCurrentTimestamp() + " - " + message);
-    }
-
-    private static void writeToFile(String message) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true))) {
-            writer.println(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static String getCurrentTimestamp() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(new Date());
-    }
-
-    public MainUI() {
+    public MainUI(String username) {
         log("Initializing OCR Tool UI");
 
         setTitle("OCR - TOOL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(650, 800);
-
+        setSize(700, 900); // Adjusted window size
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
+        setResizable(false);
 
+        // Header panel with greeting
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        greetingLabel = new JLabel("Hi, " + username, SwingConstants.CENTER);
+        greetingLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        greetingLabel.setForeground(new Color(50, 50, 50));
+        headerPanel.add(greetingLabel);
+
+        // Button Panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(0, 2, 20, 20));
+        buttonPanel.setLayout(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns, better spacing
 
         buttonPanel.add(createToolButton("Parse XML file", "Parse the TextWarnings.xml file"));
         buttonPanel.add(createToolButton("Create warning excel", "Create the Excel file for warnings"));
@@ -56,14 +47,16 @@ public class MainUI extends JFrame {
         buttonPanel.add(createToolButton("Manual Icon Testing", "Test icons manually"));
         buttonPanel.add(createToolButton("Name Changing Tool", "Tool for changing names"));
 
+        // Padding panel
         JPanel paddedPanel = new JPanel(new BorderLayout());
         paddedPanel.add(buttonPanel, BorderLayout.CENTER);
         paddedPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        getContentPane().add(paddedPanel, BorderLayout.CENTER);
 
-        setLocationRelativeTo(null);
-        setResizable(false);
+
+        // Add components to the frame
+        getContentPane().add(headerPanel, BorderLayout.NORTH);
+        getContentPane().add(paddedPanel, BorderLayout.CENTER);
 
         mainUIInstance = this;
 
@@ -125,6 +118,24 @@ public class MainUI extends JFrame {
         return button;
     }
 
+    public static void log(String message) {
+        System.out.println(message);
+        writeToFile(getCurrentTimestamp() + " - " + message);
+    }
+
+    private static void writeToFile(String message) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true))) {
+            writer.println(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String getCurrentTimestamp() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date());
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -132,7 +143,7 @@ public class MainUI extends JFrame {
             } catch (Exception e) {
                 logException("Substance Graphite failed to initialize", e);
             }
-            new MainUI().setVisible(true);
+            new LoginPage().setVisible(true); // Start with login first
         });
     }
 }

@@ -1,11 +1,11 @@
-/*package org.example;
+package org.example;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class LoginPage extends JFrame {
     private JTextField usernameField;
@@ -15,67 +15,90 @@ public class LoginPage extends JFrame {
 
     public LoginPage() {
         setTitle("Login Page");
-        setSize(350, 250);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(4, 1));
+        setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
-        JPanel userPanel = new JPanel();
-        userPanel.setLayout(new FlowLayout());
-        userPanel.add(new JLabel("Username:"));
+        // Main panel
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+
+        JLabel titleLabel = new JLabel("User Login", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setForeground(new Color(50, 50, 50));
+
         usernameField = new JTextField(15);
-        userPanel.add(usernameField);
-
-        JPanel passPanel = new JPanel();
-        passPanel.setLayout(new FlowLayout());
-        passPanel.add(new JLabel("Password:"));
         passwordField = new JPasswordField(15);
-        passPanel.add(passwordField);
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
 
         loginButton = new JButton("Login");
         registerButton = new JButton("Register");
-
-        loginButton.addActionListener(this::handleLogin);
-        registerButton.addActionListener(e -> new RegisterPage().setVisible(true)); // Open register page
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 14));
 
         statusLabel = new JLabel("", SwingConstants.CENTER);
         statusLabel.setForeground(Color.RED);
 
-        add(userPanel);
-        add(passPanel);
-        add(loginButton);
-        add(registerButton);
-        add(statusLabel);
+        // Add components to panel
+        gbc.gridy = 0;
+        mainPanel.add(titleLabel, gbc);
 
-        setLocationRelativeTo(null);
+        gbc.gridy = 1;
+        mainPanel.add(new JLabel("Username:"), gbc);
+        gbc.gridy = 2;
+        mainPanel.add(usernameField, gbc);
+
+        gbc.gridy = 3;
+        mainPanel.add(new JLabel("Password:"), gbc);
+        gbc.gridy = 4;
+        mainPanel.add(passwordField, gbc);
+
+        gbc.gridy = 5;
+        mainPanel.add(loginButton, gbc);
+
+        gbc.gridy = 6;
+        mainPanel.add(registerButton, gbc);
+
+        gbc.gridy = 7;
+        mainPanel.add(statusLabel, gbc);
+
+        add(mainPanel, BorderLayout.CENTER);
+
+        loginButton.addActionListener(this::handleLogin);
+        registerButton.addActionListener(e -> {
+            dispose(); // Close Login Page
+            new RegisterPage().setVisible(true); // Open Register Page
+        });
     }
 
     private void handleLogin(ActionEvent e) {
         String username = usernameField.getText();
-        String password = hashPassword(new String(passwordField.getPassword()));
+        String password = new String(passwordField.getPassword());
 
         if (authenticate(username, password)) {
             statusLabel.setForeground(Color.GREEN);
             statusLabel.setText("Login successful!");
-            dispose(); // Close login window
-            SwingUtilities.invokeLater(() -> new MainUI().setVisible(true)); // Open main UI
+            dispose();
+            SwingUtilities.invokeLater(() -> new MainUI(username).setVisible(true));
         } else {
             statusLabel.setForeground(Color.RED);
-            statusLabel.setText("Invalid credentials. Try again.");
+            statusLabel.setText("Invalid credentials.");
         }
     }
 
-    private boolean authenticate(String username, String hashedPassword) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Load MySQL JDBC Driver
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/login_system?useSSL=false&allowPublicKeyRetrieval=true", "root", "yourpassword");
-
-
-            String query = "SELECT * FROM users WHERE username=? AND password=?";
+    private boolean authenticate(String username, String password) {
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT * FROM users WHERE username=? AND password=SHA2(?, 256)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
-            return rs.next(); // If a row is returned, credentials are valid
+            return rs.next();
         } catch (Exception ex) {
             ex.printStackTrace();
             statusLabel.setText("Database connection error.");
@@ -83,24 +106,7 @@ public class LoginPage extends JFrame {
         }
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hashedBytes) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException("Error hashing password", ex);
-        }
-    }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LoginPage().setVisible(true));
     }
 }
-
-
- */
