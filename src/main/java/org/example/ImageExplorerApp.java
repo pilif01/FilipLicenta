@@ -41,9 +41,6 @@ class ImageLabel extends JLabel {
     }
 }
 
-
-
-
 public class ImageExplorerApp {
 
     private static JFrame frame;
@@ -54,17 +51,12 @@ public class ImageExplorerApp {
     private static JTextArea errorTextArea;
     private static JButton saveButton;
     private static JButton nextButton;
-
     private static JButton customizeColumnsButton;
-
     private static String baseImagePath = "";
     private static String baseExcelPath = "";
     private static JLabel label5;
     private static JLabel label6;
-
     private static JLabel label7;
-
-
     private static JButton selectExcelButton;
     private static JButton selectImageButton;
     private static JButton selectBasePathButton;

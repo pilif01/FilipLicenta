@@ -24,7 +24,7 @@ public class MainUI extends JFrame {
 
         setTitle("OCR - TOOL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 900); // Adjusted window size
+        setSize(1000, 1000); // Adjusted window size
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setResizable(false);
@@ -36,7 +36,7 @@ public class MainUI extends JFrame {
         greetingLabel.setForeground(new Color(50, 50, 50));
         headerPanel.add(greetingLabel);
 
-        // Button Panel
+        // Button Panel for smaller buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns, better spacing
 
@@ -47,16 +47,24 @@ public class MainUI extends JFrame {
         buttonPanel.add(createToolButton("Manual Icon Testing", "Test icons manually"));
         buttonPanel.add(createToolButton("Name Changing Tool", "Tool for changing names"));
 
+        // Right-hand side Panel for larger buttons
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS)); // Stack vertically
+        rightPanel.setPreferredSize(new Dimension(500, 500)); // Set width for the right panel
+        rightPanel.add(Box.createVerticalStrut(300)); // Add some space between the buttons
+        rightPanel.add(createLargeToolButton("Full auto icon testing", "..."));
+        rightPanel.add(Box.createVerticalStrut(100)); // Add some space between the buttons
+        rightPanel.add(createLargeToolButton("Full auto warning testing", "..."));
+
         // Padding panel
         JPanel paddedPanel = new JPanel(new BorderLayout());
         paddedPanel.add(buttonPanel, BorderLayout.CENTER);
         paddedPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-
-
         // Add components to the frame
         getContentPane().add(headerPanel, BorderLayout.NORTH);
         getContentPane().add(paddedPanel, BorderLayout.CENTER);
+        getContentPane().add(rightPanel, BorderLayout.EAST); // Add the right panel
 
         mainUIInstance = this;
 
@@ -104,13 +112,50 @@ public class MainUI extends JFrame {
                     ImgExcelTool.filterExcelFile();
                     break;
                 case "Manual Testing":
-                    ImageExplorerApp.main(new String[]{});
+                    ImageExplorerApp.main(new String[] {});
                     break;
                 case "Manual Icon Testing":
-                    ManualIconTestTool.main(new String[]{});
+                    ManualIconTestTool.main(new String[] {});
                     break;
                 case "Name Changing Tool":
-                    NameChangingTool.main(new String[]{});
+                    NameChangingTool.main(new String[] {});
+                    break;
+            }
+        });
+
+        return button;
+    }
+
+    private JButton createLargeToolButton(String text, String description) {
+        JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
+        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Larger font for bigger buttons
+        button.setPreferredSize(new Dimension(250, 200)); // Larger size for these buttons
+
+        Color brighterOrangeYellow = new Color(255, 200, 0);
+        button.setBackground(brighterOrangeYellow);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(100, 149, 237));
+                button.setForeground(Color.BLACK);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(brighterOrangeYellow);
+                button.setForeground(Color.WHITE);
+            }
+        });
+
+        button.addActionListener(e -> {
+            log("Clicked tool button: " + text);
+            switch (text) {
+                case "Full auto icon testing":
+                    AutomatedIconTesting.main(new String[] {});
+                    break;
+                case "Full auto warning testing":
+                    //AutomatedWarningTesting.main(new String[] {});
                     break;
             }
         });
