@@ -32,7 +32,7 @@ public class AboutWindow {
         contentPanel.add(titleLabel, BorderLayout.NORTH);
 
         // Description Label
-        JLabel aboutLabel = new JLabel("Thesis Project by Bulc Filip");
+        JLabel aboutLabel = new JLabel("Made with <3 by Bulc Filip");
         aboutLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPanel.add(aboutLabel, BorderLayout.CENTER);
 

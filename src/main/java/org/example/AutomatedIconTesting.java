@@ -29,14 +29,14 @@ public class AutomatedIconTesting {
     private static JLabel warningLabel;
     private static JLabel refIconLabel;
 
-    // Initialize Excel file reader
+    // initialise excel reading
     public static void initializeExcel(String excelFilePath) throws IOException {
         FileInputStream fis = new FileInputStream(new File(excelFilePath));
         workbook = new XSSFWorkbook(fis);
         sheet = workbook.getSheetAt(0);
     }
 
-    // Get warning details (name and icon) from a specific row
+    // get warning details
     public static String[] getWarningDetails(int rowIndex) {
         Row row = sheet.getRow(rowIndex);
         String warningName = row.getCell(1).getStringCellValue();
@@ -44,7 +44,7 @@ public class AutomatedIconTesting {
         return new String[]{warningName, iconName};
     }
 
-    // Set the result in the result column
+    // save the result
     public static void setTestResult(int rowIndex, String result) throws IOException {
         Row row = sheet.getRow(rowIndex);
         row.createCell(3).setCellValue(result);
@@ -53,13 +53,13 @@ public class AutomatedIconTesting {
         fos.close();
     }
 
-    // Compare the icon from the warning image with the reference icon
+    // compare images
     public static boolean compareIcons(String warningImagePath, String referenceIconPath) throws IOException {
         BufferedImage warningImage = ImageIO.read(new File(warningImagePath));
         BufferedImage referenceIcon = ImageIO.read(new File(referenceIconPath));
 
-        // Assuming the icon's position is fixed
-        BufferedImage croppedIcon = warningImage.getSubimage(500, 100, 100, 100); // Adjust these coordinates
+        // possition of the icon
+        BufferedImage croppedIcon = warningImage.getSubimage(500, 100, 100, 100); // coordinates of the icon
 
         return comparePixelByPixel(croppedIcon, referenceIcon);
     }
@@ -79,30 +79,29 @@ public class AutomatedIconTesting {
         return true;
     }
 
-    // Create the UI with progress bar and label
+    // ui and progress bar
     public static void createUI() {
         JFrame frame = new JFrame("Icon Testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
         frame.setLayout(new FlowLayout());
 
-        // Create buttons for selecting Excel, warning images folder, and reference icons folder
+        // buttons
         JButton selectExcelButton = new JButton("Select Excel File");
         JButton selectWarningButton = new JButton("Select Warning Image Folder");
         JButton selectRefButton = new JButton("Select Ref Icon Folder");
 
-        // Labels to display the selected paths
+        // lables
         excelLabel = new JLabel("No file selected");
         warningLabel = new JLabel("No folder selected");
         refIconLabel = new JLabel("No folder selected");
 
-        // Start testing button, initially disabled
+        // start testing button that only works when files are selected
         JButton startTestButton = new JButton("Start Testing");
         startTestButton.setEnabled(false);
         startTestButton.add(Box.createVerticalStrut(100));
         startTestButton.setPreferredSize(new Dimension(250, 120));
 
-        // Add action listeners to buttons
         selectExcelButton.addActionListener(e -> {
             excelFilePath = chooseFile("Select Excel File", "xlsx");
             if (excelFilePath != null) {
@@ -136,7 +135,7 @@ public class AutomatedIconTesting {
             }
         });
 
-        // Add components to the frame
+        // add components
         frame.add(selectExcelButton);
         frame.add(excelLabel);
         frame.add(selectWarningButton);
@@ -148,14 +147,14 @@ public class AutomatedIconTesting {
         frame.setVisible(true);
     }
 
-    // Enable the Start Testing button when all selections are made
+    // enable the start testing button when all selections are made
     private static void enableStartTestingButton(JButton startTestButton) {
         if (!excelFilePath.isEmpty() && !warningFolder.isEmpty() && !refFolder.isEmpty()) {
             startTestButton.setEnabled(true);
         }
     }
 
-    // Create the progress UI
+    // create the progress ui
     private static void createProgressUI() throws IOException {
         JFrame progressFrame = new JFrame("Testing Progress");
         progressFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,13 +170,13 @@ public class AutomatedIconTesting {
 
         progressFrame.setVisible(true);
 
-        // Initialize Excel and start testing
+        // initialize excel and start testing
         initializeExcel(excelFilePath);
         totalTests = sheet.getPhysicalNumberOfRows();
         testIcons();
     }
 
-    // Test icons based on the data in the Excel file
+    // test icons based on the data in the excel file
     private static void testIcons() {
         new Thread(() -> {
             try {
@@ -206,7 +205,6 @@ public class AutomatedIconTesting {
         }).start();
     }
 
-    // Prompt user for file selection
     public static String chooseFile(String dialogTitle, String fileExtension) {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle(dialogTitle);
@@ -218,7 +216,6 @@ public class AutomatedIconTesting {
         return null;
     }
 
-    // Prompt user for folder selection
     public static String chooseDirectory(String dialogTitle) {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle(dialogTitle);
@@ -231,7 +228,6 @@ public class AutomatedIconTesting {
     }
 
     public static void main(String[] args) {
-        // Create and display the initial UI
         createUI();
     }
 }

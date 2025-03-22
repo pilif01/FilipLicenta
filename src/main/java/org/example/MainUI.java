@@ -29,14 +29,14 @@ public class MainUI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // Header panel with greeting
+        // greeting message
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         greetingLabel = new JLabel("Hi, " + username, SwingConstants.CENTER);
         greetingLabel.setFont(new Font("Arial", Font.BOLD, 22));
         greetingLabel.setForeground(new Color(50, 50, 50));
         headerPanel.add(greetingLabel);
 
-        // Button Panel for smaller buttons
+        // first panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns, better spacing
 
@@ -56,15 +56,15 @@ public class MainUI extends JFrame {
         rightPanel.add(Box.createVerticalStrut(100)); // Add some space between the buttons
         rightPanel.add(createLargeToolButton("Full auto warning testing", "..."));
 
-        // Padding panel
+
         JPanel paddedPanel = new JPanel(new BorderLayout());
         paddedPanel.add(buttonPanel, BorderLayout.CENTER);
         paddedPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Add components to the frame
+        // put the components in the frame
         getContentPane().add(headerPanel, BorderLayout.NORTH);
         getContentPane().add(paddedPanel, BorderLayout.CENTER);
-        getContentPane().add(rightPanel, BorderLayout.EAST); // Add the right panel
+        getContentPane().add(rightPanel, BorderLayout.EAST);
 
         mainUIInstance = this;
 
