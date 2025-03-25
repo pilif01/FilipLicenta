@@ -170,7 +170,7 @@ public class MainUI extends JFrame {
                     AutomatedIconTesting.main(new String[]{});
                     break;
                 case "Full auto warning testing":
-                    //AutomatedWarningTesting.main(new String[]{});
+                    AutomatedWarningTesting.main(new String[]{});
                     break;
             }
         });

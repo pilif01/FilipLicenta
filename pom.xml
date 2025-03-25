@@ -9,70 +9,105 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!-- FlatLaf for modern UI look -->
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
             <version>1.6.4</version>
         </dependency>
 
+        <!-- Material UI Swing -->
         <dependency>
             <groupId>io.github.vincenzopalazzo</groupId>
             <artifactId>material-ui-swing</artifactId>
             <version>1.1.2</version>
         </dependency>
+
+        <!-- Radiance Substance -->
         <dependency>
             <groupId>org.pushing-pixels</groupId>
             <artifactId>radiance-substance</artifactId>
             <version>1.0.2</version>
         </dependency>
+
+        <!-- FastExcel for working with Excel files -->
         <dependency>
             <groupId>org.dhatim</groupId>
             <artifactId>fastexcel</artifactId>
             <version>0.12.13</version>
         </dependency>
+
+        <!-- Apache POI for Excel file processing -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
         </dependency>
+
+        <!-- Logging dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.5</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
         </dependency>
+
+        <!-- Xalan for XSLT processing -->
         <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
             <version>2.7.2</version>
         </dependency>
+
+        <!-- Bouncy Castle for security operations -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.68</version>
         </dependency>
 
+        <!-- MySQL Database Connectivity -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
 
+        <!-- Tess4J for OCR -->
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>5.10.0</version>
+        </dependency>
+
+
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 </project>
