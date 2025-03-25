@@ -24,7 +24,7 @@ public class MainUI extends JFrame {
 
         setTitle("OCR - TOOL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 1000); // Adjusted window size
+        setSize(1000, 700); // Adjusted window size
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setResizable(false);
@@ -32,39 +32,54 @@ public class MainUI extends JFrame {
         // greeting message
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         greetingLabel = new JLabel("Hi, " + username, SwingConstants.CENTER);
-        greetingLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        greetingLabel.setFont(new Font("Arial", Font.BOLD, 28));
         greetingLabel.setForeground(new Color(50, 50, 50));
         headerPanel.add(greetingLabel);
 
-        // first panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(3, 2, 20, 20)); // 3 rows, 2 columns, better spacing
+        // Main panel with GridBagLayout
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.fill = GridBagConstraints.BOTH;
 
-        buttonPanel.add(createToolButton("Parse XML file", "Parse the TextWarnings.xml file"));
-        buttonPanel.add(createToolButton("Create warning excel", "Create the Excel file for warnings"));
-        buttonPanel.add(createToolButton("Create image excel", "Generate the image Excel file"));
-        buttonPanel.add(createToolButton("Manual Testing", "Check failed comparisons manually"));
-        buttonPanel.add(createToolButton("Manual Icon Testing", "Test icons manually"));
-        buttonPanel.add(createToolButton("Name Changing Tool", "Tool for changing names"));
+        // Define buttons and their descriptions
+        String[][] buttonData = {
+                {"Parse XML file", "Parse the TextWarnings.xml file"},
+                {"Create warning excel", "Create the Excel file for warnings"},
+                {"Create image excel", "Generate the image Excel file"},
+                {"Manual Testing", "Check failed comparisons manually"},
+                {"Manual Icon Testing", "Test icons manually"},
+                {"Name Changing Tool", "Tool for changing names"}
+        };
 
-        // Right-hand side Panel for larger buttons
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS)); // Stack vertically
-        rightPanel.setPreferredSize(new Dimension(500, 500)); // Set width for the right panel
-        rightPanel.add(Box.createVerticalStrut(300)); // Add some space between the buttons
-        rightPanel.add(createLargeToolButton("Full auto icon testing", "..."));
-        rightPanel.add(Box.createVerticalStrut(100)); // Add some space between the buttons
-        rightPanel.add(createLargeToolButton("Full auto warning testing", "..."));
+        int row = 0;
+        for (String[] data : buttonData) {
+            gbc.gridx = row % 2;
+            gbc.gridy = row / 2;
+            gbc.gridwidth = 1;
+            gbc.weightx = 0.5;
+            mainPanel.add(createToolButton(data[0], data[1]), gbc);
+            row++;
+        }
 
+        // Right panel for large buttons
+        JPanel rightPanel = new JPanel(new GridBagLayout());
+        rightPanel.setPreferredSize(new Dimension(300, 0));
 
-        JPanel paddedPanel = new JPanel(new BorderLayout());
-        paddedPanel.add(buttonPanel, BorderLayout.CENTER);
-        paddedPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        rightPanel.add(createLargeToolButton("Full auto icon testing", "..."), gbc);
 
-        // put the components in the frame
-        getContentPane().add(headerPanel, BorderLayout.NORTH);
-        getContentPane().add(paddedPanel, BorderLayout.CENTER);
-        getContentPane().add(rightPanel, BorderLayout.EAST);
+        gbc.gridy = 1;
+        rightPanel.add(createLargeToolButton("Full auto warning testing", "..."), gbc);
+
+        // Add panels to frame
+        add(headerPanel, BorderLayout.NORTH);
+        add(mainPanel, BorderLayout.CENTER);
+        add(rightPanel, BorderLayout.EAST);
 
         mainUIInstance = this;
 
@@ -80,7 +95,7 @@ public class MainUI extends JFrame {
     private JButton createToolButton(String text, String description) {
         JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
         button.setFont(new Font("Arial", Font.PLAIN, 16));
-        button.setPreferredSize(new Dimension(250, 80));
+        button.setPreferredSize(new Dimension(250, 100));
 
         Color brighterOrangeYellow = new Color(255, 200, 0);
         button.setBackground(brighterOrangeYellow);
@@ -112,13 +127,13 @@ public class MainUI extends JFrame {
                     ImgExcelTool.filterExcelFile();
                     break;
                 case "Manual Testing":
-                    ImageExplorerApp.main(new String[] {});
+                    ImageExplorerApp.main(new String[]{});
                     break;
                 case "Manual Icon Testing":
-                    ManualIconTestTool.main(new String[] {});
+                    ManualIconTestTool.main(new String[]{});
                     break;
                 case "Name Changing Tool":
-                    NameChangingTool.main(new String[] {});
+                    NameChangingTool.main(new String[]{});
                     break;
             }
         });
@@ -128,8 +143,8 @@ public class MainUI extends JFrame {
 
     private JButton createLargeToolButton(String text, String description) {
         JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
-        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Larger font for bigger buttons
-        button.setPreferredSize(new Dimension(250, 200)); // Larger size for these buttons
+        button.setFont(new Font("Arial", Font.PLAIN, 20));
+        button.setPreferredSize(new Dimension(250, 150));
 
         Color brighterOrangeYellow = new Color(255, 200, 0);
         button.setBackground(brighterOrangeYellow);
@@ -152,10 +167,10 @@ public class MainUI extends JFrame {
             log("Clicked tool button: " + text);
             switch (text) {
                 case "Full auto icon testing":
-                    AutomatedIconTesting.main(new String[] {});
+                    AutomatedIconTesting.main(new String[]{});
                     break;
                 case "Full auto warning testing":
-                    //AutomatedWarningTesting.main(new String[] {});
+                    //AutomatedWarningTesting.main(new String[]{});
                     break;
             }
         });
@@ -188,7 +203,8 @@ public class MainUI extends JFrame {
             } catch (Exception e) {
                 logException("Substance Graphite failed to initialize", e);
             }
-            new LoginPage().setVisible(true); // Start with login first
+            new LoginPage().setVisible(true);  // Show the LoginPage first
         });
     }
+
 }

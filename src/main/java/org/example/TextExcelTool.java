@@ -12,25 +12,138 @@ public class TextExcelTool {
     public static void filterExcelFile() {
         SwingUtilities.invokeLater(() -> {
             try {
-                // Select the original Excel file
+                // file chooser for original excel file
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Select the Original Excel File");
 
                 int result = fileChooser.showOpenDialog(null);
-                if (result != JFileChooser.APPROVE_OPTION) return; // User cancelled
+                if (result != JFileChooser.APPROVE_OPTION) return;
                 File inputFile = fileChooser.getSelectedFile();
 
-                // Select save location for the filtered Excel file
+                // file chooser for saving filtered excel file
                 fileChooser.setDialogTitle("Save Filtered Excel File with Languages");
                 fileChooser.setSelectedFile(new File("Filtered_Warnings_Languages.xlsx"));
                 result = fileChooser.showSaveDialog(null);
-                if (result != JFileChooser.APPROVE_OPTION) return; // User cancelled
+                if (result != JFileChooser.APPROVE_OPTION) return;
                 File outputFile = fileChooser.getSelectedFile();
 
-                // Process Excel file and create the correctly formatted output
-                processExcel(inputFile, outputFile);
+                // progress dialog setup
+                JDialog progressDialog = new JDialog();
+                progressDialog.setTitle("Processing...");
+                progressDialog.setSize(300, 100);
+                progressDialog.setLocationRelativeTo(null);
+                progressDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
-                JOptionPane.showMessageDialog(null, "Filtered Excel file created successfully at: " + outputFile.getAbsolutePath());
+                JProgressBar progressBar = new JProgressBar(0, 100);
+                progressBar.setStringPainted(true);
+                progressDialog.add(progressBar);
+                progressDialog.setVisible(true);
+
+                // SwingWorker to handle processing
+                SwingWorker<Void, Integer> worker = new SwingWorker<>() {
+
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        FileInputStream fis = new FileInputStream(inputFile);
+                        Workbook workbook = new XSSFWorkbook(fis);
+                        Sheet sheet = workbook.getSheetAt(0);
+
+                        Workbook newWorkbook = new XSSFWorkbook();
+                        Sheet langsSheet = newWorkbook.createSheet("LANGS");
+
+                        Row headerRow = sheet.getRow(0);
+                        int totalRows = sheet.getLastRowNum();
+
+                        CellStyle wrapStyle = newWorkbook.createCellStyle();
+                        wrapStyle.setWrapText(true);
+
+                        int languageStartIndex = 3;  // First 3 columns are TControl, HilID, Icon
+
+                        Row langsHeaderRow = langsSheet.createRow(0);
+                        langsHeaderRow.createCell(0).setCellValue("RUN/SKIP");
+                        langsHeaderRow.createCell(1).setCellValue("Language Code");
+
+                        List<String> languageCodes = new ArrayList<>();
+                        Map<String, String> languageMap = new HashMap<>();
+
+                        for (int i = languageStartIndex; i < headerRow.getLastCellNum(); i++) {
+                            String originalLangCode = headerRow.getCell(i).getStringCellValue();
+                            String shortenedCode = getShortLanguageCode(originalLangCode);
+
+                            languageCodes.add(shortenedCode);
+                            languageMap.put(shortenedCode, originalLangCode);
+
+                            Row langRow = langsSheet.createRow(i - languageStartIndex + 1);
+                            langRow.createCell(0).setCellValue("RUN");
+                            langRow.createCell(1).setCellValue(shortenedCode);
+                        }
+
+                        Map<String, Sheet> languageSheets = new HashMap<>();
+
+                        for (String langCode : languageCodes) {
+                            Sheet langSheet = newWorkbook.createSheet(langCode);
+                            Row header = langSheet.createRow(0);
+                            header.createCell(0).setCellValue("TControl");
+                            header.createCell(1).setCellValue("HilID");
+                            header.createCell(2).setCellValue("Warning Text");
+                            languageSheets.put(langCode, langSheet);
+                        }
+
+                        for (int i = 1; i <= totalRows; i++) {
+                            Row row = sheet.getRow(i);
+                            if (row == null) continue;
+
+                            String tControl = row.getCell(0).getStringCellValue().trim();
+                            if (!"RUN".equalsIgnoreCase(tControl)) continue;
+
+                            String hilID = row.getCell(1).getStringCellValue().trim();
+
+                            for (int j = languageStartIndex; j < row.getLastCellNum(); j++) {
+                                String originalLangCode = headerRow.getCell(j).getStringCellValue();
+                                String shortenedCode = getShortLanguageCode(originalLangCode);
+                                Sheet langSheet = languageSheets.get(shortenedCode);
+
+                                if (langSheet == null) continue;
+
+                                String warningText = row.getCell(j) != null ? row.getCell(j).getStringCellValue().trim() : "";
+
+                                int rowNum = langSheet.getLastRowNum() + 1;
+                                Row langRow = langSheet.createRow(rowNum);
+                                langRow.createCell(0).setCellValue(tControl);
+                                langRow.createCell(1).setCellValue(hilID);
+                                Cell cell = langRow.createCell(2);
+                                cell.setCellValue(warningText);
+                                cell.setCellStyle(wrapStyle);
+                            }
+
+                            int progress = (int) (((double) i / totalRows) * 100);
+                            publish(progress);
+                        }
+
+                        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                            newWorkbook.write(fos);
+                        }
+
+                        workbook.close();
+                        fis.close();
+                        return null;
+                    }
+
+                    @Override
+                    protected void process(List<Integer> chunks) {
+                        for (int value : chunks) {
+                            progressBar.setValue(value);
+                        }
+                    }
+
+                    @Override
+                    protected void done() {
+                        progressDialog.dispose();
+                        JOptionPane.showMessageDialog(null, "Filtered Excel file created successfully at: " + outputFile.getAbsolutePath());
+                    }
+                };
+
+                worker.execute();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -39,121 +152,12 @@ public class TextExcelTool {
         });
     }
 
-    private static void processExcel(File inputFile, File outputFile) throws Exception {
-        FileInputStream fis = new FileInputStream(inputFile);
-        Workbook workbook = new XSSFWorkbook(fis);
-        Sheet sheet = workbook.getSheetAt(0);
-
-        Workbook newWorkbook = new XSSFWorkbook();
-        Sheet langsSheet = newWorkbook.createSheet("LANGS");  // Create LANGS sheet
-
-        // Read header row and find column indexes
-        Row headerRow = sheet.getRow(0);
-        int tControlIndex = -1, hilIdIndex = -1;
-        List<Integer> languageIndexes = new ArrayList<>();
-        List<String> languageCodes = new ArrayList<>();
-        List<String> fullLanguageNames = new ArrayList<>();
-
-        for (int i = 0; i < headerRow.getLastCellNum(); i++) {
-            String header = headerRow.getCell(i).getStringCellValue().trim();
-            if (header.equalsIgnoreCase("TControl")) {
-                tControlIndex = i;
-            } else if (header.equalsIgnoreCase("HilID")) {
-                hilIdIndex = i;
-            } else {
-                // Assume all other columns are language texts
-                languageIndexes.add(i);
-                languageCodes.add(header);  // Short language codes (EN, DE, FR)
-                fullLanguageNames.add(getFullLanguageName(header));  // Get full names
-            }
+    // extract short language code (e.g., 'deu_Latn_DE' -> 'DE')
+    private static String getShortLanguageCode(String code) {
+        if (code.contains("_")) {
+            String[] parts = code.split("_");
+            return parts[parts.length - 1];  // always return the last part, e.g., 'DE'
         }
-
-        if (tControlIndex == -1 || hilIdIndex == -1 || languageIndexes.isEmpty()) {
-            throw new Exception("Required columns not found in the original Excel file.");
-        }
-
-        // ======== CREATE THE "LANGS" SHEET AS A SELECTION MENU ========
-        Row langsHeaderRow = langsSheet.createRow(0);
-        langsHeaderRow.createCell(0).setCellValue("RUN/SKIP");  // Selection column
-        langsHeaderRow.createCell(1).setCellValue("Language Code");
-        langsHeaderRow.createCell(2).setCellValue("Full Language Name");
-
-        for (int i = 0; i < languageCodes.size(); i++) {
-            Row langRow = langsSheet.createRow(i + 1);
-            langRow.createCell(0).setCellValue("RUN");  // Default is RUN, user can change to SKIP
-            langRow.createCell(1).setCellValue(languageCodes.get(i));
-            langRow.createCell(2).setCellValue(fullLanguageNames.get(i));
-        }
-
-        // ======== CREATE SHEETS ONLY FOR LANGUAGES MARKED AS "RUN" ========
-        Map<String, Sheet> languageSheets = new HashMap<>();
-        for (int i = 1; i <= languageCodes.size(); i++) {
-            String status = langsSheet.getRow(i).getCell(0).getStringCellValue().trim();
-            if (status.equalsIgnoreCase("RUN")) {
-                String langCode = langsSheet.getRow(i).getCell(1).getStringCellValue();
-                Sheet langSheet = newWorkbook.createSheet(langCode);
-                Row header = langSheet.createRow(0);
-                header.createCell(0).setCellValue("TControl");
-                header.createCell(1).setCellValue("Warning Name");
-                header.createCell(2).setCellValue("Warning Text");
-                languageSheets.put(langCode, langSheet);
-            }
-        }
-
-        int newRowNum = 1;
-
-        // Process each row and apply filters
-        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-            Row row = sheet.getRow(i);
-            if (row == null) continue;
-
-            String tControl = row.getCell(tControlIndex).getStringCellValue().trim().toUpperCase();
-            if (tControl.equals("SKIP")) continue; // Skip "SKIP" rows
-            if (!tControl.equals("RUN")) continue; // Only keep "RUN" rows
-
-            // Extract HilID (Warning Name)
-            String hilID = row.getCell(hilIdIndex).getStringCellValue().trim();
-
-            // Add row to each language sheet that is marked "RUN"
-            for (int j = 0; j < languageIndexes.size(); j++) {
-                String langCode = languageCodes.get(j);
-                if (languageSheets.containsKey(langCode)) {
-                    Sheet langSheet = languageSheets.get(langCode);
-                    Row langRow = langSheet.createRow(newRowNum);
-                    langRow.createCell(0).setCellValue(tControl);
-                    langRow.createCell(1).setCellValue(hilID);
-                    Cell cell = row.getCell(languageIndexes.get(j));
-                    langRow.createCell(2).setCellValue(cell != null ? cell.getStringCellValue().trim() : "");
-                }
-            }
-            newRowNum++;
-        }
-
-        // Auto-size columns
-        for (Sheet sheetToResize : newWorkbook) {
-            for (int i = 0; i < 3; i++) {
-                sheetToResize.autoSizeColumn(i);
-            }
-        }
-
-        // Save new Excel file
-        FileOutputStream fos = new FileOutputStream(outputFile);
-        newWorkbook.write(fos);
-        fos.close();
-        workbook.close();
-    }
-
-    private static String getFullLanguageName(String code) {
-        Map<String, String> langMap = new HashMap<>();
-        langMap.put("EN", "English");
-        langMap.put("DE", "German");
-        langMap.put("FR", "French");
-        langMap.put("ES", "Spanish");
-        langMap.put("IT", "Italian");
-        langMap.put("NL", "Dutch");
-        langMap.put("RU", "Russian");
-        langMap.put("JA", "Japanese");
-        langMap.put("ZH", "Chinese");
-        return langMap.getOrDefault(code.toUpperCase(), "Unknown Language");
+        return code;
     }
 }
