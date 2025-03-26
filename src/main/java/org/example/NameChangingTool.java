@@ -18,8 +18,8 @@ public class NameChangingTool extends JFrame {
         setSize(800, 600);
         setLayout(new BorderLayout());
 
-        // Create UI Components
-        JPanel centerPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        // Create UI Components with a 4x2 grid for 8 buttons
+        JPanel centerPanel = new JPanel(new GridLayout(4, 2, 10, 10));
 
         JButton addPicButton = new JButton("Add PIC_");
         JButton removePicButton = new JButton("Remove PIC_");
@@ -27,6 +27,8 @@ public class NameChangingTool extends JFrame {
         JButton removeCenterButton = new JButton("Remove CENTER_");
         JButton addSingleButton = new JButton("Add SINGLE_");
         JButton removeSingleButton = new JButton("Remove SINGLE_");
+        JButton add0xButton = new JButton("Add 0x");
+        JButton remove0xButton = new JButton("Remove 0x");
 
         // Increase button size
         Dimension buttonSize = new Dimension(200, 50);
@@ -36,14 +38,18 @@ public class NameChangingTool extends JFrame {
         removeCenterButton.setPreferredSize(buttonSize);
         addSingleButton.setPreferredSize(buttonSize);
         removeSingleButton.setPreferredSize(buttonSize);
+        add0xButton.setPreferredSize(buttonSize);
+        remove0xButton.setPreferredSize(buttonSize);
 
-        // Add buttons to center panel
+        // Add buttons to center panel in order
         centerPanel.add(addPicButton);
         centerPanel.add(removePicButton);
         centerPanel.add(addCenterButton);
         centerPanel.add(removeCenterButton);
         centerPanel.add(addSingleButton);
         centerPanel.add(removeSingleButton);
+        centerPanel.add(add0xButton);
+        centerPanel.add(remove0xButton);
 
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(centerPanel, BorderLayout.CENTER);
@@ -53,13 +59,13 @@ public class NameChangingTool extends JFrame {
         statusLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(statusLabel, BorderLayout.NORTH);
 
-        // Progress bar
+        // Progress bar (initially hidden)
         progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true);
-        progressBar.setVisible(false); // Initially hidden
+        progressBar.setVisible(false);
         add(progressBar, BorderLayout.NORTH);
 
-        // Add bottom panel for Select Folder button
+        // Bottom panel for "Select Folder" button
         JPanel bottomPanel = new JPanel(new FlowLayout());
         JButton selectFolderButton = new JButton("Select Folder");
         bottomPanel.add(selectFolderButton);
@@ -73,6 +79,8 @@ public class NameChangingTool extends JFrame {
         removeCenterButton.addActionListener(e -> handlePrefixAction("CENTER_", false));
         addSingleButton.addActionListener(e -> handlePrefixAction("SINGLE_", true));
         removeSingleButton.addActionListener(e -> handlePrefixAction("SINGLE_", false));
+        add0xButton.addActionListener(e -> handlePrefixAction("0x", true));
+        remove0xButton.addActionListener(e -> handlePrefixAction("0x", false));
 
         setResizable(false);
         setLocationRelativeTo(null);
