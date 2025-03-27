@@ -21,7 +21,7 @@ public class ImageExplorerApp {
     private static JComboBox<String> sheetSelector;
     private static JList<String> warningList;
     private static JLabel mainImageLabel;
-    private static JTextArea warningDetailsArea;
+    private static JLabel referenceLabel, ocrLabel;
     private static JButton selectExcelButton, selectImageFolderButton, configureColumnsButton, okButton, nokButton, customResultButton;
     private static JTextField customResultTextField;
     private static String baseExcelPath = "", baseImagePath = "";
@@ -53,7 +53,16 @@ public class ImageExplorerApp {
 
         warningList = new JList<>();
         mainImageLabel = new JLabel();
-        warningDetailsArea = new JTextArea(5, 20);
+
+        // Reference and OCR text labels with larger font
+        referenceLabel = new JLabel("Expected Text: ");
+        ocrLabel = new JLabel("OCR Text: ");
+
+        // Set the font for the labels (larger size and bold)
+        Font largeFont = new Font("Arial", Font.BOLD, 20); // Bold, larger size
+        referenceLabel.setFont(largeFont);
+        ocrLabel.setFont(largeFont);
+
         selectExcelButton = new JButton("Select Excel File");
         selectImageFolderButton = new JButton("Select Image Folder");
         configureColumnsButton = new JButton("Configure Columns");
@@ -63,15 +72,7 @@ public class ImageExplorerApp {
         customResultButton = new JButton("Save Custom Result");
         customResultTextField = new JTextField(20);
 
-        // Set the font for warning details (Expected Text, OCR Text)
-        Font detailsFont = new Font("Arial", Font.BOLD, 14); // Bold, larger size
-        warningDetailsArea.setFont(detailsFont);
-
-        // Set the font for the warning list
-        Font listFont = new Font("Arial", Font.BOLD, 16); // Bold, larger size
-        warningList.setFont(listFont);
-
-        // Action listener for Excel file selection
+        // Set action listeners for buttons
         selectExcelButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
@@ -83,7 +84,6 @@ public class ImageExplorerApp {
             }
         });
 
-        // Action listener for folder selection
         selectImageFolderButton.addActionListener(e -> {
             JFileChooser folderChooser = new JFileChooser();
             folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -94,10 +94,8 @@ public class ImageExplorerApp {
             }
         });
 
-        // Action listener for column configuration
         configureColumnsButton.addActionListener(e -> openColumnCustomizationWindow());
 
-        // Action listeners for result buttons
         okButton.addActionListener(e -> saveResult("OK"));
         nokButton.addActionListener(e -> saveResult("NOK"));
         customResultButton.addActionListener(e -> saveResult(customResultTextField.getText()));
@@ -113,7 +111,6 @@ public class ImageExplorerApp {
         frame.setVisible(true);
     }
 
-    // Update sheet selector after Excel file is selected
     private void updateSheetSelector(String filePath) {
         try (FileInputStream fis = new FileInputStream(new File(filePath));
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
@@ -122,14 +119,13 @@ public class ImageExplorerApp {
             for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                 sheetSelector.addItem(workbook.getSheetName(i));
             }
-            sheetSelector.setEnabled(true); // Enable sheet selection after Excel is loaded
+            sheetSelector.setEnabled(true);
             sheetSelector.addActionListener(e -> loadDataFromXLSX(filePath, (String) sheetSelector.getSelectedItem()));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // Load warning data from selected sheet in Excel file
     private void loadDataFromXLSX(String filePath, String sheetName) {
         warningRows = new ArrayList<>(); // Initialize warningRows here if it's null
 
@@ -167,23 +163,35 @@ public class ImageExplorerApp {
         }
     }
 
-    private static void updateWarningList() {
-        // Check if warningRows is null or empty
-        if (warningRows == null) {
-            warningRows = new ArrayList<>(); // Initialize the list if null
+    private void updateWarningList() {
+        // Check if warningRows is not null and contains data
+        if (warningRows == null || warningRows.isEmpty()) {
+            System.out.println("Warning rows are empty or not initialized.");
+            return;
         }
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
+
+        // Iterate over the warning rows and add them to the list model
         for (WarningData data : warningRows) {
             String displayText = data.getWarningName() + " - " + data.getResult();
+
+            // Check the result and update the color accordingly
             if ("correct".equalsIgnoreCase(data.getResult())) {
                 displayText = "<html><font color='green'>" + displayText + "</font></html>";
             } else if ("incorrect".equalsIgnoreCase(data.getResult())) {
                 displayText = "<html><font color='red'>" + displayText + "</font></html>";
             }
+
+            // Add the formatted display text to the list model
             listModel.addElement(displayText);
         }
+
+        // Set the list model to the warning list
         warningList.setModel(listModel);
+
+        // Log the update process
+        System.out.println("Updated warning list with " + warningRows.size() + " items.");
 
         // Add a listener to handle clicking on a warning name
         warningList.addListSelectionListener(e -> {
@@ -191,32 +199,39 @@ public class ImageExplorerApp {
                 int selectedIndex = warningList.getSelectedIndex();
                 if (selectedIndex >= 0) {
                     currentRow = selectedIndex;  // Update current row index
-                    displayRowDetails(currentRow);
+                    displayRowDetails(currentRow); // Ensure displayRowDetails is called when a warning is selected
                 }
             }
         });
     }
 
 
-
-    // Display the warning details (image, expected text, OCR text)
-    private static void displayRowDetails(int rowIndex) {
+    private void displayRowDetails(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < warningRows.size()) {
             WarningData data = warningRows.get(rowIndex);
 
-            // Load the corresponding image and display it
+            // Load the corresponding image and display it in original size
             ImageIcon warningImage = new ImageIcon(data.getImagePath());
-            mainImageLabel.setIcon(warningImage);
-            mainImageLabel.setSize(warningImage.getIconWidth(), warningImage.getIconHeight());
 
-            // Display the expected text and OCR text
-            String detailsText = "Expected Text: " + data.getExpectedText() + "\nOCR Result: " + data.getOcrText();
-            warningDetailsArea.setText(detailsText);  // Show the warning details (expected vs OCR text)
+            // Set the icon to the mainImageLabel
+            mainImageLabel.setIcon(warningImage);
+
+            // Resize the label to fit the image size (to avoid compression)
+            mainImageLabel.setPreferredSize(new Dimension(warningImage.getIconWidth(), warningImage.getIconHeight()));
+
+            // Make sure the label's size is adjusted to the image size
+            mainImageLabel.revalidate();
+            mainImageLabel.repaint();
+
+            // Set the reference (Expected) text and OCR text labels
+            referenceLabel.setText("<html><b>Expected Text:</b><br>" + data.getExpectedText() + "</html>");
+            ocrLabel.setText("<html><b>OCR Result:</b><br>" + data.getOcrText() + "</html>");
         }
     }
 
-    // Save the result (OK, NOK, or custom result) to the Excel sheet
-    private static void saveResult(String result) {
+
+
+    private void saveResult(String result) {
         if (currentRow >= 0 && currentRow < warningRows.size()) {
             WarningData data = warningRows.get(currentRow);
             data.setResult(result);
@@ -224,7 +239,7 @@ public class ImageExplorerApp {
             try (FileInputStream fis = new FileInputStream(new File(baseExcelPath));
                  XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
                 XSSFSheet sheet = workbook.getSheet(sheetSelector.getSelectedItem().toString());
-                Row row = sheet.getRow(currentRow + 1); // +1 to skip header row
+                Row row = sheet.getRow(currentRow + 1);
                 row.getCell(getColumnIndex(resultColumn)).setCellValue(result);
 
                 try (FileOutputStream fos = new FileOutputStream(new File(baseExcelPath))) {
@@ -237,8 +252,7 @@ public class ImageExplorerApp {
         }
     }
 
-    // Create the left panel containing the sheet selector, warning list, and buttons
-    private static JPanel createLeftPanel() {
+    private JPanel createLeftPanel() {
         JPanel leftPanel = new JPanel(new BorderLayout());
         leftPanel.add(sheetSelector, BorderLayout.NORTH);
         leftPanel.add(new JScrollPane(warningList), BorderLayout.CENTER);
@@ -252,12 +266,28 @@ public class ImageExplorerApp {
         return leftPanel;
     }
 
-    // Create the right panel containing the image and warning details
-    private static JPanel createRightPanel() {
+    private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(mainImageLabel, BorderLayout.NORTH);
-        rightPanel.add(new JScrollPane(warningDetailsArea), BorderLayout.CENTER);
 
+        // Add the image in a scroll pane to handle large images
+        JScrollPane scrollPane = new JScrollPane(mainImageLabel);
+        scrollPane.setPreferredSize(new Dimension(700, 700)); // Adjust as needed
+        rightPanel.add(scrollPane, BorderLayout.NORTH);
+
+        // Container to hold both the labels for Reference Text and OCR Text
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS)); // Stack the labels vertically
+        textPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the text panel horizontally
+
+        // Add the reference and OCR text labels to the panel
+        textPanel.add(referenceLabel);
+        textPanel.add(Box.createVerticalStrut(10)); // Adds some space between the texts
+        textPanel.add(ocrLabel);
+
+        // Center the text panel vertically inside the rightPanel
+        rightPanel.add(textPanel, BorderLayout.CENTER);
+
+        // Panel with result buttons and custom result input
         JPanel resultPanel = new JPanel(new FlowLayout());
         resultPanel.add(okButton);
         resultPanel.add(nokButton);
@@ -268,16 +298,16 @@ public class ImageExplorerApp {
         return rightPanel;
     }
 
-    // Utility function to get a string value from a cell
-    private static String getStringValueFromCell(Cell cell) {
+
+
+    private String getStringValueFromCell(Cell cell) {
         if (cell == null) return "";
         if (cell.getCellType() == CellType.STRING) return cell.getStringCellValue();
         if (cell.getCellType() == CellType.NUMERIC) return String.valueOf(cell.getNumericCellValue());
         return "";
     }
 
-    // Utility function to get the column index for a given column name
-    private static int getColumnIndex(String columnName) {
+    private int getColumnIndex(String columnName) {
         switch (columnName) {
             case "Warning Name":
                 return 0;
@@ -292,8 +322,7 @@ public class ImageExplorerApp {
         }
     }
 
-    // Open a window to configure the columns (for customization)
-    private static void openColumnCustomizationWindow() {
+    private void openColumnCustomizationWindow() {
         String[] columnNames = {"Warning Name", "Expected Text", "OCR Text", "Result"};
         JPanel panel = new JPanel(new GridLayout(columnNames.length, 2));
         for (String column : columnNames) {
