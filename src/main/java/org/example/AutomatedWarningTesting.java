@@ -16,6 +16,12 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.awt.image.Kernel;
+import java.awt.image.RescaleOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.BufferedImageOp;
+import java.awt.color.ColorSpace;
+
 public class AutomatedWarningTesting extends JDialog {
 
     private JTextField excelPathField, picturesFolderField, croppedImagesFolderField, resultsExcelField, cropAreaField;
@@ -232,6 +238,73 @@ public class AutomatedWarningTesting extends JDialog {
      *    - If the selector marks the language as SKIP or is missing, mark all rows as "SKIPPED".
      * 3. At the end of each sheet, append a summary count of CORRECT, INCORRECT, and SKIPPED.
      */
+
+    private BufferedImage enhanceImage(BufferedImage original) {
+        // Convert the image to grayscale
+        BufferedImage grayscaleImage = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        Graphics2D g = grayscaleImage.createGraphics();
+        g.drawImage(original, 0, 0, null);
+        g.dispose();
+
+        // Adjust brightness and contrast using RescaleOp
+        RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null); // Increase contrast and brightness
+        grayscaleImage = rescaleOp.filter(grayscaleImage, null);
+
+        // Sharpen the image using a convolution kernel
+        float[] sharpenMatrix = {
+                0f, -1f, 0f,
+                -1f, 5f, -1f,
+                0f, -1f, 0f
+        };
+        Kernel kernel = new Kernel(3, 3, sharpenMatrix);
+        BufferedImageOp sharpen = new ConvolveOp(kernel);
+        grayscaleImage = sharpen.filter(grayscaleImage, null);
+
+        return grayscaleImage;
+    }
+
+    // Language code map (mapping the language code to Tesseract language codes)
+    private static final Map<String, String> languageMap = new HashMap<>();
+    static {
+        languageMap.put("de", "deu");    // German
+        languageMap.put("gb", "eng");    // English (GB)
+        languageMap.put("us", "eng");    // English (US)
+        languageMap.put("sa", "ara");    // Arabic
+        languageMap.put("hk", "zho");    // Chinese (PRC)
+        languageMap.put("bg", "bul");    // Bulgarian
+        languageMap.put("cz", "ces");    // Czech
+        languageMap.put("cn", "zho");    // Chinese (PRC)
+        languageMap.put("gr", "ell");    // Greek
+        languageMap.put("tw", "zho");    // Chinese (Taiwan)
+        languageMap.put("dk", "dan");    // Danish
+        languageMap.put("fi", "fin");    // Finnish
+        languageMap.put("fr", "fra");    // French
+        languageMap.put("il", "heb");    // Hebrew
+        languageMap.put("hr", "hrv");    // Croatian
+        languageMap.put("hu", "hun");    // Hungarian
+        languageMap.put("id", "ind");    // Indonesian
+        languageMap.put("it", "ita");    // Italian
+        languageMap.put("jp", "jpn");    // Japanese
+        languageMap.put("kr", "kor");    // Korean
+        languageMap.put("my", "msa");    // Malay
+        languageMap.put("nl", "nld");    // Dutch
+        languageMap.put("no", "nor");    // Norwegian
+        languageMap.put("pl", "pol");    // Polish
+        languageMap.put("br", "por");    // Portuguese (Brazil)
+        languageMap.put("pt", "por");    // Portuguese (Standard)
+        languageMap.put("ro", "ron");    // Romanian
+        languageMap.put("ru", "rus");    // Russian
+        languageMap.put("sk", "slk");    // Slovak
+        languageMap.put("si", "slv");    // Slovenian
+        languageMap.put("es", "spa");    // Spanish
+        languageMap.put("rs", "srp");    // Serbian (Latin)
+        languageMap.put("se", "swe");    // Swedish
+        languageMap.put("th", "tha");    // Thai
+        languageMap.put("tr", "tur");    // Turkish
+        languageMap.put("ua", "ukr");    // Ukrainian
+        languageMap.put("vn", "vie");    // Vietnamese
+    }
+
     private void startTesting() {
         String excelPath = excelPathField.getText();
         String picturesFolder = picturesFolderField.getText();
@@ -250,7 +323,7 @@ public class AutomatedWarningTesting extends JDialog {
 
         // Initialize Tesseract OCR engine (using Tess4J) with fixed tessdata path
         ITesseract tesseract = new Tesseract();
-        tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata");
+        tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata"); // Set the path to the tessdata folder
 
         try (FileInputStream fis = new FileInputStream(excelPath);
              Workbook workbook = new XSSFWorkbook(fis);
@@ -353,7 +426,11 @@ public class AutomatedWarningTesting extends JDialog {
                     }
 
                     BufferedImage original = ImageIO.read(imageFile);
-                    BufferedImage cropped = original.getSubimage(
+
+                    // Enhance the image before OCR
+                    BufferedImage enhancedImage = enhanceImage(original);
+
+                    BufferedImage cropped = enhancedImage.getSubimage(
                             selectedArea.x,
                             selectedArea.y,
                             selectedArea.width,
@@ -365,7 +442,13 @@ public class AutomatedWarningTesting extends JDialog {
                     File croppedFile = new File(croppedImagesFolder, croppedImageName);
                     ImageIO.write(cropped, "png", croppedFile);
 
-                    // Run OCR on the cropped image
+                    // Set language for OCR based on the language map
+                    String languageCode = languageMap.get(sheetName.toLowerCase());
+                    if (languageCode != null) {
+                        tesseract.setLanguage(languageCode); // Set the language for OCR
+                    }
+
+                    // Run OCR on the enhanced image
                     String ocrText = "";
                     try {
                         ocrText = tesseract.doOCR(cropped).trim();
@@ -411,6 +494,7 @@ public class AutomatedWarningTesting extends JDialog {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     // Inner dialog for selecting a crop area over the reference image.
     class CropAreaDialog extends JDialog {
