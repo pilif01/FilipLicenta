@@ -1,189 +1,208 @@
 package org.example;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManualIconTestTool extends JFrame {
-    private JLabel warningImageLabel;
-    private JLabel iconImageLabel;
-    private JList<String> warningList;
-    private File selectedIconFolder;
-    private File selectedImageFolder;
-    private File selectedExcelFile;
+public class ManualIconTestTool {
+    private static JFrame frame;
+    private static JPanel mainPanel;
+    private static JComboBox<String> sheetSelector;
+    private static JList<String> warningList;
+    private static JLabel iconImageLabel; // Changed to JLabel for icon display
+    private static JTextArea warningDetailsArea;
+    private static JButton selectExcelButton, selectIconFolderButton;
+    private static String baseExcelPath = "", baseIconFolderPath = "";
+    private static List<WarningData> warningRows;
+    private static int currentRow;
 
-    private List<RowData> rows;
-    private int currentIndex;
+    private static String warningNameColumn = "Warning Name";
+    private static String iconNameColumn = "Icon Name";
 
-    public ManualIconTestTool() {
-        setTitle("Manual Icon Test");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(900, 700);
-        setLayout(new BorderLayout());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
 
-        // Image panel
-        JPanel imagePanel = new JPanel(new GridLayout(1, 2));
-        warningImageLabel = new JLabel("No Warning Image", SwingConstants.CENTER);
-        iconImageLabel = new JLabel("No Icon Image", SwingConstants.CENTER);
-        imagePanel.add(warningImageLabel);
-        imagePanel.add(iconImageLabel);
-        add(imagePanel, BorderLayout.CENTER);
+    private static void createAndShowGUI() {
+        frame = new JFrame("Manual Icon Test Tool");
+        mainPanel = new JPanel(new BorderLayout());
 
-        // Warning list
-        warningList = new JList<>(new DefaultListModel<>());
-        warningList.addListSelectionListener(e -> {
-            currentIndex = warningList.getSelectedIndex();
-            if (currentIndex >= 0 && currentIndex < rows.size()) {
-                displayRow(rows.get(currentIndex));
+        // UI Components
+        sheetSelector = new JComboBox<>();
+        sheetSelector.addItem("Please select an Excel file");
+
+        warningList = new JList<>();
+        iconImageLabel = new JLabel(); // Changed from ImageLabel to JLabel
+        warningDetailsArea = new JTextArea(5, 20);
+        selectExcelButton = new JButton("Select Excel File");
+        selectIconFolderButton = new JButton("Select Icon Folder");
+
+        // Action listener for Excel file selection
+        selectExcelButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+            int result = fileChooser.showOpenDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                baseExcelPath = selectedFile.getAbsolutePath();
+                updateSheetSelector(baseExcelPath);
             }
         });
-        add(new JScrollPane(warningList), BorderLayout.SOUTH);
 
-        // Button panel
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton okButton = new JButton("OK");
-        JButton nokButton = new JButton("NOK");
-        JButton squashButton = new JButton("Squash");
-        buttonPanel.add(okButton);
-        buttonPanel.add(nokButton);
-        buttonPanel.add(squashButton);
+        // Action listener for icon folder selection
+        selectIconFolderButton.addActionListener(e -> {
+            JFileChooser folderChooser = new JFileChooser();
+            folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int result = folderChooser.showOpenDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                baseIconFolderPath = folderChooser.getSelectedFile().getAbsolutePath();
+                updateWarningList();
+            }
+        });
 
-        JButton selectExcelButton = new JButton("Select Excel");
-        JButton selectImageFolderButton = new JButton("Select Image Folder");
-        JButton selectIconFolderButton = new JButton("Select Icon Folder");
-        buttonPanel.add(selectExcelButton);
-        buttonPanel.add(selectImageFolderButton);
-        buttonPanel.add(selectIconFolderButton);
+        // Add components to main panel
+        mainPanel.add(createLeftPanel(), BorderLayout.WEST);
+        mainPanel.add(createRightPanel(), BorderLayout.CENTER);
 
-        add(buttonPanel, BorderLayout.NORTH);
-
-        // Event listeners
-        selectExcelButton.addActionListener(this::handleSelectExcel);
-        selectImageFolderButton.addActionListener(this::handleSelectImageFolder);
-        selectIconFolderButton.addActionListener(this::handleSelectIconFolder);
-
-        okButton.addActionListener(e -> handleResult("OK"));
-        nokButton.addActionListener(e -> handleResult("NOK"));
-        squashButton.addActionListener(e -> handleResult("Squash"));
-
-        rows = new ArrayList<>();
-        currentIndex = -1;
+        // Set frame properties
+        frame.add(mainPanel);
+        frame.setSize(800, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    private void handleSelectExcel(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedExcelFile = fileChooser.getSelectedFile();
-            loadExcelData();
+    static void updateSheetSelector(String filePath) {
+        try (FileInputStream fis = new FileInputStream(new File(filePath));
+             XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+            sheetSelector.removeAllItems();
+            sheetSelector.addItem("Select a sheet");
+            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                sheetSelector.addItem(workbook.getSheetName(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void handleSelectImageFolder(ActionEvent e) {
-        JFileChooser folderChooser = new JFileChooser();
-        folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = folderChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedImageFolder = folderChooser.getSelectedFile();
-        }
-    }
+    private void loadDataFromXLSX(String filePath, String sheetName) {
+        warningRows = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(new File(filePath));
+             XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 
-    private void handleSelectIconFolder(ActionEvent e) {
-        JFileChooser folderChooser = new JFileChooser();
-        folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = folderChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedIconFolder = folderChooser.getSelectedFile();
-        }
-    }
+            XSSFSheet sheet = workbook.getSheet(sheetName);
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Starting from row 2
+                Row row = sheet.getRow(i);
+                if (row == null) continue;
 
-    private void loadExcelData() {
-        if (selectedExcelFile == null) return;
+                WarningData warningData = new WarningData();
+                warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn))));
+                warningData.setIconName(getStringValueFromCell(row.getCell(getColumnIndex(iconNameColumn))));
 
-        try (FileInputStream fis = new FileInputStream(selectedExcelFile)) {
-            XSSFWorkbook workbook = new XSSFWorkbook(fis);
-            XSSFSheet sheet = workbook.getSheetAt(0); // Assume data is in the first sheet
-            rows.clear();
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                XSSFRow row = sheet.getRow(i);
-                if (row != null) {
-                    RowData rowData = new RowData();
-                    rowData.setReference(getCellValue(row.getCell(0)));
-                    rowData.setMenuName(getCellValue(row.getCell(1)));
-                    rowData.setImgPath(selectedImageFolder + "/" + getCellValue(row.getCell(1)) + ".png");
-                    rows.add(rowData);
+                // Only add valid rows
+                if (warningData.getWarningName() != null && !warningData.getWarningName().isEmpty()) {
+                    String iconPath = baseIconFolderPath + File.separator + warningData.getIconName() + ".png";
+                    warningData.setIconPath(iconPath);
+                    warningRows.add(warningData);
                 }
             }
-            updateWarningList();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading Excel data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private String getCellValue(Cell cell) {
+    private static void updateWarningList() {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (WarningData data : warningRows) {
+            String displayText = data.getWarningName();
+            listModel.addElement(displayText);
+        }
+        warningList.setModel(listModel);
+    }
+
+    private static void displayRowDetails(int rowIndex) {
+        if (rowIndex >= 0 && rowIndex < warningRows.size()) {
+            WarningData data = warningRows.get(rowIndex);
+            ImageIcon icon = new ImageIcon(data.getIconPath());
+            iconImageLabel.setIcon(icon);
+            iconImageLabel.setSize(icon.getIconWidth(), icon.getIconHeight());
+            warningDetailsArea.setText("Icon Name: " + data.getIconName());
+        }
+    }
+
+    private static JPanel createLeftPanel() {
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.add(sheetSelector, BorderLayout.NORTH);
+        leftPanel.add(new JScrollPane(warningList), BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(selectExcelButton);
+        buttonPanel.add(selectIconFolderButton);
+        leftPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return leftPanel;
+    }
+
+    private static JPanel createRightPanel() {
+        JPanel rightPanel = new JPanel(new BorderLayout());
+        rightPanel.add(iconImageLabel, BorderLayout.NORTH);
+        rightPanel.add(new JScrollPane(warningDetailsArea), BorderLayout.CENTER);
+
+        return rightPanel;
+    }
+
+    private static String getStringValueFromCell(Cell cell) {
         if (cell == null) return "";
         if (cell.getCellType() == CellType.STRING) return cell.getStringCellValue();
         if (cell.getCellType() == CellType.NUMERIC) return String.valueOf(cell.getNumericCellValue());
         return "";
     }
 
-    private void updateWarningList() {
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (RowData rowData : rows) {
-            listModel.addElement(rowData.getMenuName());
-        }
-        warningList.setModel(listModel);
-    }
-
-    private void displayRow(RowData rowData) {
-        warningImageLabel.setIcon(new ImageIcon(rowData.getImgPath()));
-        if (selectedIconFolder != null) {
-            File iconFile = new File(selectedIconFolder, rowData.getMenuName() + ".png");
-            if (iconFile.exists()) {
-                iconImageLabel.setIcon(new ImageIcon(iconFile.getAbsolutePath()));
-            } else {
-                iconImageLabel.setIcon(null);
-            }
+    private static int getColumnIndex(String columnName) {
+        switch (columnName) {
+            case "Warning Name":
+                return 0;
+            case "Icon Name":
+                return 1;
+            default:
+                return -1;
         }
     }
 
-    private void handleResult(String result) {
-        if (currentIndex < 0 || currentIndex >= rows.size() || selectedExcelFile == null) return;
+    class WarningData {
+        private String warningName;
+        private String iconName;
+        private String iconPath;
 
-        RowData rowData = rows.get(currentIndex);
-        try (FileInputStream fis = new FileInputStream(selectedExcelFile);
-             FileOutputStream fos = new FileOutputStream(selectedExcelFile)) {
-            XSSFWorkbook workbook = new XSSFWorkbook(fis);
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            XSSFRow row = sheet.getRow(currentIndex + 1);
-            if (row == null) row = sheet.createRow(currentIndex + 1);
-            Cell resultCell = row.createCell(2); // Assume result goes in column C
-            resultCell.setCellValue(result);
-            workbook.write(fos);
-            JOptionPane.showMessageDialog(this, "Result saved: " + result, "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error saving result: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        public String getWarningName() {
+            return warningName;
         }
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ManualIconTestTool tool = new ManualIconTestTool();
-            tool.setVisible(true);
-        });
+        public void setWarningName(String warningName) {
+            this.warningName = warningName;
+        }
+
+        public String getIconName() {
+            return iconName;
+        }
+
+        public void setIconName(String iconName) {
+            this.iconName = iconName;
+        }
+
+        public String getIconPath() {
+            return iconPath;
+        }
+
+        public void setIconPath(String iconPath) {
+            this.iconPath = iconPath;
+        }
     }
 }
