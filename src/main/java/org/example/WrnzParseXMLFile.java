@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
 
-public class ParseXMLFile {
+public class WrnzParseXMLFile {
 
     public static void convertXMLToExcel() {
         SwingUtilities.invokeLater(() -> {

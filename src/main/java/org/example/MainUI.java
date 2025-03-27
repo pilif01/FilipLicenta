@@ -118,16 +118,16 @@ public class MainUI extends JFrame {
             log("Clicked tool button: " + text);
             switch (text) {
                 case "Parse XML file":
-                    ParseXMLFile.convertXMLToExcel();
+                    WrnzParseXMLFile.convertXMLToExcel();
                     break;
                 case "Create warning excel":
-                    TextExcelTool.filterExcelFile();
+                    WrnTextExcelTool.filterExcelFile();
                     break;
                 case "Create image excel":
-                    ImgExcelTool.filterExcelFile();
+                    WrnImgExcelTool.filterExcelFile();
                     break;
                 case "Manual Testing":
-                    ImageExplorerApp.main(new String[]{});
+                    ManualWarningTestTool.main(new String[]{});
                     break;
                 case "Manual Icon Testing":
                     ManualIconTestTool.main(new String[]{});
@@ -203,7 +203,7 @@ public class MainUI extends JFrame {
             } catch (Exception e) {
                 logException("Substance Graphite failed to initialize", e);
             }
-            new LoginPage().setVisible(true);  // Show the LoginPage first
+            new MainLoginPage().setVisible(true);  // Show the LoginPage first
         });
     }
 

@@ -7,27 +7,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class LoginPage extends JFrame {
+public class MainRegisterPage extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton, registerButton;
+    private JButton registerButton, loginButton;
     private JLabel statusLabel;
 
-    public LoginPage() {
-        setTitle("Login Page");
+    public MainRegisterPage() {
+        setTitle("Register Page");
         setSize(500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
-        // Main panel
+        // Main panel layout
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        JLabel titleLabel = new JLabel("User Login", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("User Registration", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setForeground(new Color(50, 50, 50));
 
@@ -36,10 +36,10 @@ public class LoginPage extends JFrame {
         usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        loginButton = new JButton("Login");
         registerButton = new JButton("Register");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton = new JButton("Login");
         registerButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
 
         statusLabel = new JLabel("", SwingConstants.CENTER);
         statusLabel.setForeground(Color.RED);
@@ -59,46 +59,53 @@ public class LoginPage extends JFrame {
         mainPanel.add(passwordField, gbc);
 
         gbc.gridy = 5;
-        mainPanel.add(loginButton, gbc);
+        mainPanel.add(registerButton, gbc);
 
         gbc.gridy = 6;
-        mainPanel.add(registerButton, gbc);
+        mainPanel.add(loginButton, gbc);
 
         gbc.gridy = 7;
         mainPanel.add(statusLabel, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
 
-        loginButton.addActionListener(this::handleLogin);
-        registerButton.addActionListener(e -> {
-            dispose(); // Close Login Page
-            new RegisterPage().setVisible(true); // Open Register Page
+        // Button actions
+        registerButton.addActionListener(this::handleRegister);
+        loginButton.addActionListener(e -> {
+            dispose(); // Close Register Page
+            new MainLoginPage().setVisible(true); // Open Login Page
         });
     }
 
-    private void handleLogin(ActionEvent e) {
+    private void handleRegister(ActionEvent e) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
-        if (authenticate(username, password)) {
+        if (registerUser(username, password)) {
             statusLabel.setForeground(Color.GREEN);
-            statusLabel.setText("Login successful!");
-            dispose();
-            SwingUtilities.invokeLater(() -> new MainUI(username).setVisible(true));
+            statusLabel.setText("Registration successful! Please login.");
         } else {
             statusLabel.setForeground(Color.RED);
-            statusLabel.setText("Invalid credentials.");
+            statusLabel.setText("Username already exists.");
         }
     }
 
-    private boolean authenticate(String username, String password) {
-        try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM users WHERE username=? AND password=SHA2(?, 256)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+    private boolean registerUser(String username, String password) {
+        try (Connection conn = MainDBConnection.getConnection()) {
+            // Check if the username exists
+            String checkQuery = "SELECT * FROM users WHERE username=?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, username);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) return false;
+
+            // Insert new user
+            String insertQuery = "INSERT INTO users (username, password) VALUES (?, SHA2(?, 256))";
+            PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+            insertStmt.setString(1, username);
+            insertStmt.setString(2, password);
+            insertStmt.executeUpdate();
+            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
             statusLabel.setText("Database connection error.");
@@ -107,6 +114,6 @@ public class LoginPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginPage().setVisible(true));
+        SwingUtilities.invokeLater(() -> new MainRegisterPage().setVisible(true));
     }
 }

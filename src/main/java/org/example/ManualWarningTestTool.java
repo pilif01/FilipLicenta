@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageExplorerApp {
+public class ManualWarningTestTool {
 
     private static JFrame frame;
     private static JPanel mainPanel;
@@ -36,7 +36,7 @@ public class ImageExplorerApp {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            ImageExplorerApp app = new ImageExplorerApp();
+            ManualWarningTestTool app = new ManualWarningTestTool();
             app.createAndShowGUI();
         });
     }

@@ -6,7 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
 import java.io.*;
 
-public class ImgExcelTool {
+public class WrnImgExcelTool {
 
     public static void filterExcelFile() {
         SwingUtilities.invokeLater(() -> {

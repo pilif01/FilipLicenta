@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-public class TextExcelTool {
+public class WrnTextExcelTool {
 
     public static void filterExcelFile() {
         SwingUtilities.invokeLater(() -> {
