@@ -20,7 +20,6 @@ import java.awt.image.Kernel;
 import java.awt.image.RescaleOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.BufferedImageOp;
-import java.awt.color.ColorSpace;
 
 public class AutomatedWarningTesting extends JDialog {
 
@@ -228,16 +227,31 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    /**
-     * Main testing logic:
-     * 1. Read the first (selector) sheet to build a map for each language (Column 0 holds RUN/SKIP, Column 1 holds language code).
-     * 2. For each subsequent language sheet, create a results sheet (even if the language is marked SKIP).
-     *    - If the selector marks the language as RUN, process each row:
-     *         - If the row's tcontrol is "run", perform OCR.
-     *         - Otherwise, mark the row as "SKIPPED".
-     *    - If the selector marks the language as SKIP or is missing, mark all rows as "SKIPPED".
-     * 3. At the end of each sheet, append a summary count of CORRECT, INCORRECT, and SKIPPED.
-     */
+
+
+    class LogWindow extends JDialog {
+        private JTextArea logTextArea;
+
+        public LogWindow(AutomatedWarningTesting parent) {
+            super(parent, "Testing Log", false);  // The second parameter makes the dialog non-modal
+            setSize(800, 600);
+            setLocationRelativeTo(parent); // Center it relative to the main window
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+            logTextArea = new JTextArea();
+            logTextArea.setEditable(false);
+            JScrollPane logScrollPane = new JScrollPane(logTextArea);
+            add(logScrollPane);
+
+            setVisible(true);  // Make sure the dialog is visible
+        }
+
+        public void appendLog(String message) {
+            logTextArea.append(message + "\n");
+            logTextArea.setCaretPosition(logTextArea.getDocument().getLength()); // Auto-scroll
+        }
+    }
+
 
     private BufferedImage enhanceImage(BufferedImage original) {
         // Convert the image to grayscale
@@ -305,196 +319,227 @@ public class AutomatedWarningTesting extends JDialog {
         languageMap.put("vn", "vie");    // Vietnamese
     }
 
+    /**
+     * Main testing logic:
+     * 1. Read the first (selector) sheet to build a map for each language (Column 0 holds RUN/SKIP, Column 1 holds language code).
+     * 2. For each subsequent language sheet, create a results sheet (even if the language is marked SKIP).
+     *    - If the selector marks the language as RUN, process each row:
+     *         - If the row's tcontrol is "run", perform OCR.
+     *         - Otherwise, mark the row as "SKIPPED".
+     *    - If the selector marks the language as SKIP or is missing, mark all rows as "SKIPPED".
+     * 3. At the end of each sheet, append a summary count of CORRECT, INCORRECT, and SKIPPED.
+     */
+
+    // In the main testing class, add the following to the startTesting method:
+
     private void startTesting() {
-        String excelPath = excelPathField.getText();
-        String picturesFolder = picturesFolderField.getText();
-        String croppedImagesFolder = croppedImagesFolderField.getText();
-        String resultsExcelPath = resultsExcelField.getText().trim();
+        // Create the log window
+        LogWindow logWindow = new LogWindow(this);  // Pass the parent frame
 
-        if (!resultsExcelPath.toLowerCase().endsWith(".xlsx")) {
-            resultsExcelPath += ".xlsx";
-        }
+        // Use SwingWorker to run the OCR and testing in the background
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                String excelPath = excelPathField.getText();
+                String picturesFolder = picturesFolderField.getText();
+                String croppedImagesFolder = croppedImagesFolderField.getText();
+                String resultsExcelPath = resultsExcelField.getText().trim();
 
-        if (excelPath.isEmpty() || picturesFolder.isEmpty() || croppedImagesFolder.isEmpty() ||
-                resultsExcelPath.isEmpty() || selectedArea == null) {
-            JOptionPane.showMessageDialog(this, "Please fill all the fields and select a crop area.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Initialize Tesseract OCR engine (using Tess4J) with fixed tessdata path
-        ITesseract tesseract = new Tesseract();
-        tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata"); // Set the path to the tessdata folder
-
-        try (FileInputStream fis = new FileInputStream(excelPath);
-             Workbook workbook = new XSSFWorkbook(fis);
-             Workbook resultsWorkbook = new XSSFWorkbook()) {
-
-            // 1) Read the selector sheet (first sheet) to build a mapping: language -> RUN/SKIP.
-            Sheet selectorSheet = workbook.getSheetAt(0);
-            Map<String, String> languageRunMap = new HashMap<>();
-
-            appendLog("Reading language selector sheet...");
-            // Assuming row 0 is header, so start from row 1.
-            for (int r = 1; r <= selectorSheet.getLastRowNum(); r++) {
-                Row row = selectorSheet.getRow(r);
-                if (row == null) continue;
-                // Column 0: RUN/SKIP, Column 1: language code.
-                Cell runCell = row.getCell(0);
-                Cell langCell = row.getCell(1);
-                if (runCell == null || langCell == null) continue;
-                String runOrSkip = runCell.toString().trim().toUpperCase();
-                String languageCode = langCell.toString().trim();
-                languageRunMap.put(languageCode, runOrSkip);
-                appendLog("Language: " + languageCode + " - " + runOrSkip);
-            }
-
-            // 2) Process each language sheet (skip the first selector sheet).
-            for (int i = 1; i < workbook.getNumberOfSheets(); i++) {
-                Sheet langSheet = workbook.getSheetAt(i);
-                if (langSheet == null) continue;
-
-                String sheetName = langSheet.getSheetName().trim();
-                appendLog("Processing sheet: " + sheetName);
-
-                // Determine if this language should be processed (global RUN) or not.
-                boolean globalRun = languageRunMap.containsKey(sheetName) && "RUN".equalsIgnoreCase(languageRunMap.get(sheetName));
-                if (!globalRun) {
-                    appendLog("Sheet " + sheetName + " is marked SKIP or missing in selector. All rows will be marked SKIPPED.");
+                if (!resultsExcelPath.toLowerCase().endsWith(".xlsx")) {
+                    resultsExcelPath += ".xlsx";
                 }
 
-                // Create a results sheet for this language regardless.
-                Sheet resultsSheet = resultsWorkbook.createSheet(sheetName);
-                Row headerRow = resultsSheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Warning Name");
-                headerRow.createCell(1).setCellValue("Warning Text");
-                headerRow.createCell(2).setCellValue("OCR Text");
-                headerRow.createCell(3).setCellValue("Result");
-
-                int resultsRowIndex = 1;
-                int correctCount = 0;
-                int incorrectCount = 0;
-                int skippedCount = 0;
-
-                // Process each row in the language sheet (assuming row 0 is header).
-                for (int r = 1; r <= langSheet.getLastRowNum(); r++) {
-                    Row row = langSheet.getRow(r);
-                    if (row == null) continue;
-
-                    Cell tcontrolCell = row.getCell(0);
-                    Cell warningNameCell = row.getCell(1);
-                    Cell warningTextCell = row.getCell(2);
-
-                    if (tcontrolCell == null || warningNameCell == null || warningTextCell == null) {
-                        appendLog("Row " + r + " in sheet " + sheetName + " is incomplete, skipping.");
-                        skippedCount++;
-                        continue;
-                    }
-
-                    String tcontrol = tcontrolCell.toString().trim().toLowerCase();
-                    String warningName = warningNameCell.toString().trim();
-                    String expectedText = warningTextCell.toString().trim();
-
-                    Row resultRow = resultsSheet.createRow(resultsRowIndex++);
-                    resultRow.createCell(0).setCellValue(warningName);
-                    resultRow.createCell(1).setCellValue(expectedText);
-
-                    // If global RUN is false, mark the row as SKIPPED.
-                    if (!globalRun) {
-                        resultRow.createCell(2).setCellValue("");
-                        resultRow.createCell(3).setCellValue("SKIPPED");
-                        skippedCount++;
-                        continue;
-                    }
-
-                    // If global RUN is true, then check the row's own tcontrol.
-                    if (!"run".equalsIgnoreCase(tcontrol)) {
-                        resultRow.createCell(2).setCellValue("");
-                        resultRow.createCell(3).setCellValue("SKIPPED");
-                        skippedCount++;
-                        continue;
-                    }
-
-                    // Process image "warningName_sheetName.png"
-                    String imageFileName = warningName + "_" + sheetName.toLowerCase() + ".png";
-                    File imageFile = new File(picturesFolder, imageFileName);
-                    if (!imageFile.exists()) {
-                        appendLog("Image file not found: " + imageFile.getAbsolutePath());
-                        resultRow.createCell(2).setCellValue("");
-                        resultRow.createCell(3).setCellValue("IMAGE NOT FOUND");
-                        skippedCount++;
-                        continue;
-                    }
-
-                    BufferedImage original = ImageIO.read(imageFile);
-
-                    // Enhance the image before OCR
-                    BufferedImage enhancedImage = enhanceImage(original);
-
-                    BufferedImage cropped = enhancedImage.getSubimage(
-                            selectedArea.x,
-                            selectedArea.y,
-                            selectedArea.width,
-                            selectedArea.height
-                    );
-
-                    // Save the cropped image (naming: warningName_sheetName_crop.png)
-                    String croppedImageName = warningName + "_" + sheetName.toLowerCase() + "_crop.png";
-                    File croppedFile = new File(croppedImagesFolder, croppedImageName);
-                    ImageIO.write(cropped, "png", croppedFile);
-
-                    // Set language for OCR based on the language map
-                    String languageCode = languageMap.get(sheetName.toLowerCase());
-                    if (languageCode != null) {
-                        tesseract.setLanguage(languageCode); // Set the language for OCR
-                    }
-
-                    // Run OCR on the enhanced image
-                    String ocrText = "";
-                    try {
-                        ocrText = tesseract.doOCR(cropped).trim();
-                    } catch (TesseractException te) {
-                        te.printStackTrace();
-                    }
-
-                    String result = ocrText.equalsIgnoreCase(expectedText) ? "CORRECT" : "INCORRECT";
-                    if ("CORRECT".equals(result)) {
-                        correctCount++;
-                    } else {
-                        incorrectCount++;
-                    }
-
-                    resultRow.createCell(2).setCellValue(ocrText);
-                    resultRow.createCell(3).setCellValue(result);
-
-                    String logMsg = "Language Sheet: " + sheetName + "\n" +
-                            "Warning: " + warningName + "\n" +
-                            "Expected: " + expectedText + "\n" +
-                            "OCR Result: " + ocrText + "\n" +
-                            "Test: " + result + "\n-------------------------";
-                    appendLog(logMsg);
+                if (excelPath.isEmpty() || picturesFolder.isEmpty() || croppedImagesFolder.isEmpty() ||
+                        resultsExcelPath.isEmpty() || selectedArea == null) {
+                    publish("Please fill all the fields and select a crop area.");
+                    return null;
                 }
-                // Append sheet summary to log.
-                String summary = "Sheet " + sheetName + " Summary: CORRECT: " + correctCount +
-                        ", INCORRECT: " + incorrectCount + ", SKIPPED: " + skippedCount;
-                appendLog(summary);
-                appendLog("-------------------------");
+
+                // Initialize Tesseract OCR engine (using Tess4J) with fixed tessdata path
+                ITesseract tesseract = new Tesseract();
+                tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata"); // Set the path to the tessdata folder
+
+                try (FileInputStream fis = new FileInputStream(excelPath);
+                     Workbook workbook = new XSSFWorkbook(fis);
+                     Workbook resultsWorkbook = new XSSFWorkbook()) {
+
+                    // 1) Read the selector sheet (first sheet) to build a mapping: language -> RUN/SKIP.
+                    Sheet selectorSheet = workbook.getSheetAt(0);
+                    Map<String, String> languageRunMap = new HashMap<>();
+
+                    publish("Reading language selector sheet...");
+                    for (int r = 1; r <= selectorSheet.getLastRowNum(); r++) {
+                        Row row = selectorSheet.getRow(r);
+                        if (row == null) continue;
+                        // Column 0: RUN/SKIP, Column 1: language code.
+                        Cell runCell = row.getCell(0);
+                        Cell langCell = row.getCell(1);
+                        if (runCell == null || langCell == null) continue;
+                        String runOrSkip = runCell.toString().trim().toUpperCase();
+                        String languageCode = langCell.toString().trim();
+                        languageRunMap.put(languageCode, runOrSkip);
+                        publish("Language: " + languageCode + " - " + runOrSkip);
+                    }
+
+                    // Process each language sheet (skip the first selector sheet).
+                    for (int i = 1; i < workbook.getNumberOfSheets(); i++) {
+                        Sheet langSheet = workbook.getSheetAt(i);
+                        if (langSheet == null) continue;
+
+                        String sheetName = langSheet.getSheetName().trim();
+                        publish("Processing sheet: " + sheetName);
+
+                        // Determine if this language should be processed (global RUN) or not.
+                        boolean globalRun = languageRunMap.containsKey(sheetName) && "RUN".equalsIgnoreCase(languageRunMap.get(sheetName));
+                        if (!globalRun) {
+                            publish("Sheet " + sheetName + " is marked SKIP or missing in selector. All rows will be marked SKIPPED.");
+                        }
+
+                        // Create a results sheet for this language regardless.
+                        Sheet resultsSheet = resultsWorkbook.createSheet(sheetName);
+                        Row headerRow = resultsSheet.createRow(0);
+                        headerRow.createCell(0).setCellValue("Warning Name");
+                        headerRow.createCell(1).setCellValue("Warning Text");
+                        headerRow.createCell(2).setCellValue("OCR Text");
+                        headerRow.createCell(3).setCellValue("Result");
+
+                        int resultsRowIndex = 1;
+                        int correctCount = 0;
+                        int incorrectCount = 0;
+                        int skippedCount = 0;
+
+                        // Process each row in the language sheet (assuming row 0 is header).
+                        for (int r = 1; r <= langSheet.getLastRowNum(); r++) {
+                            Row row = langSheet.getRow(r);
+                            if (row == null) continue;
+
+                            Cell tcontrolCell = row.getCell(0);
+                            Cell warningNameCell = row.getCell(1);
+                            Cell warningTextCell = row.getCell(2);
+
+                            if (tcontrolCell == null || warningNameCell == null || warningTextCell == null) {
+                                publish("Row " + r + " in sheet " + sheetName + " is incomplete, skipping.");
+                                skippedCount++;
+                                continue;
+                            }
+
+                            String tcontrol = tcontrolCell.toString().trim().toLowerCase();
+                            String warningName = warningNameCell.toString().trim();
+                            String expectedText = warningTextCell.toString().trim();
+
+                            Row resultRow = resultsSheet.createRow(resultsRowIndex++);
+                            resultRow.createCell(0).setCellValue(warningName);
+                            resultRow.createCell(1).setCellValue(expectedText);
+
+                            // If global RUN is false, mark the row as SKIPPED.
+                            if (!globalRun) {
+                                resultRow.createCell(2).setCellValue("");
+                                resultRow.createCell(3).setCellValue("SKIPPED");
+                                skippedCount++;
+                                continue;
+                            }
+
+                            // If global RUN is true, then check the row's own tcontrol.
+                            if (!"run".equalsIgnoreCase(tcontrol)) {
+                                resultRow.createCell(2).setCellValue("");
+                                resultRow.createCell(3).setCellValue("SKIPPED");
+                                skippedCount++;
+                                continue;
+                            }
+
+                            // Process image "warningName_sheetName.png"
+                            String imageFileName = warningName + "_" + sheetName.toLowerCase() + ".png";
+                            File imageFile = new File(picturesFolder, imageFileName);
+                            if (!imageFile.exists()) {
+                                publish("Image file not found: " + imageFile.getAbsolutePath());
+                                resultRow.createCell(2).setCellValue("");
+                                resultRow.createCell(3).setCellValue("IMAGE NOT FOUND");
+                                skippedCount++;
+                                continue;
+                            }
+
+                            BufferedImage original = ImageIO.read(imageFile);
+
+                            // Enhance the image before OCR
+                            BufferedImage enhancedImage = enhanceImage(original);
+
+                            BufferedImage cropped = enhancedImage.getSubimage(
+                                    selectedArea.x,
+                                    selectedArea.y,
+                                    selectedArea.width,
+                                    selectedArea.height
+                            );
+
+                            // Save the cropped image (naming: warningName_sheetName_crop.png)
+                            String croppedImageName = warningName + "_" + sheetName.toLowerCase() + "_crop.png";
+                            File croppedFile = new File(croppedImagesFolder, croppedImageName);
+                            ImageIO.write(cropped, "png", croppedFile);
+
+                            // Set language for OCR based on the language map
+                            String languageCode = languageMap.get(sheetName.toLowerCase());
+                            if (languageCode != null) {
+                                tesseract.setLanguage(languageCode); // Set the language for OCR
+                            }
+
+                            // Run OCR on the enhanced image
+                            String ocrText = "";
+                            try {
+                                ocrText = tesseract.doOCR(cropped).trim();
+                            } catch (TesseractException te) {
+                                te.printStackTrace();
+                            }
+
+                            String result = ocrText.equalsIgnoreCase(expectedText) ? "CORRECT" : "INCORRECT";
+                            if ("CORRECT".equals(result)) {
+                                correctCount++;
+                            } else {
+                                incorrectCount++;
+                            }
+
+                            resultRow.createCell(2).setCellValue(ocrText);
+                            resultRow.createCell(3).setCellValue(result);
+
+                            String logMsg = "Language Sheet: " + sheetName + "\n" +
+                                    "Warning: " + warningName + "\n" +
+                                    "Expected: " + expectedText + "\n" +
+                                    "OCR Result: " + ocrText + "\n" +
+                                    "Test: " + result + "\n-------------------------";
+                            publish(logMsg);
+                        }
+                        // Append sheet summary to log.
+                        String summary = "Sheet " + sheetName + " Summary: CORRECT: " + correctCount +
+                                ", INCORRECT: " + incorrectCount + ", SKIPPED: " + skippedCount;
+                        publish(summary);
+                        publish("-------------------------");
+                    }
+
+                    // Save the results workbook to the specified file.
+                    try (FileOutputStream fos = new FileOutputStream(resultsExcelPath)) {
+                        resultsWorkbook.write(fos);
+                    }
+                    publish("Results saved to: " + resultsExcelPath);
+                    JOptionPane.showMessageDialog(null, "Testing Complete! Results saved to: " + resultsExcelPath,
+                            "Info", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    publish("Error during testing: " + ex.getMessage());
+                }
+
+                return null;
             }
 
-            // Save the results workbook to the specified file.
-            try (FileOutputStream fos = new FileOutputStream(resultsExcelPath)) {
-                resultsWorkbook.write(fos);
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String logMessage : chunks) {
+                    logWindow.appendLog(logMessage); // Update log window
+                }
             }
-            appendLog("Results saved to: " + resultsExcelPath);
-            JOptionPane.showMessageDialog(this, "Testing Complete! Results saved to: " + resultsExcelPath,
-                    "Info", JOptionPane.INFORMATION_MESSAGE);
+        };
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error during testing: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        // Start the worker in the background
+        worker.execute();
     }
-
 
     // Inner dialog for selecting a crop area over the reference image.
     class CropAreaDialog extends JDialog {
