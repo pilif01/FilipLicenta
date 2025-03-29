@@ -3,9 +3,12 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.imageio.ImageIO;
 
 public class MainLoginPage extends JFrame {
     private JTextField usernameField;
@@ -15,15 +18,25 @@ public class MainLoginPage extends JFrame {
 
     public MainLoginPage() {
         setTitle("Login Page");
-        setSize(500, 400);
+        setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
+        // Load Icon
+        JLabel iconLabel = new JLabel();
+        try {
+            BufferedImage iconImage = ImageIO.read(new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\OCR_Tool_Icon.png"));
+            Image scaledImage = iconImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+            iconLabel.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Main panel
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(5, 10, 5, 10); // Reduced vertical insets for closer spacing
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
@@ -46,33 +59,38 @@ public class MainLoginPage extends JFrame {
 
         // Add components to panel
         gbc.gridy = 0;
-        mainPanel.add(titleLabel, gbc);
+        mainPanel.add(iconLabel, gbc); // Adding the logo at the top
 
         gbc.gridy = 1;
-        mainPanel.add(new JLabel("Username:"), gbc);
+        mainPanel.add(titleLabel, gbc);
+
         gbc.gridy = 2;
-        mainPanel.add(usernameField, gbc);
+        mainPanel.add(new JLabel("Username:"), gbc);
 
         gbc.gridy = 3;
-        mainPanel.add(new JLabel("Password:"), gbc);
+        mainPanel.add(usernameField, gbc);
+
         gbc.gridy = 4;
-        mainPanel.add(passwordField, gbc);
+        mainPanel.add(new JLabel("Password:"), gbc);
 
         gbc.gridy = 5;
-        mainPanel.add(loginButton, gbc);
+        mainPanel.add(passwordField, gbc);
 
         gbc.gridy = 6;
-        mainPanel.add(registerButton, gbc);
+        mainPanel.add(loginButton, gbc);
 
         gbc.gridy = 7;
+        mainPanel.add(registerButton, gbc);
+
+        gbc.gridy = 8;
         mainPanel.add(statusLabel, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
 
         loginButton.addActionListener(this::handleLogin);
         registerButton.addActionListener(e -> {
-            dispose(); // Close Login Page
-            new MainRegisterPage().setVisible(true); // Open Register Page
+            dispose();
+            new MainRegisterPage().setVisible(true);
         });
     }
 

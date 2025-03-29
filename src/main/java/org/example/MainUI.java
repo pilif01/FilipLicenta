@@ -4,13 +4,14 @@ import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.imageio.ImageIO;
 
 import static org.example.Logger.logException;
 
@@ -18,21 +19,24 @@ public class MainUI extends JFrame {
     private static MainUI mainUIInstance;
     private static final String LOG_FILE = "OCR-log.txt";
     private JLabel greetingLabel;
+    private Font promptFont;
 
     public MainUI(String username) {
+        loadFont(); // Load the custom font
+
         log("Initializing OCR Tool UI");
 
         setTitle("OCR - TOOL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700); // Adjusted window size
+        setSize(1000, 700);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // greeting message
+        // Greeting message
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         greetingLabel = new JLabel("Hi, " + username, SwingConstants.CENTER);
-        greetingLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        greetingLabel.setFont(promptFont.deriveFont(Font.BOLD, 28));
         greetingLabel.setForeground(new Color(50, 50, 50));
         headerPanel.add(greetingLabel);
 
@@ -45,12 +49,12 @@ public class MainUI extends JFrame {
 
         // Define buttons and their descriptions
         String[][] buttonData = {
-                {"Parse XML file", "Parse the TextWarnings.xml file"},
-                {"Create warning excel", "Create the Excel file for warnings"},
-                {"Create image excel", "Generate the image Excel file"},
-                {"Manual Testing", "Check failed comparisons manually"},
-                {"Manual Icon Testing", "Test icons manually"},
-                {"Name Changing Tool", "Tool for changing names"}
+                {"Parse XML file", "Parse the TextWarnings.xml file", "buttonParseXML.png"},
+                {"Create warning excel", "Create the Excel file for warnings", "buttonCreateWarningExcel.png"},
+                {"Create image excel", "Generate the image Excel file", "buttonCreateImageExcel.png"},
+                {"Manual Testing", "Check failed comparisons manually", "ManualTesting.png"},
+                {"Manual Icon Testing", "Test icons manually", "ManualIconTesting.png"},
+                {"Name Changing Tool", "Tool for changing names", "NameChangingTool.png"}
         };
 
         int row = 0;
@@ -59,7 +63,7 @@ public class MainUI extends JFrame {
             gbc.gridy = row / 2;
             gbc.gridwidth = 1;
             gbc.weightx = 0.5;
-            mainPanel.add(createToolButton(data[0], data[1]), gbc);
+            mainPanel.add(createToolButton(data[0], data[1], data[2]), gbc);
             row++;
         }
 
@@ -71,10 +75,10 @@ public class MainUI extends JFrame {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.gridwidth = 1;
-        rightPanel.add(createLargeToolButton("Full auto icon testing", "..."), gbc);
+        rightPanel.add(createLargeToolButton("Full auto icon testing", "Check all the Icons using pixel to pixel comparison", "FullAutoIconTesting.png"), gbc);
 
         gbc.gridy = 1;
-        rightPanel.add(createLargeToolButton("Full auto warning testing", "..."), gbc);
+        rightPanel.add(createLargeToolButton("Full auto warning testing", "Check all the texts using Tessaract", "FullAutoWarningTesting.png"), gbc);
 
         // Add panels to frame
         add(headerPanel, BorderLayout.NORTH);
@@ -92,28 +96,48 @@ public class MainUI extends JFrame {
         });
     }
 
-    private JButton createToolButton(String text, String description) {
-        JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
-        button.setFont(new Font("Arial", Font.PLAIN, 16));
+    private JButton createToolButton(String text, String description, String iconName) {
+        JButton button = new JButton();
+        button.setLayout(new BorderLayout());
         button.setPreferredSize(new Dimension(250, 100));
 
-        Color brighterOrangeYellow = new Color(255, 200, 0);
-        button.setBackground(brighterOrangeYellow);
+        Color base = new Color(251, 67, 8);
+        button.setBackground(base);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
 
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(100, 149, 237));
-                button.setForeground(Color.BLACK);
-            }
+        // Load icon
+        JLabel iconLabel = new JLabel();
+        try {
+            Image iconImage = ImageIO.read(new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\" + iconName));
+            Image scaledImage = iconImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel.setIcon(new ImageIcon(scaledImage));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(brighterOrangeYellow);
-                button.setForeground(Color.WHITE);
+        JPanel textPanel = new JPanel(new BorderLayout());
+        textPanel.setOpaque(false);
+        JLabel labelText = new JLabel("<html><b>" + text + "</b><br><i>" + description + "</i></html>");
+        labelText.setFont(promptFont.deriveFont(Font.PLAIN, 16));
+        labelText.setForeground(Color.WHITE);
+        textPanel.add(labelText, BorderLayout.CENTER);
+
+        button.add(iconLabel, BorderLayout.WEST);
+        button.add(textPanel, BorderLayout.CENTER);
+
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                button.setBackground(new Color(93, 0, 179));
+                labelText.setForeground(Color.BLACK);
+            }
+            public void mouseExited(MouseEvent evt) {
+                button.setBackground(base);
+                labelText.setForeground(Color.WHITE);
             }
         });
 
+        // ADD ACTION LISTENER TO MAKE BUTTON WORK
         button.addActionListener(e -> {
             log("Clicked tool button: " + text);
             switch (text) {
@@ -141,28 +165,10 @@ public class MainUI extends JFrame {
         return button;
     }
 
-    private JButton createLargeToolButton(String text, String description) {
-        JButton button = new JButton("<html><center>" + text + "<br><i>" + description + "</i></center></html>");
-        button.setFont(new Font("Arial", Font.PLAIN, 20));
-        button.setPreferredSize(new Dimension(250, 150));
-
-        Color brighterOrangeYellow = new Color(255, 200, 0);
-        button.setBackground(brighterOrangeYellow);
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(100, 149, 237));
-                button.setForeground(Color.BLACK);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(brighterOrangeYellow);
-                button.setForeground(Color.WHITE);
-            }
-        });
-
+    private JButton createLargeToolButton(String text, String description, String iconName) {
+        JButton button = createToolButton(text, description, iconName);
+        // Remove the action listener added by createToolButton and add one for large buttons if needed,
+        // or modify the switch cases to handle both cases.
         button.addActionListener(e -> {
             log("Clicked tool button: " + text);
             switch (text) {
@@ -174,8 +180,18 @@ public class MainUI extends JFrame {
                     break;
             }
         });
-
         return button;
+    }
+
+    private void loadFont() {
+        try {
+            promptFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\Prompt-Medium.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(promptFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            promptFont = new Font("Arial", Font.PLAIN, 16);  // Fallback to Arial if loading fails
+        }
     }
 
     public static void log(String message) {
@@ -203,8 +219,7 @@ public class MainUI extends JFrame {
             } catch (Exception e) {
                 logException("Substance Graphite failed to initialize", e);
             }
-            new MainLoginPage().setVisible(true);  // Show the LoginPage first
+            new MainUI("User").setVisible(true);
         });
     }
-
 }
