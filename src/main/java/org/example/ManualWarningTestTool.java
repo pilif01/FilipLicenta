@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -104,12 +105,23 @@ public class ManualWarningTestTool {
         mainPanel.add(createLeftPanel(), BorderLayout.WEST);
         mainPanel.add(createRightPanel(), BorderLayout.CENTER);
 
+        // Add key binding for 'c' key to save "CORRECT"
+        frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke('c'), "saveCorrect");
+        frame.getRootPane().getActionMap().put("saveCorrect", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveResult("CORRECT");
+            }
+        });
+
         // Set frame properties
         frame.add(mainPanel);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
 
     private void updateSheetSelector(String filePath) {
         try (FileInputStream fis = new FileInputStream(new File(filePath));

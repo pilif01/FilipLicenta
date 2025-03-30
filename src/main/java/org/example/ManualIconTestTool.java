@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ public class ManualIconTestTool {
         mainImageLabel = new JLabel();
         iconLabel = new JLabel();
 
-        // Reference and OCR text labels with larger font
+        // Set font for any labels if needed
         Font largeFont = new Font("Arial", Font.BOLD, 20); // Bold, larger size
 
         selectExcelButton = new JButton("Select Excel File");
@@ -100,6 +101,20 @@ public class ManualIconTestTool {
         // Add components to main panel
         mainPanel.add(createLeftPanel(), BorderLayout.WEST);
         mainPanel.add(createRightPanel(), BorderLayout.CENTER);
+
+        // Add key binding for 'c' key to save "CORRECT" only if a warning is selected
+        frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke('c'), "saveCorrect");
+        frame.getRootPane().getActionMap().put("saveCorrect", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (warningList.getSelectedIndex() != -1) {
+                    saveResult("CORRECT");
+                } else {
+                    System.out.println("No warning selected. Please select a warning before saving.");
+                }
+            }
+        });
 
         // Set frame properties
         frame.add(mainPanel);
@@ -219,7 +234,7 @@ public class ManualIconTestTool {
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout());
 
-        // Add the image in a scroll pane to handle large images
+        // Add the warning image in a scroll pane to handle large images
         JScrollPane scrollPane = new JScrollPane(mainImageLabel);
         scrollPane.setPreferredSize(new Dimension(700, 350));
         rightPanel.add(scrollPane, BorderLayout.NORTH);
