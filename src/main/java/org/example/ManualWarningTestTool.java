@@ -3,6 +3,8 @@ package org.example;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.ibm.icu.text.BreakIterator;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -59,10 +61,10 @@ public class ManualWarningTestTool {
         referenceLabel = new JLabel("Expected Text: ");
         ocrLabel = new JLabel("OCR Text: ");
 
-        // Set the font for the labels (larger size and bold)
-        Font largeFont = new Font("Aptos Narrow", Font.BOLD, 20); // Bold, larger size
-        referenceLabel.setFont(largeFont);
-        ocrLabel.setFont(largeFont);
+        // Initially use the default font for non-Thai and non-Arab sheets (Aptos Narrow)
+        Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
+        referenceLabel.setFont(defaultFont);
+        ocrLabel.setFont(defaultFont);
 
         selectExcelButton = new JButton("Select Excel File");
         selectImageFolderButton = new JButton("Select Image Folder");
@@ -122,7 +124,6 @@ public class ManualWarningTestTool {
         frame.setVisible(true);
     }
 
-
     private void updateSheetSelector(String filePath) {
         try (FileInputStream fis = new FileInputStream(new File(filePath));
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
@@ -142,7 +143,7 @@ public class ManualWarningTestTool {
         warningRows = new ArrayList<>(); // Initialize warningRows here if it's null
 
         // Log the base image path to ensure it's correct
-        System.out.println("Base Image Path: " + baseImagePath); // Log to console to verify
+        System.out.println("Base Image Path: " + baseImagePath);
 
         try (FileInputStream fis = new FileInputStream(new File(filePath));
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
@@ -153,17 +154,17 @@ public class ManualWarningTestTool {
                 if (row == null) continue;
 
                 WarningData warningData = new WarningData();
-                warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn)))); // Column for warning name
-                warningData.setExpectedText(getStringValueFromCell(row.getCell(getColumnIndex(expectedTextColumn)))); // Column for expected text
-                warningData.setOcrText(getStringValueFromCell(row.getCell(getColumnIndex(ocrTextColumn)))); // Column for OCR text
-                warningData.setResult(getStringValueFromCell(row.getCell(getColumnIndex(resultColumn)))); // Column for result
+                warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn))));
+                warningData.setExpectedText(getStringValueFromCell(row.getCell(getColumnIndex(expectedTextColumn))));
+                warningData.setOcrText(getStringValueFromCell(row.getCell(getColumnIndex(ocrTextColumn))));
+                warningData.setResult(getStringValueFromCell(row.getCell(getColumnIndex(resultColumn))));
 
                 // Only add valid rows
                 if (warningData.getWarningName() != null && !warningData.getWarningName().isEmpty()) {
-                    // Use sheet name as the language identifier
-                    String language = sheetName.toLowerCase(); // Convert the sheet name to lowercase to match image file naming convention
+                    // Use sheet name as the language identifier for image file naming
+                    String language = sheetName.toLowerCase();
                     String imagePath = baseImagePath + File.separator + warningData.getWarningName() + "_" + language + ".png";
-                    System.out.println("Image Path: " + imagePath); // Log the image path for verification
+                    System.out.println("Image Path: " + imagePath);
 
                     warningData.setImagePath(imagePath);
                     warningRows.add(warningData);
@@ -176,72 +177,77 @@ public class ManualWarningTestTool {
     }
 
     private void updateWarningList() {
-        // Check if warningRows is not null and contains data
         if (warningRows == null || warningRows.isEmpty()) {
             System.out.println("Warning rows are empty or not initialized.");
             return;
         }
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
-
-        // Iterate over the warning rows and add them to the list model
         for (WarningData data : warningRows) {
             String displayText = data.getWarningName() + " - " + data.getResult();
-
-            // Check the result and update the color accordingly
             if ("correct".equalsIgnoreCase(data.getResult())) {
                 displayText = "<html><font color='green'>" + displayText + "</font></html>";
             } else if ("incorrect".equalsIgnoreCase(data.getResult())) {
                 displayText = "<html><font color='red'>" + displayText + "</font></html>";
             }
-
-            // Add the formatted display text to the list model
             listModel.addElement(displayText);
         }
-
-        // Set the list model to the warning list
         warningList.setModel(listModel);
 
-        // Log the update process
         System.out.println("Updated warning list with " + warningRows.size() + " items.");
 
-        // Add a listener to handle clicking on a warning name
         warningList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedIndex = warningList.getSelectedIndex();
                 if (selectedIndex >= 0) {
-                    currentRow = selectedIndex;  // Update current row index
-                    displayRowDetails(currentRow); // Ensure displayRowDetails is called when a warning is selected
+                    currentRow = selectedIndex;
+                    displayRowDetails(currentRow);
                 }
             }
         });
     }
 
-
     private void displayRowDetails(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < warningRows.size()) {
             WarningData data = warningRows.get(rowIndex);
+            String expectedText = data.getExpectedText();
+            String ocrText = data.getOcrText();
 
-            // Load the corresponding image and display it in original size
+            // Check the selected sheet and set fonts accordingly
+            String selectedSheet = (String) sheetSelector.getSelectedItem();
+            if (selectedSheet != null) {
+                if (selectedSheet.equalsIgnoreCase("th")) {
+                    // For Thai, set font to Tahoma and perform segmentation
+                    Font thaiFont = new Font("Tahoma", Font.PLAIN, 20);
+                    referenceLabel.setFont(thaiFont);
+                    ocrLabel.setFont(thaiFont);
+                    expectedText = segmentThaiText(expectedText);
+                    ocrText = segmentThaiText(ocrText);
+                } else if (selectedSheet.equalsIgnoreCase("arab")) {
+                    // For Arabic, set font to Noto Sans Arabic Regular
+                    Font arabicFont = new Font("Noto Sans Arabic", Font.PLAIN, 20);
+                    referenceLabel.setFont(arabicFont);
+                    ocrLabel.setFont(arabicFont);
+                } else {
+                    // For other languages, use the default font
+                    Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
+                    referenceLabel.setFont(defaultFont);
+                    ocrLabel.setFont(defaultFont);
+                }
+            }
+
+            // Load and display the corresponding image
             ImageIcon warningImage = new ImageIcon(data.getImagePath());
-
-            // Set the icon to the mainImageLabel
             mainImageLabel.setIcon(warningImage);
-
-            // Resize the label to fit the image size (to avoid compression)
             mainImageLabel.setPreferredSize(new Dimension(warningImage.getIconWidth(), warningImage.getIconHeight()));
-
-            // Make sure the label's size is adjusted to the image size
             mainImageLabel.revalidate();
             mainImageLabel.repaint();
 
-            // Set the reference (Expected) text and OCR text labels
-            referenceLabel.setText("<html><b>Expected Text:</b><br>" + data.getExpectedText() + "</html>");
-            ocrLabel.setText("<html><b>OCR Result:</b><br>" + data.getOcrText() + "</html>");
+            // Set the reference (Expected) and OCR text labels
+            referenceLabel.setText("<html><b>Expected Text:</b><br>" + expectedText + "</html>");
+            ocrLabel.setText("<html><b>OCR Result:</b><br>" + ocrText + "</html>");
         }
     }
-
-
 
     private void saveResult(String result) {
         if (currentRow >= 0 && currentRow < warningRows.size()) {
@@ -283,20 +289,16 @@ public class ManualWarningTestTool {
 
         // Add the image in a scroll pane to handle large images
         JScrollPane scrollPane = new JScrollPane(mainImageLabel);
-        scrollPane.setPreferredSize(new Dimension(700, 700)); // Adjust as needed
+        scrollPane.setPreferredSize(new Dimension(700, 700));
         rightPanel.add(scrollPane, BorderLayout.NORTH);
 
-        // Container to hold both the labels for Reference Text and OCR Text
+        // Container for reference and OCR text labels
         JPanel textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS)); // Stack the labels vertically
-        textPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the text panel horizontally
-
-        // Add the reference and OCR text labels to the panel
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         textPanel.add(referenceLabel);
-        textPanel.add(Box.createVerticalStrut(10)); // Adds some space between the texts
+        textPanel.add(Box.createVerticalStrut(10));
         textPanel.add(ocrLabel);
-
-        // Center the text panel vertically inside the rightPanel
         rightPanel.add(textPanel, BorderLayout.CENTER);
 
         // Panel with result buttons and custom result input
@@ -309,8 +311,6 @@ public class ManualWarningTestTool {
 
         return rightPanel;
     }
-
-
 
     private String getStringValueFromCell(Cell cell) {
         if (cell == null) return "";
@@ -341,8 +341,22 @@ public class ManualWarningTestTool {
             panel.add(new JLabel(column));
             panel.add(new JTextField(getColumnIndex(column) + ""));
         }
-
         JOptionPane.showConfirmDialog(frame, panel, "Configure Columns", JOptionPane.OK_CANCEL_OPTION);
+    }
+
+    // Helper method for Thai language segmentation using ICU4J's BreakIterator
+    private String segmentThaiText(String text) {
+        BreakIterator wordIterator = BreakIterator.getWordInstance(new Locale("th", "TH"));
+        wordIterator.setText(text);
+        StringBuilder segmented = new StringBuilder();
+        int start = wordIterator.first();
+        for (int end = wordIterator.next(); end != BreakIterator.DONE; start = end, end = wordIterator.next()) {
+            String word = text.substring(start, end).trim();
+            if (!word.isEmpty()) {
+                segmented.append(word).append(" ");
+            }
+        }
+        return segmented.toString().trim();
     }
 
     // Class to store warning data
