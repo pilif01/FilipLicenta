@@ -60,7 +60,7 @@ public class ManualWarningTestTool {
         ocrLabel = new JLabel("OCR Text: ");
 
         // Set the font for the labels (larger size and bold)
-        Font largeFont = new Font("Arial", Font.BOLD, 20); // Bold, larger size
+        Font largeFont = new Font("Aptos Narrow", Font.BOLD, 20); // Bold, larger size
         referenceLabel.setFont(largeFont);
         ocrLabel.setFont(largeFont);
 

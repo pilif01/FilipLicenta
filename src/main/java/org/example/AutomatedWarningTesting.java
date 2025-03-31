@@ -8,18 +8,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.awt.image.RescaleOp;
+import java.awt.image.BufferedImageOp;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.awt.image.Kernel;
-import java.awt.image.RescaleOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.BufferedImageOp;
 
 public class AutomatedWarningTesting extends JDialog {
 
@@ -29,9 +30,49 @@ public class AutomatedWarningTesting extends JDialog {
     private Rectangle selectedArea;
     private BufferedImage referenceImage; // for the Single/Twin Tube reference
     private String referenceType;         // "SINGLE" or "TWIN"
-
-    // Log text area to display processing details
     private JTextArea logTextArea;
+
+    // Mapping for Tesseract OCR language codes (kept unchanged)
+    private static final Map<String, String> languageMap = new HashMap<>();
+    static {
+        languageMap.put("de", "deu");    // German
+        languageMap.put("gb", "eng");    // English (GB)
+        languageMap.put("us", "eng");    // English (US)
+        languageMap.put("sa", "ara");    // Arabic
+        languageMap.put("hk", "chi_all");    // Chinese (HK)
+        languageMap.put("bg", "bul");    // Bulgarian
+        languageMap.put("cz", "ces");    // Czech
+        languageMap.put("cn", "chi_all");    // Chinese (PRC)
+        languageMap.put("gr", "ell");    // Greek
+        languageMap.put("tw", "chi_all");    // Chinese (Taiwan)
+        languageMap.put("dk", "dan");    // Danish
+        languageMap.put("fi", "fin");    // Finnish
+        languageMap.put("fr", "fra");    // French
+        languageMap.put("il", "heb");    // Hebrew
+        languageMap.put("hr", "hrv");    // Croatian
+        languageMap.put("hu", "hun");    // Hungarian
+        languageMap.put("id", "ind");    // Indonesian
+        languageMap.put("it", "ita");    // Italian
+        languageMap.put("jp", "jpn_2");    // Japanese
+        languageMap.put("kr", "kor");    // Korean
+        languageMap.put("my", "msa");    // Malay
+        languageMap.put("nl", "nld");    // Dutch
+        languageMap.put("no", "nor");    // Norwegian
+        languageMap.put("pl", "pol");    // Polish
+        languageMap.put("br", "por");    // Portuguese (Brazil)
+        languageMap.put("pt", "por");    // Portuguese (Standard)
+        languageMap.put("ro", "ron");    // Romanian
+        languageMap.put("ru", "rus");    // Russian
+        languageMap.put("sk", "slk");    // Slovak
+        languageMap.put("si", "slv");    // Slovenian
+        languageMap.put("es", "spa");    // Spanish
+        languageMap.put("rs", "srp");    // Serbian (Latin)
+        languageMap.put("se", "swe");    // Swedish
+        languageMap.put("th", "tha");    // Thai
+        languageMap.put("tr", "tur");    // Turkish
+        languageMap.put("ua", "ukr");    // Ukrainian
+        languageMap.put("vn", "vie");    // Vietnamese
+    }
 
     public AutomatedWarningTesting(JFrame parent) {
         super(parent, "Automated Warning Testing", true);
@@ -135,8 +176,9 @@ public class AutomatedWarningTesting extends JDialog {
         // Add a log area at the bottom
         logTextArea = new JTextArea();
         logTextArea.setEditable(false);
+        // Force the log text area to always use Aptos Narrow
+        logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
         JScrollPane logScrollPane = new JScrollPane(logTextArea);
-        // Set bounds for the log area near the bottom of the window
         logScrollPane.setBounds(20, 550, 740, 80);
         add(logScrollPane);
 
@@ -227,32 +269,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-
-
-    class LogWindow extends JDialog {
-        private JTextArea logTextArea;
-
-        public LogWindow(AutomatedWarningTesting parent) {
-            super(parent, "Testing Log", false);  // The second parameter makes the dialog non-modal
-            setSize(800, 600);
-            setLocationRelativeTo(parent); // Center it relative to the main window
-            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-            logTextArea = new JTextArea();
-            logTextArea.setEditable(false);
-            JScrollPane logScrollPane = new JScrollPane(logTextArea);
-            add(logScrollPane);
-
-            setVisible(true);  // Make sure the dialog is visible
-        }
-
-        public void appendLog(String message) {
-            logTextArea.append(message + "\n");
-            logTextArea.setCaretPosition(logTextArea.getDocument().getLength()); // Auto-scroll
-        }
-    }
-
-
+    // Enhances the image before OCR processing
     private BufferedImage enhanceImage(BufferedImage original) {
         // Convert the image to grayscale
         BufferedImage grayscaleImage = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
@@ -261,7 +278,7 @@ public class AutomatedWarningTesting extends JDialog {
         g.dispose();
 
         // Adjust brightness and contrast using RescaleOp
-        RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null); // Increase contrast and brightness
+        RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
         grayscaleImage = rescaleOp.filter(grayscaleImage, null);
 
         // Sharpen the image using a convolution kernel
@@ -277,66 +294,10 @@ public class AutomatedWarningTesting extends JDialog {
         return grayscaleImage;
     }
 
-    // Language code map (mapping the language code to Tesseract language codes)
-    private static final Map<String, String> languageMap = new HashMap<>();
-    static {
-        languageMap.put("de", "deu");    // German
-        languageMap.put("gb", "eng");    // English (GB)
-        languageMap.put("us", "eng");    // English (US)
-        languageMap.put("sa", "ara");    // Arabic
-        languageMap.put("hk", "zho");    // Chinese (PRC)
-        languageMap.put("bg", "bul");    // Bulgarian
-        languageMap.put("cz", "ces");    // Czech
-        languageMap.put("cn", "zho");    // Chinese (PRC)
-        languageMap.put("gr", "ell");    // Greek
-        languageMap.put("tw", "zho");    // Chinese (Taiwan)
-        languageMap.put("dk", "dan");    // Danish
-        languageMap.put("fi", "fin");    // Finnish
-        languageMap.put("fr", "fra");    // French
-        languageMap.put("il", "heb");    // Hebrew
-        languageMap.put("hr", "hrv");    // Croatian
-        languageMap.put("hu", "hun");    // Hungarian
-        languageMap.put("id", "ind");    // Indonesian
-        languageMap.put("it", "ita");    // Italian
-        languageMap.put("jp", "jpn");    // Japanese
-        languageMap.put("kr", "kor");    // Korean
-        languageMap.put("my", "msa");    // Malay
-        languageMap.put("nl", "nld");    // Dutch
-        languageMap.put("no", "nor");    // Norwegian
-        languageMap.put("pl", "pol");    // Polish
-        languageMap.put("br", "por");    // Portuguese (Brazil)
-        languageMap.put("pt", "por");    // Portuguese (Standard)
-        languageMap.put("ro", "ron");    // Romanian
-        languageMap.put("ru", "rus");    // Russian
-        languageMap.put("sk", "slk");    // Slovak
-        languageMap.put("si", "slv");    // Slovenian
-        languageMap.put("es", "spa");    // Spanish
-        languageMap.put("rs", "srp");    // Serbian (Latin)
-        languageMap.put("se", "swe");    // Swedish
-        languageMap.put("th", "tha");    // Thai
-        languageMap.put("tr", "tur");    // Turkish
-        languageMap.put("ua", "ukr");    // Ukrainian
-        languageMap.put("vn", "vie");    // Vietnamese
-    }
-
-    /**
-     * Main testing logic:
-     * 1. Read the first (selector) sheet to build a map for each language (Column 0 holds RUN/SKIP, Column 1 holds language code).
-     * 2. For each subsequent language sheet, create a results sheet (even if the language is marked SKIP).
-     *    - If the selector marks the language as RUN, process each row:
-     *         - If the row's tcontrol is "run", perform OCR.
-     *         - Otherwise, mark the row as "SKIPPED".
-     *    - If the selector marks the language as SKIP or is missing, mark all rows as "SKIPPED".
-     * 3. At the end of each sheet, append a summary count of CORRECT, INCORRECT, and SKIPPED.
-     */
-
-    // In the main testing class, add the following to the startTesting method:
-
+    // Main testing logic using SwingWorker for background processing
     private void startTesting() {
-        // Create the log window
-        LogWindow logWindow = new LogWindow(this);  // Pass the parent frame
+        LogWindow logWindow = new LogWindow(this);
 
-        // Use SwingWorker to run the OCR and testing in the background
         SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -357,13 +318,13 @@ public class AutomatedWarningTesting extends JDialog {
 
                 // Initialize Tesseract OCR engine (using Tess4J) with fixed tessdata path
                 ITesseract tesseract = new Tesseract();
-                tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata"); // Set the path to the tessdata folder
+                tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata");
 
                 try (FileInputStream fis = new FileInputStream(excelPath);
                      Workbook workbook = new XSSFWorkbook(fis);
                      Workbook resultsWorkbook = new XSSFWorkbook()) {
 
-                    // 1) Read the selector sheet (first sheet) to build a mapping: language -> RUN/SKIP.
+                    // Read the selector sheet (first sheet) to build a mapping: language -> RUN/SKIP.
                     Sheet selectorSheet = workbook.getSheetAt(0);
                     Map<String, String> languageRunMap = new HashMap<>();
 
@@ -389,13 +350,16 @@ public class AutomatedWarningTesting extends JDialog {
                         String sheetName = langSheet.getSheetName().trim();
                         publish("Processing sheet: " + sheetName);
 
+                        // Always use Aptos Narrow (pre-installed) for the log text.
+                        SwingUtilities.invokeLater(() -> logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12)));
+
                         // Determine if this language should be processed (global RUN) or not.
                         boolean globalRun = languageRunMap.containsKey(sheetName) && "RUN".equalsIgnoreCase(languageRunMap.get(sheetName));
                         if (!globalRun) {
                             publish("Sheet " + sheetName + " is marked SKIP or missing in selector. All rows will be marked SKIPPED.");
                         }
 
-                        // Create a results sheet for this language regardless.
+                        // Create a results sheet for this language.
                         Sheet resultsSheet = resultsWorkbook.createSheet(sheetName);
                         Row headerRow = resultsSheet.createRow(0);
                         headerRow.createCell(0).setCellValue("Warning Name");
@@ -431,7 +395,6 @@ public class AutomatedWarningTesting extends JDialog {
                             resultRow.createCell(0).setCellValue(warningName);
                             resultRow.createCell(1).setCellValue(expectedText);
 
-                            // If global RUN is false, mark the row as SKIPPED.
                             if (!globalRun) {
                                 resultRow.createCell(2).setCellValue("");
                                 resultRow.createCell(3).setCellValue("SKIPPED");
@@ -439,7 +402,6 @@ public class AutomatedWarningTesting extends JDialog {
                                 continue;
                             }
 
-                            // If global RUN is true, then check the row's own tcontrol.
                             if (!"run".equalsIgnoreCase(tcontrol)) {
                                 resultRow.createCell(2).setCellValue("");
                                 resultRow.createCell(3).setCellValue("SKIPPED");
@@ -447,7 +409,6 @@ public class AutomatedWarningTesting extends JDialog {
                                 continue;
                             }
 
-                            // Process image "warningName_sheetName.png"
                             String imageFileName = warningName + "_" + sheetName.toLowerCase() + ".png";
                             File imageFile = new File(picturesFolder, imageFileName);
                             if (!imageFile.exists()) {
@@ -459,10 +420,7 @@ public class AutomatedWarningTesting extends JDialog {
                             }
 
                             BufferedImage original = ImageIO.read(imageFile);
-
-                            // Enhance the image before OCR
                             BufferedImage enhancedImage = enhanceImage(original);
-
                             BufferedImage cropped = enhancedImage.getSubimage(
                                     selectedArea.x,
                                     selectedArea.y,
@@ -470,18 +428,15 @@ public class AutomatedWarningTesting extends JDialog {
                                     selectedArea.height
                             );
 
-                            // Save the cropped image (naming: warningName_sheetName_crop.png)
                             String croppedImageName = warningName + "_" + sheetName.toLowerCase() + "_crop.png";
                             File croppedFile = new File(croppedImagesFolder, croppedImageName);
                             ImageIO.write(cropped, "png", croppedFile);
 
-                            // Set language for OCR based on the language map
                             String languageCode = languageMap.get(sheetName.toLowerCase());
                             if (languageCode != null) {
-                                tesseract.setLanguage(languageCode); // Set the language for OCR
+                                tesseract.setLanguage(languageCode);
                             }
 
-                            // Run OCR on the enhanced image
                             String ocrText = "";
                             try {
                                 ocrText = tesseract.doOCR(cropped).trim();
@@ -506,14 +461,12 @@ public class AutomatedWarningTesting extends JDialog {
                                     "Test: " + result + "\n-------------------------";
                             publish(logMsg);
                         }
-                        // Append sheet summary to log.
                         String summary = "Sheet " + sheetName + " Summary: CORRECT: " + correctCount +
                                 ", INCORRECT: " + incorrectCount + ", SKIPPED: " + skippedCount;
                         publish(summary);
                         publish("-------------------------");
                     }
 
-                    // Save the results workbook to the specified file.
                     try (FileOutputStream fos = new FileOutputStream(resultsExcelPath)) {
                         resultsWorkbook.write(fos);
                     }
@@ -525,20 +478,44 @@ public class AutomatedWarningTesting extends JDialog {
                     ex.printStackTrace();
                     publish("Error during testing: " + ex.getMessage());
                 }
-
                 return null;
             }
 
             @Override
             protected void process(java.util.List<String> chunks) {
                 for (String logMessage : chunks) {
-                    logWindow.appendLog(logMessage); // Update log window
+                    logWindow.appendLog(logMessage);
                 }
             }
         };
 
-        // Start the worker in the background
         worker.execute();
+    }
+
+    // Inner class for displaying the log window
+    class LogWindow extends JDialog {
+        private JTextArea logTextArea;
+
+        public LogWindow(AutomatedWarningTesting parent) {
+            super(parent, "Testing Log", false);
+            setSize(800, 600);
+            setLocationRelativeTo(parent);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+            logTextArea = new JTextArea();
+            logTextArea.setEditable(false);
+            // Ensure log text always uses Aptos Narrow.
+            logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
+            JScrollPane logScrollPane = new JScrollPane(logTextArea);
+            add(logScrollPane);
+
+            setVisible(true);
+        }
+
+        public void appendLog(String message) {
+            logTextArea.append(message + "\n");
+            logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
+        }
     }
 
     // Inner dialog for selecting a crop area over the reference image.
@@ -570,7 +547,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Custom panel that displays the image and lets the user draw a rectangle to select the crop area.
+    // Custom panel for drawing a selection rectangle.
     class CropPanel extends JPanel {
         private BufferedImage image;
         private Rectangle selection;
@@ -586,14 +563,12 @@ public class AutomatedWarningTesting extends JDialog {
                     endDrag = startDrag;
                     repaint();
                 }
-
                 @Override
                 public void mouseDragged(MouseEvent e) {
                     endDrag = e.getPoint();
                     updateSelection();
                     repaint();
                 }
-
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     endDrag = e.getPoint();
@@ -632,7 +607,21 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
+    // Helper method to update the default UI font globally.
+    public static void setUIFont(FontUIResource f) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, f);
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        // Set global UI font to Aptos Narrow (pre-installed).
+        setUIFont(new FontUIResource(new Font("Aptos Narrow", Font.PLAIN, 12)));
         SwingUtilities.invokeLater(() -> new AutomatedWarningTesting(null).setVisible(true));
     }
 }
