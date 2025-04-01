@@ -607,7 +607,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Helper method to update the default UI font globally.
+    // helper method to update the default ui font globally using a fontuiresource
     public static void setUIFont(FontUIResource f) {
         java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
@@ -620,7 +620,7 @@ public class AutomatedWarningTesting extends JDialog {
     }
 
     public static void main(String[] args) {
-        // Set global UI font to Aptos Narrow (pre-installed).
+        // main method to launch the application; sets the global ui font and shows the gui
         setUIFont(new FontUIResource(new Font("Aptos Narrow", Font.PLAIN, 12)));
         SwingUtilities.invokeLater(() -> new AutomatedWarningTesting(null).setVisible(true));
     }
