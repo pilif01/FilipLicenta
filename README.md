@@ -1,1 +1,0 @@
-OCR Tool App
