@@ -1,40 +1,38 @@
 package org.example;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.List;
 import java.util.ArrayList;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import java.util.List;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.awt.Rectangle;
 
 public class AutomatedIconTesting extends JDialog {
 
-    // automated icon testing dialog class for icon testing and crop area selection and excel integration
-    private JTextField excelPathField, iconExcelField, refIconExcelField, cropAreaField, resultExcelField;
-    // buttons for selecting files and performing actions
-    private JButton startButton, selectExcelButton, selectIconExcelButton, selectRefIconExcelButton, selectResultsButton, selectCropAreaButton;
-    private JButton singleTubeButton, twinTubeButton;
-    // rectangle to store the selected crop area
+    // Text fields for file and folder selections
+    private JTextField iconExcelField, downPicsField, refPicsField, croppedImagesFolderField, resultsExcelField, cropAreaField;
+    // Buttons for selecting files, folders, and actions
+    private JButton selectIconExcelButton, selectDownPicsButton, selectRefPicsButton, selectCroppedImagesButton, selectResultsButton, selectCropAreaButton;
+    private JButton singleTubeButton, twinTubeButton, startButton;
+    // The selected crop area (applied to both down and reference images)
     private Rectangle selectedArea;
-    // buffered image to hold the reference icon image
+    // The reference image used for crop selection (loaded via single/twin button)
     private BufferedImage referenceImage;
-    // text area for logging messages
+    // Log text area in the main dialog (also used in the LogWindow)
     private JTextArea logTextArea;
-    // list to store warning icon data from excel
+    // List to store warning data read from the Excel file
     private List<WarningIconData> iconData;
 
-    // constructor to initialize the dialog and user interface
     public AutomatedIconTesting(JFrame parent) {
         super(parent, "Automated Icon Testing", true);
-
-        // set dialog size layout and center on screen
-        setSize(800, 650);
+        setSize(800, 750);
         setLayout(null);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -45,10 +43,10 @@ public class AutomatedIconTesting extends JDialog {
         int y = 20;
         int gap = 40;
 
-        // label and text field for selecting icon excel file
-        JLabel selectExcelLabel = new JLabel("Select Icon Excel File:");
-        selectExcelLabel.setBounds(20, y, labelWidth, 30);
-        add(selectExcelLabel);
+        // --- Icon Excel File Selection ---
+        JLabel iconExcelLabel = new JLabel("Select Icon Excel File:");
+        iconExcelLabel.setBounds(20, y, labelWidth, 30);
+        add(iconExcelLabel);
 
         iconExcelField = new JTextField();
         iconExcelField.setBounds(20, y + 30, textWidth, 30);
@@ -60,22 +58,67 @@ public class AutomatedIconTesting extends JDialog {
 
         y += gap + 30;
 
-        // label and text field for selecting reference icon excel file
-        JLabel selectRefIconExcelLabel = new JLabel("Select Reference Icon Excel File:");
-        selectRefIconExcelLabel.setBounds(20, y, labelWidth, 30);
-        add(selectRefIconExcelLabel);
+        // --- Down Pics Folder Selection ---
+        JLabel downPicsLabel = new JLabel("Select Down Pics Folder:");
+        downPicsLabel.setBounds(20, y, labelWidth, 30);
+        add(downPicsLabel);
 
-        refIconExcelField = new JTextField();
-        refIconExcelField.setBounds(20, y + 30, textWidth, 30);
-        add(refIconExcelField);
+        downPicsField = new JTextField();
+        downPicsField.setBounds(20, y + 30, textWidth, 30);
+        add(downPicsField);
 
-        selectRefIconExcelButton = new JButton("Browse");
-        selectRefIconExcelButton.setBounds(380, y + 30, buttonWidth, 30);
-        add(selectRefIconExcelButton);
+        selectDownPicsButton = new JButton("Browse");
+        selectDownPicsButton.setBounds(380, y + 30, buttonWidth, 30);
+        add(selectDownPicsButton);
 
         y += gap + 30;
 
-        // label and text field and button for crop area selection
+        // --- Ref Pics Folder Selection ---
+        JLabel refPicsLabel = new JLabel("Select Ref Pics Folder:");
+        refPicsLabel.setBounds(20, y, labelWidth, 30);
+        add(refPicsLabel);
+
+        refPicsField = new JTextField();
+        refPicsField.setBounds(20, y + 30, textWidth, 30);
+        add(refPicsField);
+
+        selectRefPicsButton = new JButton("Browse");
+        selectRefPicsButton.setBounds(380, y + 30, buttonWidth, 30);
+        add(selectRefPicsButton);
+
+        y += gap + 30;
+
+        // --- Cropped Images Folder Selection ---
+        JLabel croppedImagesLabel = new JLabel("Select Cropped Images Folder:");
+        croppedImagesLabel.setBounds(20, y, labelWidth, 30);
+        add(croppedImagesLabel);
+
+        croppedImagesFolderField = new JTextField();
+        croppedImagesFolderField.setBounds(20, y + 30, textWidth, 30);
+        add(croppedImagesFolderField);
+
+        selectCroppedImagesButton = new JButton("Browse");
+        selectCroppedImagesButton.setBounds(380, y + 30, buttonWidth, 30);
+        add(selectCroppedImagesButton);
+
+        y += gap + 30;
+
+        // --- Results Excel File Save Location ---
+        JLabel resultsExcelLabel = new JLabel("Select Results Excel Save Location:");
+        resultsExcelLabel.setBounds(20, y, labelWidth, 30);
+        add(resultsExcelLabel);
+
+        resultsExcelField = new JTextField();
+        resultsExcelField.setBounds(20, y + 30, textWidth, 30);
+        add(resultsExcelField);
+
+        selectResultsButton = new JButton("Browse");
+        selectResultsButton.setBounds(380, y + 30, buttonWidth, 30);
+        add(selectResultsButton);
+
+        y += gap + 30;
+
+        // --- Crop Area Selection ---
         JLabel cropAreaLabel = new JLabel("Crop Area (x y width height):");
         cropAreaLabel.setBounds(20, y, labelWidth, 30);
         add(cropAreaLabel);
@@ -90,22 +133,7 @@ public class AutomatedIconTesting extends JDialog {
 
         y += gap + 30;
 
-        // label and text field for results excel file save location
-        JLabel selectResultsLabel = new JLabel("Select Results Excel Save Location:");
-        selectResultsLabel.setBounds(20, y, labelWidth, 30);
-        add(selectResultsLabel);
-
-        resultExcelField = new JTextField();
-        resultExcelField.setBounds(20, y + 30, textWidth, 30);
-        add(resultExcelField);
-
-        selectResultsButton = new JButton("Browse");
-        selectResultsButton.setBounds(380, y + 30, buttonWidth, 30);
-        add(selectResultsButton);
-
-        y += gap + 30;
-
-        // buttons for selecting reference images for single tube and twin tube
+        // --- Buttons for Reference Image Mode (Single/Twin) under Crop Area ---
         singleTubeButton = new JButton("Single Tube");
         singleTubeButton.setBounds(20, y, 140, 30);
         add(singleTubeButton);
@@ -114,89 +142,94 @@ public class AutomatedIconTesting extends JDialog {
         twinTubeButton.setBounds(180, y, 140, 30);
         add(twinTubeButton);
 
-        y += gap + 70;
+        y += gap + 30;
 
-        // button to start testing process
+        // --- Start Testing Button ---
         startButton = new JButton("Start Testing");
-        startButton.setBounds(200, y, 150, 40);
+        startButton.setBounds(150, y, 150, 40);
         add(startButton);
 
-        // log text area at the bottom for status messages
+        y += gap + 30;
+
+        // --- Log Text Area (also used by the LogWindow) ---
         logTextArea = new JTextArea();
         logTextArea.setEditable(false);
         JScrollPane logScrollPane = new JScrollPane(logTextArea);
-        logScrollPane.setBounds(20, 550, 740, 80);
+        logScrollPane.setBounds(20, y, 740, 150);
         add(logScrollPane);
 
-        // add action listener for file selection for icon excel file
+        // --- Action Listeners ---
         selectIconExcelButton.addActionListener(e -> selectFile(iconExcelField));
-        // add action listener for file selection for reference icon excel file
-        selectRefIconExcelButton.addActionListener(e -> selectFile(refIconExcelField));
-        // add action listener for selecting file save location for results excel file
-        selectResultsButton.addActionListener(e -> selectFileSaveLocation(resultExcelField));
+        selectDownPicsButton.addActionListener(e -> selectDirectory(downPicsField));
+        selectRefPicsButton.addActionListener(e -> selectDirectory(refPicsField));
+        selectCroppedImagesButton.addActionListener(e -> selectDirectory(croppedImagesFolderField));
+        selectResultsButton.addActionListener(e -> selectFileSaveLocation(resultsExcelField));
 
-        // add action listener for crop area button to open crop dialog if reference image is loaded
+        // When "Select Area" is pressed, open the crop dialog only if a reference image is loaded.
         selectCropAreaButton.addActionListener(e -> {
             if (referenceImage != null) {
                 openCropAreaDialog();
             } else {
-                JOptionPane.showMessageDialog(this, "please select single or twin tube reference first", "error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select Single or Twin Tube reference first.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        // add action listener for single tube button to load reference image
+        // Load the reference image when a tube button is pressed.
         singleTubeButton.addActionListener(e -> {
             try {
                 loadReferenceImage("SINGLE");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(this, "Error loading Single Tube reference image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        // add action listener for twin tube button to load reference image
         twinTubeButton.addActionListener(e -> {
             try {
                 loadReferenceImage("TWIN");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(this, "Error loading Twin Tube reference image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-        // add action listener for start button to begin testing
         startButton.addActionListener(e -> startTesting());
     }
 
-    // utility method to append messages to the log text area
-    private void appendLog(String message) {
-        SwingUtilities.invokeLater(() -> logTextArea.append(message + "\n"));
-    }
-
-    // method to open file chooser and set text field with selected file path
+    // Utility methods for file/folder selection
     private void selectFile(JTextField textField) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            textField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            textField.setText(chooser.getSelectedFile().getAbsolutePath());
         }
     }
-
-    // method to open file chooser for save location and set text field
+    private void selectDirectory(JTextField textField) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = chooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            textField.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }
     private void selectFileSaveLocation(JTextField textField) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showSaveDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            textField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            textField.setText(chooser.getSelectedFile().getAbsolutePath());
         }
     }
 
-    // method to load the reference image based on type and open crop dialog
+    // Modified loadReferenceImage: Always load from the fixed path with filenames "Reference_SINGLE.png" or "Reference_TWIN.png"
     private void loadReferenceImage(String type) throws IOException {
         String basePath = "C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics";
-        String imagePath = basePath + "\\" + "Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
-        referenceImage = ImageIO.read(new File(imagePath));
+        String imageFile = "Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
+        File file = new File(basePath + System.getProperty("file.separator") + imageFile);
+        if (!file.exists()) {
+            JOptionPane.showMessageDialog(this, "Reference image " + imageFile + " not found in " + basePath, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        referenceImage = ImageIO.read(file);
         openCropAreaDialog();
     }
 
-    // method to open crop area dialog and set the selected crop area in text field
+    // Open the crop area dialog
     private void openCropAreaDialog() {
         CropAreaDialog dialog = new CropAreaDialog(this, referenceImage);
         dialog.setVisible(true);
@@ -207,170 +240,178 @@ public class AutomatedIconTesting extends JDialog {
         }
     }
 
-    // main method to start the testing process using excel files and image comparison
+    // startTesting: For each warning name in the Excel file, compare the down pic with the ref pic.
+    // The result is written into column 4 (cell index 3) of the final Excel.
     private void startTesting() {
-        // get paths for icon excel file reference icon excel file and results excel file
-        String iconExcelPath = iconExcelField.getText();
-        String refIconExcelPath = refIconExcelField.getText();
-        String resultsExcelPath = resultExcelField.getText().trim();
-
-        try {
-            // read icon excel file and store data in list
-            FileInputStream iconFis = new FileInputStream(new File(iconExcelPath));
-            XSSFWorkbook iconWorkbook = new XSSFWorkbook(iconFis);
-            Sheet iconSheet = iconWorkbook.getSheetAt(0);
-
-            iconData = new ArrayList<>();
-            for (int rowIndex = 1; rowIndex <= iconSheet.getLastRowNum(); rowIndex++) {
-                Row row = iconSheet.getRow(rowIndex);
-                if (row != null) {
-                    // get warning name icon name and control flag from excel row
-                    String warningName = row.getCell(1).toString().trim();
-                    String iconName = row.getCell(2).toString().trim();
-                    String tControl = row.getCell(0).toString().trim();
-
-                    // add the extracted data to the icon data list
-                    iconData.add(new WarningIconData(warningName, iconName, tControl));
+        LogWindow logWindow = new LogWindow(this);
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                String iconExcelPath = iconExcelField.getText().trim();
+                String downPicsFolder = downPicsField.getText().trim();
+                String refPicsFolder = refPicsField.getText().trim();
+                String resultsExcelPath = resultsExcelField.getText().trim();
+                String croppedFolder = croppedImagesFolderField.getText().trim();
+                if (iconExcelPath.isEmpty() || downPicsFolder.isEmpty() || refPicsFolder.isEmpty() || resultsExcelPath.isEmpty() || croppedFolder.isEmpty() || selectedArea == null) {
+                    publish("Please ensure all selections are made and crop area is set.");
+                    return null;
                 }
-            }
+                try (FileInputStream fis = new FileInputStream(new File(iconExcelPath));
+                     XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 
-            // read reference icon excel file and get file paths for reference icons
-            FileInputStream refFis = new FileInputStream(new File(refIconExcelPath));
-            XSSFWorkbook refIconWorkbook = new XSSFWorkbook(refFis);
-            Sheet refIconSheet = refIconWorkbook.getSheetAt(0);
-
-            // process each warning and compare icon images
-            for (WarningIconData data : iconData) {
-                if ("RUN".equalsIgnoreCase(data.getTcontrol())) {
-                    // find the matching reference icon based on icon name
-                    BufferedImage referenceIcon = null;
-                    for (int rowIndex = 1; rowIndex <= refIconSheet.getLastRowNum(); rowIndex++) {
-                        Row row = refIconSheet.getRow(rowIndex);
-                        if (row != null && data.getIconName().equals(row.getCell(1).toString().trim())) {
-                            String referenceIconPath = "C:\\PathToReferenceIcons\\" + row.getCell(1).toString().trim() + ".png";
-                            referenceIcon = ImageIO.read(new File(referenceIconPath));
-                            break;
+                    Sheet sheet = workbook.getSheetAt(0);
+                    iconData = new ArrayList<>();
+                    // Read only the warning name from column 0 (assuming header is in row 0)
+                    for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+                        Row row = sheet.getRow(rowIndex);
+                        if (row != null && row.getCell(0) != null) {
+                            String warningName = row.getCell(0).toString().trim();
+                            iconData.add(new WarningIconData(warningName, rowIndex));
                         }
                     }
 
-                    // if reference icon is not found log error and skip comparison
-                    if (referenceIcon == null) {
-                        appendLog("error reference icon for " + data.getIconName() + " not found");
-                        continue;
+                    // Process each warning: compare down pic vs. reference pic (both should have the same name)
+                    for (WarningIconData data : iconData) {
+                        String warningName = data.getWarningName();
+                        // Build file paths for down pic and ref pic
+                        String downPicPath = downPicsFolder + System.getProperty("file.separator") + warningName + ".png";
+                        String refPicPath = refPicsFolder + System.getProperty("file.separator") + warningName + ".png";
+                        File downFile = new File(downPicPath);
+                        File refFile = new File(refPicPath);
+                        if (!downFile.exists() || !refFile.exists()) {
+                            data.setResult("PIC NOT FOUND");
+                            publish("Warning: " + warningName + " -> PIC NOT FOUND");
+                            continue;
+                        }
+                        BufferedImage downImage = ImageIO.read(downFile);
+                        BufferedImage refImage = ImageIO.read(refFile);
+                        // Optionally crop both images using the selected area
+                        BufferedImage croppedDown = downImage.getSubimage(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
+                        BufferedImage croppedRef = refImage.getSubimage(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
+                        // Save the cropped down image automatically
+                        String croppedImageName = warningName + "_crop.png";
+                        File output = new File(croppedFolder + System.getProperty("file.separator") + croppedImageName);
+                        ImageIO.write(croppedDown, "png", output);
+                        publish("Cropped image saved for warning: " + warningName);
+                        // Pixel-by-pixel comparison
+                        boolean match = compareImages(croppedDown, croppedRef);
+                        String resultStr = match ? "CORRECT" : "INCORRECT";
+                        data.setResult(resultStr);
+                        publish("Warning: " + warningName + " -> " + resultStr);
                     }
 
-                    // crop the selected area from the reference image
-                    BufferedImage croppedImage = referenceImage.getSubimage(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
-
-                    // if cropped image is null log error and skip comparison
-                    if (croppedImage == null) {
-                        appendLog("error cropped image for warning " + data.getWarningName() + " is null");
-                        continue;
+                    // Write results to Excel in column 4 (cell index 3)
+                    Row headerRow = sheet.getRow(0);
+                    // Create header for the Result column (if desired)
+                    Cell resultHeaderCell = headerRow.createCell(3);
+                    resultHeaderCell.setCellValue("Result");
+                    for (WarningIconData data : iconData) {
+                        Row row = sheet.getRow(data.getRowIndex());
+                        if (row != null) {
+                            Cell cell = row.createCell(3);
+                            cell.setCellValue(data.getResult());
+                        }
                     }
-
-                    // compare the cropped warning image with the reference icon image pixel by pixel
-                    boolean match = compareImages(croppedImage, referenceIcon);
-
-                    // log the result of the comparison
-                    appendLog("warning " + data.getWarningName() + " icon match " + (match ? "passed" : "failed"));
+                    try (FileOutputStream fos = new FileOutputStream(new File(resultsExcelPath))) {
+                        workbook.write(fos);
+                    }
+                    publish("Results written to " + resultsExcelPath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    publish("Error: " + e.getMessage());
+                }
+                return null;
+            }
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String msg : chunks) {
+                    logWindow.appendLog(msg);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            appendLog("error " + e.getMessage());
-        }
+        };
+        worker.execute();
     }
 
-    // method to compare two images pixel by pixel and return true if they match
+    // Pixel-by-pixel comparison method
     private boolean compareImages(BufferedImage img1, BufferedImage img2) {
-        if (img1 == null || img2 == null) {
-            appendLog("error one or both images are null");
-            return false;
-        }
-
-        if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
-            appendLog("error image sizes do not match");
-            return false;
-        }
-
-        // iterate over each pixel and compare the rgb values
+        if (img1 == null || img2 == null) return false;
+        if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) return false;
         for (int x = 0; x < img1.getWidth(); x++) {
             for (int y = 0; y < img1.getHeight(); y++) {
                 if (img1.getRGB(x, y) != img2.getRGB(x, y)) {
-                    appendLog("mismatch found at " + x + " " + y);
                     return false;
                 }
             }
         }
-
         return true;
     }
 
-    // inner class to store warning icon data from excel
+    // WarningIconData now holds only the warning name and result
     class WarningIconData {
         private String warningName;
-        private String iconName;
-        private String tcontrol;
-
-        public WarningIconData(String warningName, String iconName, String tcontrol) {
+        private String result;
+        private int rowIndex;
+        public WarningIconData(String warningName, int rowIndex) {
             this.warningName = warningName;
-            this.iconName = iconName;
-            this.tcontrol = tcontrol;
+            this.rowIndex = rowIndex;
         }
+        public String getWarningName() { return warningName; }
+        public int getRowIndex() { return rowIndex; }
+        public String getResult() { return result; }
+        public void setResult(String result) { this.result = result; }
+    }
 
-        public String getWarningName() {
-            return warningName;
+    // LogWindow to display messages during processing
+    class LogWindow extends JDialog {
+        private JTextArea logTextArea;
+        public LogWindow(AutomatedIconTesting parent) {
+            super(parent, "Testing Log", false);
+            setSize(600, 400);
+            setLocationRelativeTo(parent);
+            logTextArea = new JTextArea();
+            logTextArea.setEditable(false);
+            logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
+            JScrollPane scrollPane = new JScrollPane(logTextArea);
+            add(scrollPane);
+            setVisible(true);
         }
-
-        public String getIconName() {
-            return iconName;
-        }
-
-        public String getTcontrol() {
-            return tcontrol;
+        public void appendLog(String message) {
+            logTextArea.append(message + "\n");
+            logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
         }
     }
 
-    // inner class crop area dialog to select the crop area on the reference image
+    // CropAreaDialog for selecting the crop region
     class CropAreaDialog extends JDialog {
         private BufferedImage image;
         private CropPanel cropPanel;
         private Rectangle selectedArea;
-
         public CropAreaDialog(AutomatedIconTesting parent, BufferedImage image) {
             super(parent, "Select Crop Area", true);
             this.image = image;
-            // set dialog size based on image dimensions with extra space
             setSize(image.getWidth() + 50, image.getHeight() + 100);
             setLayout(new BorderLayout());
-
             cropPanel = new CropPanel(image);
             add(cropPanel, BorderLayout.CENTER);
-
             JButton saveButton = new JButton("Save");
             add(saveButton, BorderLayout.SOUTH);
-
-            // add listener to save the selected crop area and close the dialog
             saveButton.addActionListener(e -> {
                 selectedArea = cropPanel.getSelection();
                 dispose();
             });
         }
-
         public Rectangle getSelectedArea() {
             return selectedArea;
         }
     }
 
-    // inner class crop panel to handle mouse events and draw the crop area
+    // CropPanel for drawing the selection rectangle over the image
     class CropPanel extends JPanel {
         private BufferedImage image;
         private Rectangle selection;
         private Point startDrag, endDrag;
-
         public CropPanel(BufferedImage image) {
             this.image = image;
-            // initialize selection to cover entire image
             selection = new Rectangle(0, 0, image.getWidth(), image.getHeight());
             MouseAdapter mouseAdapter = new MouseAdapter() {
                 @Override
@@ -379,14 +420,12 @@ public class AutomatedIconTesting extends JDialog {
                     endDrag = startDrag;
                     repaint();
                 }
-
                 @Override
                 public void mouseDragged(MouseEvent e) {
                     endDrag = e.getPoint();
                     updateSelection();
                     repaint();
                 }
-
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     endDrag = e.getPoint();
@@ -397,8 +436,6 @@ public class AutomatedIconTesting extends JDialog {
             addMouseListener(mouseAdapter);
             addMouseMotionListener(mouseAdapter);
         }
-
-        // update the selection rectangle based on mouse drag
         private void updateSelection() {
             int x = Math.min(startDrag.x, endDrag.x);
             int y = Math.min(startDrag.y, endDrag.y);
@@ -406,28 +443,23 @@ public class AutomatedIconTesting extends JDialog {
             int height = Math.abs(startDrag.y - endDrag.y);
             selection = new Rectangle(x, y, width, height);
         }
-
         public Rectangle getSelection() {
             return selection;
         }
-
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            // draw the image and the selection rectangle
             g.drawImage(image, 0, 0, null);
             g.setColor(Color.RED);
             ((Graphics2D) g).setStroke(new BasicStroke(2));
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-
         @Override
         public Dimension getPreferredSize() {
             return new Dimension(image.getWidth(), image.getHeight());
         }
     }
 
-    // main method to launch the dialog
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new AutomatedIconTesting(null).setVisible(true));
     }
