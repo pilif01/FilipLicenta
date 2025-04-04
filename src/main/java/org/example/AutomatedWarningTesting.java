@@ -24,61 +24,61 @@ import java.util.Map;
 
 public class AutomatedWarningTesting extends JDialog {
 
-    private JTextField excelPathField, picturesFolderField, croppedImagesFolderField, resultsExcelField, cropAreaField;
-    private JButton startButton, selectExcelButton, selectPicturesButton, selectCroppedImagesButton, selectResultsButton, selectCropAreaButton;
+    private JTextField excelPathField, picturesFolderField, croppedImagesFolderField, resultsExcelField, cropAreaField, tessdataPathField;
+    private JButton startButton, selectExcelButton, selectPicturesButton, selectCroppedImagesButton, selectResultsButton, selectCropAreaButton, selectTessdataButton;
     private JButton singleTubeButton, twinTubeButton;
     private Rectangle selectedArea;
-    private BufferedImage referenceImage; // for the Single/Twin Tube reference
+    private BufferedImage referenceImage; // for the single/twin tube reference
     private String referenceType;         // "SINGLE" or "TWIN"
     private JTextArea logTextArea;
 
-    // Mapping for Tesseract OCR language codes (kept unchanged)
+    // mapping for tesseract ocr language codes (kept unchanged)
     private static final Map<String, String> languageMap = new HashMap<>();
     static {
-        languageMap.put("de", "deu");    // German
-        languageMap.put("gb", "eng");    // English (GB)
-        languageMap.put("us", "eng");    // English (US)
-        languageMap.put("sa", "ara");    // Arabic
-        languageMap.put("hk", "chi_all");    // Chinese (HK)
-        languageMap.put("bg", "bul");    // Bulgarian
-        languageMap.put("cz", "ces");    // Czech
-        languageMap.put("cn", "chi_all");    // Chinese (PRC)
-        languageMap.put("gr", "ell");    // Greek
-        languageMap.put("tw", "chi_all");    // Chinese (Taiwan)
-        languageMap.put("dk", "dan");    // Danish
-        languageMap.put("fi", "fin");    // Finnish
-        languageMap.put("fr", "fra");    // French
-        languageMap.put("il", "heb");    // Hebrew
-        languageMap.put("hr", "hrv");    // Croatian
-        languageMap.put("hu", "hun");    // Hungarian
-        languageMap.put("id", "ind");    // Indonesian
-        languageMap.put("it", "ita");    // Italian
-        languageMap.put("jp", "jpn_2");    // Japanese
-        languageMap.put("kr", "kor");    // Korean
-        languageMap.put("my", "msa");    // Malay
-        languageMap.put("nl", "nld");    // Dutch
-        languageMap.put("no", "nor");    // Norwegian
-        languageMap.put("pl", "pol");    // Polish
-        languageMap.put("br", "por");    // Portuguese (Brazil)
-        languageMap.put("pt", "por");    // Portuguese (Standard)
-        languageMap.put("ro", "ron");    // Romanian
-        languageMap.put("ru", "rus");    // Russian
-        languageMap.put("sk", "slk");    // Slovak
-        languageMap.put("si", "slv");    // Slovenian
-        languageMap.put("es", "spa");    // Spanish
-        languageMap.put("rs", "srp");    // Serbian (Latin)
-        languageMap.put("se", "swe");    // Swedish
-        languageMap.put("th", "tha");    // Thai
-        languageMap.put("tr", "tur");    // Turkish
-        languageMap.put("ua", "ukr");    // Ukrainian
-        languageMap.put("vn", "vie");    // Vietnamese
+        languageMap.put("de", "deu");    // german
+        languageMap.put("gb", "eng");    // english (gb)
+        languageMap.put("us", "eng");    // english (us)
+        languageMap.put("sa", "ara");    // arabic
+        languageMap.put("hk", "chi_all");    // chinese (hk)
+        languageMap.put("bg", "bul");    // bulgarian
+        languageMap.put("cz", "ces");    // czech
+        languageMap.put("cn", "chi_all");    // chinese (prc)
+        languageMap.put("gr", "ell");    // greek
+        languageMap.put("tw", "chi_all");    // chinese (taiwan)
+        languageMap.put("dk", "dan");    // danish
+        languageMap.put("fi", "fin");    // finnish
+        languageMap.put("fr", "fra");    // french
+        languageMap.put("il", "heb");    // hebrew
+        languageMap.put("hr", "hrv");    // croatian
+        languageMap.put("hu", "hun");    // hungarian
+        languageMap.put("id", "ind");    // indonesian
+        languageMap.put("it", "ita");    // italian
+        languageMap.put("jp", "jpn_2");    // japanese
+        languageMap.put("kr", "kor");    // korean
+        languageMap.put("my", "msa");    // malay
+        languageMap.put("nl", "nld");    // dutch
+        languageMap.put("no", "nor");    // norwegian
+        languageMap.put("pl", "pol");    // polish
+        languageMap.put("br", "por");    // portuguese (brazil)
+        languageMap.put("pt", "por");    // portuguese (standard)
+        languageMap.put("ro", "ron");    // romanian
+        languageMap.put("ru", "rus");    // russian
+        languageMap.put("sk", "slk");    // slovak
+        languageMap.put("si", "slv");    // slovenian
+        languageMap.put("es", "spa");    // spanish
+        languageMap.put("rs", "srp");    // serbian (latin)
+        languageMap.put("se", "swe");    // swedish
+        languageMap.put("th", "tha");    // thai
+        languageMap.put("tr", "tur");    // turkish
+        languageMap.put("ua", "ukr");    // ukrainian
+        languageMap.put("vn", "vie");    // vietnamese
     }
 
     public AutomatedWarningTesting(JFrame parent) {
         super(parent, "Automated Warning Testing", true);
 
-        // Increase window size to accommodate log area.
-        setSize(800, 650);
+        // increase window size to accommodate log area.
+        setSize(800, 700);
         setLayout(null);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -89,7 +89,7 @@ public class AutomatedWarningTesting extends JDialog {
         int y = 20;
         int gap = 40;
 
-        // Excel file selection
+        // excel file selection
         JLabel selectExcelLabel = new JLabel("Select Filtered Excel File:");
         selectExcelLabel.setBounds(20, y, labelWidth, 30);
         add(selectExcelLabel);
@@ -103,7 +103,7 @@ public class AutomatedWarningTesting extends JDialog {
         add(selectExcelButton);
 
         y += gap + 30;
-        // Pictures folder selection
+        // pictures folder selection
         JLabel selectPicturesLabel = new JLabel("Select Pictures Folder:");
         selectPicturesLabel.setBounds(20, y, labelWidth, 30);
         add(selectPicturesLabel);
@@ -117,7 +117,7 @@ public class AutomatedWarningTesting extends JDialog {
         add(selectPicturesButton);
 
         y += gap + 30;
-        // Cropped images folder selection
+        // cropped images folder selection
         JLabel selectCroppedImagesLabel = new JLabel("Select Cropped Images Folder:");
         selectCroppedImagesLabel.setBounds(20, y, labelWidth, 30);
         add(selectCroppedImagesLabel);
@@ -131,7 +131,7 @@ public class AutomatedWarningTesting extends JDialog {
         add(selectCroppedImagesButton);
 
         y += gap + 30;
-        // Results Excel file save location
+        // results excel file save location
         JLabel selectResultsLabel = new JLabel("Select Results Excel Save Location:");
         selectResultsLabel.setBounds(20, y, labelWidth, 30);
         add(selectResultsLabel);
@@ -145,7 +145,22 @@ public class AutomatedWarningTesting extends JDialog {
         add(selectResultsButton);
 
         y += gap + 30;
-        // Crop area field and selection button
+        // tessdata folder selection
+        JLabel tessdataLabel = new JLabel("Select Tessdata Folder:");
+        tessdataLabel.setBounds(20, y, labelWidth, 30);
+        add(tessdataLabel);
+
+        tessdataPathField = new JTextField();
+        tessdataPathField.setBounds(20, y + 30, textWidth, 30);
+        add(tessdataPathField);
+
+        selectTessdataButton = new JButton("Browse");
+        selectTessdataButton.setBounds(380, y + 30, buttonWidth, 30);
+        add(selectTessdataButton);
+        selectTessdataButton.addActionListener(e -> selectFolder(tessdataPathField));
+
+        y += gap + 30;
+        // crop area field and selection button
         JLabel cropAreaLabel = new JLabel("Crop Area (x, y, width, height):");
         cropAreaLabel.setBounds(20, y, labelWidth, 30);
         add(cropAreaLabel);
@@ -158,7 +173,7 @@ public class AutomatedWarningTesting extends JDialog {
         selectCropAreaButton.setBounds(280, y + 30, 120, 30);
         add(selectCropAreaButton);
 
-        // Buttons for choosing reference images
+        // buttons for choosing reference images
         singleTubeButton = new JButton("Single Tube");
         singleTubeButton.setBounds(20, y + 70, 140, 30);
         add(singleTubeButton);
@@ -168,36 +183,36 @@ public class AutomatedWarningTesting extends JDialog {
         add(twinTubeButton);
 
         y += gap + 70;
-        // Start Testing button
+        // start testing button
         startButton = new JButton("Start Testing");
         startButton.setBounds(200, y, 150, 40);
         add(startButton);
 
-        // Add a log area at the bottom
+        // add a log area at the bottom
         logTextArea = new JTextArea();
         logTextArea.setEditable(false);
-        // Force the log text area to always use Aptos Narrow
+        // force the log text area to always use aptos narrow
         logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
         JScrollPane logScrollPane = new JScrollPane(logTextArea);
-        logScrollPane.setBounds(20, 550, 740, 80);
+        logScrollPane.setBounds(20, 600, 740, 80);
         add(logScrollPane);
 
-        // Action Listeners for file/folder selections
+        // action listeners for file/folder selections
         selectExcelButton.addActionListener(e -> selectFile(excelPathField));
         selectPicturesButton.addActionListener(e -> selectFolder(picturesFolderField));
         selectCroppedImagesButton.addActionListener(e -> selectFolder(croppedImagesFolderField));
         selectResultsButton.addActionListener(e -> selectFileSaveLocation(resultsExcelField));
 
-        // When "Select Area" is pressed, open the crop dialog (if a reference image is loaded)
+        // when "select area" is pressed, open the crop dialog (if a reference image is loaded)
         selectCropAreaButton.addActionListener(e -> {
             if (referenceImage != null) {
                 openCropAreaDialog();
             } else {
-                JOptionPane.showMessageDialog(this, "Please select Single or Twin Tube reference first.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "please select single or twin tube reference first.", "error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        // Load reference image when one of the tube buttons is clicked
+        // load reference image when one of the tube buttons is clicked
         singleTubeButton.addActionListener(e -> {
             try {
                 loadReferenceImage("SINGLE");
@@ -216,12 +231,12 @@ public class AutomatedWarningTesting extends JDialog {
         startButton.addActionListener(e -> startTesting());
     }
 
-    // Utility method to append messages to the log text area
+    // utility method to append messages to the log text area
     private void appendLog(String message) {
         SwingUtilities.invokeLater(() -> logTextArea.append(message + "\n"));
     }
 
-    // Opens a file chooser to select a file
+    // opens a file chooser to select a file
     private void selectFile(JTextField textField) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(this);
@@ -230,7 +245,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Opens a file chooser to select a folder
+    // opens a file chooser to select a folder
     private void selectFolder(JTextField textField) {
         JFileChooser folderChooser = new JFileChooser();
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -240,7 +255,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Opens a file chooser to select a save location for a file
+    // opens a file chooser to select a save location for a file
     private void selectFileSaveLocation(JTextField textField) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showSaveDialog(this);
@@ -249,7 +264,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Loads the reference image based on the selected type and opens the crop area dialog
+    // loads the reference image based on the selected type and opens the crop area dialog
     private void loadReferenceImage(String type) throws IOException {
         String basePath = "C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics";
         String imagePath = basePath + "\\Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
@@ -258,7 +273,7 @@ public class AutomatedWarningTesting extends JDialog {
         openCropAreaDialog();
     }
 
-    // Opens a dialog that displays the reference image and allows the user to select a crop area
+    // opens a dialog that displays the reference image and allows the user to select a crop area
     private void openCropAreaDialog() {
         CropAreaDialog dialog = new CropAreaDialog(this, referenceImage);
         dialog.setVisible(true);
@@ -269,19 +284,19 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Enhances the image before OCR processing
+    // enhances the image before ocr processing
     private BufferedImage enhanceImage(BufferedImage original) {
-        // Convert the image to grayscale
+        // convert the image to grayscale
         BufferedImage grayscaleImage = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
         Graphics2D g = grayscaleImage.createGraphics();
         g.drawImage(original, 0, 0, null);
         g.dispose();
 
-        // Adjust brightness and contrast using RescaleOp
+        // adjust brightness and contrast using rescaleop
         RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
         grayscaleImage = rescaleOp.filter(grayscaleImage, null);
 
-        // Sharpen the image using a convolution kernel
+        // sharpen the image using a convolution kernel
         float[] sharpenMatrix = {
                 0f, -1f, 0f,
                 -1f, 5f, -1f,
@@ -294,7 +309,7 @@ public class AutomatedWarningTesting extends JDialog {
         return grayscaleImage;
     }
 
-    // Main testing logic using SwingWorker for background processing
+    // main testing logic using swingworker for background processing
     private void startTesting() {
         LogWindow logWindow = new LogWindow(this);
 
@@ -305,61 +320,62 @@ public class AutomatedWarningTesting extends JDialog {
                 String picturesFolder = picturesFolderField.getText();
                 String croppedImagesFolder = croppedImagesFolderField.getText();
                 String resultsExcelPath = resultsExcelField.getText().trim();
+                String tessdataPath = tessdataPathField.getText();
 
                 if (!resultsExcelPath.toLowerCase().endsWith(".xlsx")) {
                     resultsExcelPath += ".xlsx";
                 }
 
                 if (excelPath.isEmpty() || picturesFolder.isEmpty() || croppedImagesFolder.isEmpty() ||
-                        resultsExcelPath.isEmpty() || selectedArea == null) {
-                    publish("Please fill all the fields and select a crop area.");
+                        resultsExcelPath.isEmpty() || tessdataPath.isEmpty() || selectedArea == null) {
+                    publish("please fill all the fields and select a crop area.");
                     return null;
                 }
 
-                // Initialize Tesseract OCR engine (using Tess4J) with fixed tessdata path
+                // initialize tesseract ocr engine (using tess4j) with tessdata path from user input
                 ITesseract tesseract = new Tesseract();
-                tesseract.setDatapath("C:\\Licenta\\ExcelManager\\tessdata");
+                tesseract.setDatapath(tessdataPath);
 
                 try (FileInputStream fis = new FileInputStream(excelPath);
                      Workbook workbook = new XSSFWorkbook(fis);
                      Workbook resultsWorkbook = new XSSFWorkbook()) {
 
-                    // Read the selector sheet (first sheet) to build a mapping: language -> RUN/SKIP.
+                    // read the language selector sheet...
                     Sheet selectorSheet = workbook.getSheetAt(0);
                     Map<String, String> languageRunMap = new HashMap<>();
 
-                    publish("Reading language selector sheet...");
+                    publish("reading language selector sheet...");
                     for (int r = 1; r <= selectorSheet.getLastRowNum(); r++) {
                         Row row = selectorSheet.getRow(r);
                         if (row == null) continue;
-                        // Column 0: RUN/SKIP, Column 1: language code.
+                        // column 0: run/skip, column 1: language code.
                         Cell runCell = row.getCell(0);
                         Cell langCell = row.getCell(1);
                         if (runCell == null || langCell == null) continue;
                         String runOrSkip = runCell.toString().trim().toUpperCase();
                         String languageCode = langCell.toString().trim();
                         languageRunMap.put(languageCode, runOrSkip);
-                        publish("Language: " + languageCode + " - " + runOrSkip);
+                        publish("language: " + languageCode + " - " + runOrSkip);
                     }
 
-                    // Process each language sheet (skip the first selector sheet).
+                    // process each language sheet (skip the first selector sheet).
                     for (int i = 1; i < workbook.getNumberOfSheets(); i++) {
                         Sheet langSheet = workbook.getSheetAt(i);
                         if (langSheet == null) continue;
 
                         String sheetName = langSheet.getSheetName().trim();
-                        publish("Processing sheet: " + sheetName);
+                        publish("processing sheet: " + sheetName);
 
-                        // Always use Aptos Narrow (pre-installed) for the log text.
+                        // always use aptos narrow (pre-installed) for the log text.
                         SwingUtilities.invokeLater(() -> logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12)));
 
-                        // Determine if this language should be processed (global RUN) or not.
+                        // determine if this language should be processed (global run) or not.
                         boolean globalRun = languageRunMap.containsKey(sheetName) && "RUN".equalsIgnoreCase(languageRunMap.get(sheetName));
                         if (!globalRun) {
-                            publish("Sheet " + sheetName + " is marked SKIP or missing in selector. All rows will be marked SKIPPED.");
+                            publish("sheet " + sheetName + " is marked skip or missing in selector. all rows will be marked skipped.");
                         }
 
-                        // Create a results sheet for this language.
+                        // create a results sheet for this language.
                         Sheet resultsSheet = resultsWorkbook.createSheet(sheetName);
                         Row headerRow = resultsSheet.createRow(0);
                         headerRow.createCell(0).setCellValue("Warning Name");
@@ -372,7 +388,7 @@ public class AutomatedWarningTesting extends JDialog {
                         int incorrectCount = 0;
                         int skippedCount = 0;
 
-                        // Process each row in the language sheet (assuming row 0 is header).
+                        // process each row in the language sheet (assuming row 0 is header).
                         for (int r = 1; r <= langSheet.getLastRowNum(); r++) {
                             Row row = langSheet.getRow(r);
                             if (row == null) continue;
@@ -382,7 +398,7 @@ public class AutomatedWarningTesting extends JDialog {
                             Cell warningTextCell = row.getCell(2);
 
                             if (tcontrolCell == null || warningNameCell == null || warningTextCell == null) {
-                                publish("Row " + r + " in sheet " + sheetName + " is incomplete, skipping.");
+                                publish("row " + r + " in sheet " + sheetName + " is incomplete, skipping.");
                                 skippedCount++;
                                 continue;
                             }
@@ -412,7 +428,7 @@ public class AutomatedWarningTesting extends JDialog {
                             String imageFileName = warningName + "_" + sheetName.toLowerCase() + ".png";
                             File imageFile = new File(picturesFolder, imageFileName);
                             if (!imageFile.exists()) {
-                                publish("Image file not found: " + imageFile.getAbsolutePath());
+                                publish("image file not found: " + imageFile.getAbsolutePath());
                                 resultRow.createCell(2).setCellValue("");
                                 resultRow.createCell(3).setCellValue("IMAGE NOT FOUND");
                                 skippedCount++;
@@ -454,15 +470,15 @@ public class AutomatedWarningTesting extends JDialog {
                             resultRow.createCell(2).setCellValue(ocrText);
                             resultRow.createCell(3).setCellValue(result);
 
-                            String logMsg = "Language Sheet: " + sheetName + "\n" +
-                                    "Warning: " + warningName + "\n" +
-                                    "Expected: " + expectedText + "\n" +
-                                    "OCR Result: " + ocrText + "\n" +
-                                    "Test: " + result + "\n-------------------------";
+                            String logMsg = "language sheet: " + sheetName + "\n" +
+                                    "warning: " + warningName + "\n" +
+                                    "expected: " + expectedText + "\n" +
+                                    "ocr result: " + ocrText + "\n" +
+                                    "test: " + result + "\n-------------------------";
                             publish(logMsg);
                         }
-                        String summary = "Sheet " + sheetName + " Summary: CORRECT: " + correctCount +
-                                ", INCORRECT: " + incorrectCount + ", SKIPPED: " + skippedCount;
+                        String summary = "sheet " + sheetName + " summary: correct: " + correctCount +
+                                ", incorrect: " + incorrectCount + ", skipped: " + skippedCount;
                         publish(summary);
                         publish("-------------------------");
                     }
@@ -470,13 +486,13 @@ public class AutomatedWarningTesting extends JDialog {
                     try (FileOutputStream fos = new FileOutputStream(resultsExcelPath)) {
                         resultsWorkbook.write(fos);
                     }
-                    publish("Results saved to: " + resultsExcelPath);
-                    JOptionPane.showMessageDialog(null, "Testing Complete! Results saved to: " + resultsExcelPath,
-                            "Info", JOptionPane.INFORMATION_MESSAGE);
+                    publish("results saved to: " + resultsExcelPath);
+                    JOptionPane.showMessageDialog(null, "testing complete! results saved to: " + resultsExcelPath,
+                            "info", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    publish("Error during testing: " + ex.getMessage());
+                    publish("error during testing: " + ex.getMessage());
                 }
                 return null;
             }
@@ -492,7 +508,7 @@ public class AutomatedWarningTesting extends JDialog {
         worker.execute();
     }
 
-    // Inner class for displaying the log window
+    // inner class for displaying the log window
     class LogWindow extends JDialog {
         private JTextArea logTextArea;
 
@@ -504,7 +520,7 @@ public class AutomatedWarningTesting extends JDialog {
 
             logTextArea = new JTextArea();
             logTextArea.setEditable(false);
-            // Ensure log text always uses Aptos Narrow.
+            // ensure log text always uses aptos narrow.
             logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
             JScrollPane logScrollPane = new JScrollPane(logTextArea);
             add(logScrollPane);
@@ -518,7 +534,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Inner dialog for selecting a crop area over the reference image.
+    // inner dialog for selecting a crop area over the reference image.
     class CropAreaDialog extends JDialog {
         private BufferedImage image;
         private CropPanel cropPanel;
@@ -547,7 +563,7 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
-    // Custom panel for drawing a selection rectangle.
+    // custom panel for drawing a selection rectangle.
     class CropPanel extends JPanel {
         private BufferedImage image;
         private Rectangle selection;
@@ -619,8 +635,8 @@ public class AutomatedWarningTesting extends JDialog {
         }
     }
 
+    // main method to launch the application; sets the global ui font and shows the gui
     public static void main(String[] args) {
-        // main method to launch the application; sets the global ui font and shows the gui
         setUIFont(new FontUIResource(new Font("Aptos Narrow", Font.PLAIN, 12)));
         SwingUtilities.invokeLater(() -> new AutomatedWarningTesting(null).setVisible(true));
     }
