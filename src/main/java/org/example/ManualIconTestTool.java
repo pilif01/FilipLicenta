@@ -27,10 +27,10 @@ public class ManualIconTestTool {
     private static List<WarningData> warningRows;
     private static int currentRow;
 
-    // Default columns
-    private static String warningNameColumn = "Warning Name";
-    private static String iconNameColumn = "Icon Name";
-    private static String resultColumn = "Result";
+    // Default column indices (zero-based)
+    private static int warningNameColumnIndex = 0;
+    private static int iconNameColumnIndex = 1;
+    private static int resultColumnIndex = 2;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -124,7 +124,7 @@ public class ManualIconTestTool {
     }
 
     private void updateWarningList(String filePath) {
-        warningRows = new ArrayList<>(); // Initialize warningRows here if it's null
+        warningRows = new ArrayList<>();
 
         try (FileInputStream fis = new FileInputStream(new File(filePath));
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
@@ -135,9 +135,9 @@ public class ManualIconTestTool {
                 if (row == null) continue;
 
                 WarningData warningData = new WarningData();
-                warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn)))); // Column for warning name
-                warningData.setIconName(getStringValueFromCell(row.getCell(getColumnIndex(iconNameColumn)))); // Column for icon name
-                warningData.setResult(getStringValueFromCell(row.getCell(getColumnIndex(resultColumn)))); // Column for result
+                warningData.setWarningName(getStringValueFromCell(row.getCell(warningNameColumnIndex)));
+                warningData.setIconName(getStringValueFromCell(row.getCell(iconNameColumnIndex)));
+                warningData.setResult(getStringValueFromCell(row.getCell(resultColumnIndex)));
 
                 // Only add valid rows
                 if (warningData.getWarningName() != null && !warningData.getWarningName().isEmpty()) {
@@ -205,7 +205,12 @@ public class ManualIconTestTool {
                  XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
                 Sheet sheet = workbook.getSheetAt(0);
                 Row row = sheet.getRow(currentRow + 1);
-                row.getCell(getColumnIndex(resultColumn)).setCellValue(result);
+                // Update the result cell based on the configured result column index
+                Cell cell = row.getCell(resultColumnIndex);
+                if (cell == null) {
+                    cell = row.createCell(resultColumnIndex);
+                }
+                cell.setCellValue(result);
 
                 try (FileOutputStream fos = new FileOutputStream(new File(baseExcelPath))) {
                     workbook.write(fos);
@@ -262,29 +267,35 @@ public class ManualIconTestTool {
         return "";
     }
 
-    private int getColumnIndex(String columnName) {
-        switch (columnName) {
-            case "Warning Name":
-                return 0;
-            case "Icon Name":
-                return 1;
-            case "Result":
-                return 2;
-            default:
-                return -1;
-        }
-    }
-
-    // Column customization window
+    // Column customization window: update the global column indices and then reload the Excel data.
     private void openColumnCustomizationWindow() {
-        String[] columnNames = {"Warning Name", "Icon Name", "Result"};
-        JPanel panel = new JPanel(new GridLayout(columnNames.length, 2));
-        for (String column : columnNames) {
-            panel.add(new JLabel(column));
-            panel.add(new JTextField(getColumnIndex(column) + ""));
-        }
+        JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
+        JTextField warningField = new JTextField(String.valueOf(warningNameColumnIndex), 5);
+        JTextField iconField = new JTextField(String.valueOf(iconNameColumnIndex), 5);
+        JTextField resultField = new JTextField(String.valueOf(resultColumnIndex), 5);
 
-        JOptionPane.showConfirmDialog(frame, panel, "Configure Columns", JOptionPane.OK_CANCEL_OPTION);
+        panel.add(new JLabel("Warning Name Column (zero-based):"));
+        panel.add(warningField);
+        panel.add(new JLabel("Icon Name Column (zero-based):"));
+        panel.add(iconField);
+        panel.add(new JLabel("Result Column (zero-based):"));
+        panel.add(resultField);
+
+        int option = JOptionPane.showConfirmDialog(frame, panel, "Configure Columns", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                // Parse new column indices
+                warningNameColumnIndex = Integer.parseInt(warningField.getText().trim());
+                iconNameColumnIndex = Integer.parseInt(iconField.getText().trim());
+                resultColumnIndex = Integer.parseInt(resultField.getText().trim());
+                // Reload the Excel file with the new configuration if an Excel file is already selected
+                if (!baseExcelPath.isEmpty()) {
+                    updateWarningList(baseExcelPath);
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(frame, "Please enter valid integer values for column indices.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     // Class to store warning data

@@ -219,8 +219,9 @@ public class MainUI extends JFrame {
             } catch (Exception e) {
                 logException("Substance Graphite failed to initialize", e);
             }
-            new MainLoginPage().setVisible(true);  // Show the LoginPage first
+            new MainLoginPage().setVisible(true);  // Directly show MainUI
         });
     }
+
 
 }
