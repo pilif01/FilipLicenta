@@ -5,6 +5,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.ibm.icu.text.BreakIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,6 +21,7 @@ import java.awt.image.RescaleOp;
 import java.awt.image.BufferedImageOp;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AutomatedWarningTesting extends JDialog {
@@ -39,12 +41,12 @@ public class AutomatedWarningTesting extends JDialog {
         languageMap.put("gb", "eng");    // english (gb)
         languageMap.put("us", "eng");    // english (us)
         languageMap.put("sa", "ara");    // arabic
-        languageMap.put("hk", "chi_all");    // chinese (hk)
+        languageMap.put("hk", "chi_tra");    // chinese (hk)
         languageMap.put("bg", "bul");    // bulgarian
         languageMap.put("cz", "ces");    // czech
-        languageMap.put("cn", "chi_all");    // chinese (prc)
+        languageMap.put("cn", "chi_sim");    // chinese (prc)
         languageMap.put("gr", "ell");    // greek
-        languageMap.put("tw", "chi_all");    // chinese (taiwan)
+        languageMap.put("tw", "chi_tra");    // chinese (taiwan)
         languageMap.put("dk", "dan");    // danish
         languageMap.put("fi", "fin");    // finnish
         languageMap.put("fr", "fra");    // french
@@ -196,7 +198,7 @@ public class AutomatedWarningTesting extends JDialog {
         // Add a log area at the bottom.
         logTextArea = new JTextArea();
         logTextArea.setEditable(false);
-        // Force the log text area to always use Aptos Narrow.
+        // Initially using Aptos Narrow; if Thai processing is detected, we'll update to Tahoma.
         logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
         JScrollPane logScrollPane = new JScrollPane(logTextArea);
         logScrollPane.setBounds(20, 600, 740, 80);
@@ -384,13 +386,24 @@ public class AutomatedWarningTesting extends JDialog {
                         String sheetName = langSheet.getSheetName().trim();
                         publish("Processing sheet: " + sheetName);
 
-                        SwingUtilities.invokeLater(() -> logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12)));
+                        // Determine the cell style to use for this sheet.
+                        CellStyle cellStyleToUse = wrapStyle;
 
-                        // Determine if this language should be processed.
-                        boolean globalRun = languageRunMap.containsKey(sheetName) &&
-                                "RUN".equalsIgnoreCase(languageRunMap.get(sheetName));
-                        if (!globalRun) {
-                            publish("Sheet " + sheetName + " is marked skip or missing in selector. All rows will be marked SKIPPED.");
+                        // If this is the Thai sheet...
+                        if (sheetName.equalsIgnoreCase("th")) {
+                            // 1) Create a new POI font that uses Tahoma:
+                            org.apache.poi.ss.usermodel.Font poiThaiFont = resultsWorkbook.createFont();
+                            poiThaiFont.setFontName("Tahoma");
+                            poiThaiFont.setFontHeightInPoints((short) 12);
+
+                            // 2) Clone the wrap style and set its font to our Tahoma POI font.
+                            CellStyle thaiWrapStyle = resultsWorkbook.createCellStyle();
+                            thaiWrapStyle.cloneStyleFrom(wrapStyle);
+                            thaiWrapStyle.setFont(poiThaiFont);
+                            cellStyleToUse = thaiWrapStyle;
+
+                            // 3) Update the Swing log window font to Tahoma (AWT).
+                            logWindow.setLogFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 12));
                         }
 
                         // Create a results sheet for this language.
@@ -422,9 +435,11 @@ public class AutomatedWarningTesting extends JDialog {
                                     String warningName = (rowToSkip.getCell(1) != null ? rowToSkip.getCell(1).toString() : "");
                                     String warningText = (rowToSkip.getCell(2) != null ? rowToSkip.getCell(2).toString() : "");
                                     skipResultRow.createCell(0).setCellValue(warningName);
+
                                     Cell expCell = skipResultRow.createCell(1);
                                     expCell.setCellValue(warningText);
-                                    expCell.setCellStyle(wrapStyle);
+                                    expCell.setCellStyle(cellStyleToUse);
+
                                     skipResultRow.createCell(2).setCellValue("");
                                     skipResultRow.createCell(3).setCellValue("SKIPPED");
                                     skippedCount++;
@@ -450,14 +465,22 @@ public class AutomatedWarningTesting extends JDialog {
                             String warningName = warningNameCell.toString().trim();
                             String expectedText = warningTextCell.toString(); // preserve original newlines
 
+                            // If sheet is Thai, segment the expected text:
+                            if (sheetName.equalsIgnoreCase("th")) {
+                                expectedText = segmentThaiText(expectedText);
+                            }
+
                             Row resultRow = resultsSheet.createRow(resultsRowIndex++);
                             resultRow.createCell(0).setCellValue(warningName);
-                            // Write expected text with wrap style.
+
+                            // Write the expected text with our chosen cell style.
                             Cell expectedCell = resultRow.createCell(1);
                             expectedCell.setCellValue(expectedText);
-                            expectedCell.setCellStyle(wrapStyle);
+                            expectedCell.setCellStyle(cellStyleToUse);
 
-                            if (!globalRun) {
+                            // Check if we should skip or run.
+                            if (!languageRunMap.containsKey(sheetName) ||
+                                    !"RUN".equalsIgnoreCase(languageRunMap.get(sheetName))) {
                                 resultRow.createCell(2).setCellValue("");
                                 resultRow.createCell(3).setCellValue("SKIPPED");
                                 skippedCount++;
@@ -509,6 +532,11 @@ public class AutomatedWarningTesting extends JDialog {
                                 te.printStackTrace();
                             }
 
+                            // If sheet is Thai, segment the OCR text too.
+                            if (sheetName.equalsIgnoreCase("th")) {
+                                ocrText = segmentThaiText(ocrText);
+                            }
+
                             // Compare OCR text to expected text line by line.
                             String[] ocrLines = ocrText.split("\\r?\\n");
                             boolean linesMatch = true;
@@ -529,12 +557,14 @@ public class AutomatedWarningTesting extends JDialog {
                                 incorrectCount++;
                             }
 
-                            // Write OCR text with wrap style.
+                            // Write the OCR text with our chosen cell style.
                             Cell ocrCell = resultRow.createCell(2);
                             ocrCell.setCellValue(ocrText);
-                            ocrCell.setCellStyle(wrapStyle);
+                            ocrCell.setCellStyle(cellStyleToUse);
+
                             resultRow.createCell(3).setCellValue(resultText);
 
+                            // Build a log message to show the comparison.
                             String logMsg = "Sheet: " + sheetName + "\n" +
                                     "Warning: " + warningName + "\n" +
                                     "Expected (line-by-line):";
@@ -560,7 +590,7 @@ public class AutomatedWarningTesting extends JDialog {
                         // Assume 4 columns: Warning Name, Warning Text, OCR Text, and Result.
                         for (int col = 0; col < 4; col++) {
                             sheet.autoSizeColumn(col);
-                            // For the multi-line text columns (expected and OCR texts), add extra padding.
+                            // For multi-line text columns add extra padding.
                             if (col == 1 || col == 2) {
                                 int currentWidth = sheet.getColumnWidth(col);
                                 sheet.setColumnWidth(col, (int)(currentWidth * 1.2));
@@ -593,6 +623,21 @@ public class AutomatedWarningTesting extends JDialog {
         worker.execute();
     }
 
+    // Static method to segment Thai text using ICU4J's BreakIterator.
+    private static String segmentThaiText(String text) {
+        BreakIterator wordIterator = BreakIterator.getWordInstance(new Locale("th", "TH"));
+        wordIterator.setText(text);
+        StringBuilder segmented = new StringBuilder();
+        int start = wordIterator.first();
+        for (int end = wordIterator.next(); end != BreakIterator.DONE; start = end, end = wordIterator.next()) {
+            String word = text.substring(start, end).trim();
+            if (!word.isEmpty()) {
+                segmented.append(word).append(" ");
+            }
+        }
+        return segmented.toString().trim();
+    }
+
     // Inner class for the log window that includes Pause/Resume and Stop buttons.
     class LogWindow extends JDialog {
         private JTextArea logTextArea;
@@ -609,6 +654,7 @@ public class AutomatedWarningTesting extends JDialog {
             // Log text area.
             logTextArea = new JTextArea();
             logTextArea.setEditable(false);
+            // We begin with Aptos Narrow; might be replaced by Tahoma if Thai is processed.
             logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
             JScrollPane logScrollPane = new JScrollPane(logTextArea);
             add(logScrollPane, BorderLayout.CENTER);
@@ -651,6 +697,12 @@ public class AutomatedWarningTesting extends JDialog {
         public void appendLog(String message) {
             logTextArea.append(message + "\n");
             logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
+        }
+
+        // Method to update the log text area's font with an AWT Font
+        // (e.g., to Tahoma for Thai).
+        public void setLogFont(java.awt.Font font) {
+            logTextArea.setFont(font);
         }
     }
 
@@ -757,6 +809,8 @@ public class AutomatedWarningTesting extends JDialog {
 
     // Main method to launch the application; sets the global UI font and shows the GUI.
     public static void main(String[] args) {
+        // The global UI font is Aptos Narrow for general usage.
+        // For Thai, we specifically switch to Tahoma in the code above.
         setUIFont(new FontUIResource(new Font("Aptos Narrow", Font.PLAIN, 12)));
         SwingUtilities.invokeLater(() -> new AutomatedWarningTesting(null).setVisible(true));
     }
