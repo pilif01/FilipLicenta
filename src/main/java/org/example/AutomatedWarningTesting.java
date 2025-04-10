@@ -643,6 +643,7 @@ public class AutomatedWarningTesting extends JDialog {
         private JTextArea logTextArea;
         private JButton pauseButton;
         private JButton stopButton;
+        private final int MAX_LOG_LINES = 1000;  // Limit the log to 1000 lines.
 
         public LogWindow(AutomatedWarningTesting parent) {
             super(parent, "Testing Log", false);
@@ -654,7 +655,7 @@ public class AutomatedWarningTesting extends JDialog {
             // Log text area.
             logTextArea = new JTextArea();
             logTextArea.setEditable(false);
-            // We begin with Aptos Narrow; might be replaced by Tahoma if Thai is processed.
+            // Start with Aptos Narrow; may be updated to Tahoma if Thai language is processed.
             logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
             JScrollPane logScrollPane = new JScrollPane(logTextArea);
             add(logScrollPane, BorderLayout.CENTER);
@@ -695,17 +696,32 @@ public class AutomatedWarningTesting extends JDialog {
         }
 
         public void appendLog(String message) {
-            logTextArea.append(message + "\n");
-            logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
+            SwingUtilities.invokeLater(() -> {
+                logTextArea.append(message + "\n");
+                trimLog();
+                logTextArea.setCaretPosition(logTextArea.getDocument().getLength());
+            });
         }
 
-        // Method to update the log text area's font with an AWT Font
-        // (e.g., to Tahoma for Thai).
+        // This method trims the log if it exceeds MAX_LOG_LINES.
+        private void trimLog() {
+            try {
+                int lineCount = logTextArea.getLineCount();
+                if (lineCount > MAX_LOG_LINES) {
+                    // Remove the oldest lines—calculate the end offset of the first (lineCount - MAX_LOG_LINES) lines.
+                    int endOffset = logTextArea.getLineEndOffset(lineCount - MAX_LOG_LINES - 1);
+                    logTextArea.getDocument().remove(0, endOffset);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Method to update the log text area's font (e.g., to switch to Tahoma for Thai).
         public void setLogFont(java.awt.Font font) {
             logTextArea.setFont(font);
         }
     }
-
     // Inner dialog for selecting a crop area over the reference image.
     class CropAreaDialog extends JDialog {
         private BufferedImage image;
