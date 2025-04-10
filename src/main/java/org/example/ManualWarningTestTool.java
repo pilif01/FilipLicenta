@@ -4,18 +4,18 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.ibm.icu.text.BreakIterator;
-import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ManualWarningTestTool {
 
@@ -140,7 +140,7 @@ public class ManualWarningTestTool {
     }
 
     private void loadDataFromXLSX(String filePath, String sheetName) {
-        warningRows = new ArrayList<>(); // Initialize warningRows here if it's null
+        warningRows = new ArrayList<>(); // Initialize warningRows
 
         // Log the base image path to ensure it's correct
         System.out.println("Base Image Path: " + baseImagePath);
@@ -149,12 +149,13 @@ public class ManualWarningTestTool {
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 
             XSSFSheet sheet = workbook.getSheet(sheetName);
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Starting from row 2
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Starting from row 2 (index 1)
                 Row row = sheet.getRow(i);
                 if (row == null) continue;
 
                 WarningData warningData = new WarningData();
                 warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn))));
+                // Read expected text preserving newlines.
                 warningData.setExpectedText(getStringValueFromCell(row.getCell(getColumnIndex(expectedTextColumn))));
                 warningData.setOcrText(getStringValueFromCell(row.getCell(getColumnIndex(ocrTextColumn))));
                 warningData.setResult(getStringValueFromCell(row.getCell(getColumnIndex(resultColumn))));
@@ -207,45 +208,82 @@ public class ManualWarningTestTool {
         });
     }
 
+    /**
+     * Displays the details for the selected row.
+     *
+     * For Thai text, segmentation is applied.
+     * For Arabic, Saudi (SA), and Israeli (IL) texts, the text is wrapped in HTML with inline CSS that forces
+     * right-to-left direction while keeping the text left aligned. This prevents English (LTR) characters
+     * from being repositioned unexpectedly.
+     *
+     * In addition, the code replaces new line characters with HTML <br> so that the text is displayed
+     * exactly as in the Excel.
+     */
     private void displayRowDetails(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < warningRows.size()) {
             WarningData data = warningRows.get(rowIndex);
             String expectedText = data.getExpectedText();
             String ocrText = data.getOcrText();
 
-            // Check the selected sheet and set fonts accordingly
+            // Replace newline characters with <br> tags for proper HTML rendering.
+            String formattedExpected = expectedText.replaceAll("\\r?\\n", "<br>");
+            String formattedOCR = ocrText.replaceAll("\\r?\\n", "<br>");
+
             String selectedSheet = (String) sheetSelector.getSelectedItem();
+            String expectedHtml;
+            String ocrHtml;
+
             if (selectedSheet != null) {
                 if (selectedSheet.equalsIgnoreCase("th")) {
-                    // For Thai, set font to Tahoma and perform segmentation
+                    // For Thai: use Tahoma and segment text.
                     Font thaiFont = new Font("Tahoma", Font.PLAIN, 20);
                     referenceLabel.setFont(thaiFont);
                     ocrLabel.setFont(thaiFont);
-                    expectedText = segmentThaiText(expectedText);
-                    ocrText = segmentThaiText(ocrText);
-                } else if (selectedSheet.equalsIgnoreCase("arab")) {
-                    // For Arabic, set font to Noto Sans Arabic Regular
-                    Font arabicFont = new Font("Noto Sans Arabic", Font.PLAIN, 20);
-                    referenceLabel.setFont(arabicFont);
-                    ocrLabel.setFont(arabicFont);
+                    // Optionally perform additional segmentation.
+                    formattedExpected = segmentThaiText(formattedExpected);
+                    formattedOCR = segmentThaiText(formattedOCR);
+                    expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
+                    ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
+                } else if (selectedSheet.equalsIgnoreCase("arab") ||
+                        selectedSheet.equalsIgnoreCase("sa") ||
+                        selectedSheet.equalsIgnoreCase("il")) {
+                    // For RTL languages: set appropriate font and wrap text in an HTML div that enforces RTL.
+                    Font rtlFont;
+                    if (selectedSheet.equalsIgnoreCase("il")) {
+                        rtlFont = new Font("Arial", Font.PLAIN, 20);
+                    } else {
+                        rtlFont = new Font("Noto Sans Arabic", Font.PLAIN, 20);
+                    }
+                    referenceLabel.setFont(rtlFont);
+                    ocrLabel.setFont(rtlFont);
+                    expectedHtml = "<html><b>Expected Text:</b><br><div style='direction: rtl; text-align: left;'>" + formattedExpected + "</div></html>";
+                    ocrHtml = "<html><b>OCR Result:</b><br><div style='direction: rtl; text-align: left;'>" + formattedOCR + "</div></html>";
+                    referenceLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                    ocrLabel.setHorizontalAlignment(SwingConstants.LEFT);
                 } else {
-                    // For other languages, use the default font
+                    // For other languages, use default font and left-to-right styling.
                     Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
                     referenceLabel.setFont(defaultFont);
                     ocrLabel.setFont(defaultFont);
+                    expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
+                    ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
                 }
+            } else {
+                // Fallback styling if no sheet is selected.
+                expectedHtml = "<html><b>Expected Text:</b><br>" + formattedExpected + "</html>";
+                ocrHtml = "<html><b>OCR Result:</b><br>" + formattedOCR + "</html>";
             }
 
-            // Load and display the corresponding image
+            // Load and display the corresponding image.
             ImageIcon warningImage = new ImageIcon(data.getImagePath());
             mainImageLabel.setIcon(warningImage);
             mainImageLabel.setPreferredSize(new Dimension(warningImage.getIconWidth(), warningImage.getIconHeight()));
             mainImageLabel.revalidate();
             mainImageLabel.repaint();
 
-            // Set the reference (Expected) and OCR text labels
-            referenceLabel.setText("<html><b>Expected Text:</b><br>" + expectedText + "</html>");
-            ocrLabel.setText("<html><b>OCR Result:</b><br>" + ocrText + "</html>");
+            // Set the labels.
+            referenceLabel.setText(expectedHtml);
+            ocrLabel.setText(ocrHtml);
         }
     }
 
@@ -287,12 +325,12 @@ public class ManualWarningTestTool {
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout());
 
-        // Add the image in a scroll pane to handle large images
+        // Add the image in a scroll pane to handle large images.
         JScrollPane scrollPane = new JScrollPane(mainImageLabel);
         scrollPane.setPreferredSize(new Dimension(700, 700));
         rightPanel.add(scrollPane, BorderLayout.NORTH);
 
-        // Container for reference and OCR text labels
+        // Container for reference and OCR text labels.
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -301,7 +339,7 @@ public class ManualWarningTestTool {
         textPanel.add(ocrLabel);
         rightPanel.add(textPanel, BorderLayout.CENTER);
 
-        // Panel with result buttons and custom result input
+        // Panel with result buttons and custom result input.
         JPanel resultPanel = new JPanel(new FlowLayout());
         resultPanel.add(okButton);
         resultPanel.add(nokButton);
@@ -313,9 +351,12 @@ public class ManualWarningTestTool {
     }
 
     private String getStringValueFromCell(Cell cell) {
-        if (cell == null) return "";
-        if (cell.getCellType() == CellType.STRING) return cell.getStringCellValue();
-        if (cell.getCellType() == CellType.NUMERIC) return String.valueOf(cell.getNumericCellValue());
+        if (cell == null)
+            return "";
+        if (cell.getCellType() == CellType.STRING)
+            return cell.getStringCellValue();
+        if (cell.getCellType() == CellType.NUMERIC)
+            return String.valueOf(cell.getNumericCellValue());
         return "";
     }
 
@@ -344,7 +385,7 @@ public class ManualWarningTestTool {
         JOptionPane.showConfirmDialog(frame, panel, "Configure Columns", JOptionPane.OK_CANCEL_OPTION);
     }
 
-    // Helper method for Thai language segmentation using ICU4J's BreakIterator
+    // Helper method for Thai language segmentation using ICU4J's BreakIterator.
     private String segmentThaiText(String text) {
         BreakIterator wordIterator = BreakIterator.getWordInstance(new Locale("th", "TH"));
         wordIterator.setText(text);
@@ -359,7 +400,7 @@ public class ManualWarningTestTool {
         return segmented.toString().trim();
     }
 
-    // Class to store warning data
+    // Inner class to store warning data.
     class WarningData {
         private String warningName;
         private String expectedText;
