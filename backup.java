@@ -201,6 +201,8 @@ public class AutomatedWarningTesting extends JDialog {
         // Initially using Aptos Narrow; if Thai processing is detected, we'll update to Tahoma.
         logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
         JScrollPane logScrollPane = new JScrollPane(logTextArea);
+        // Set smooth scrolling by increasing the scroll unit increment.
+        logScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         logScrollPane.setBounds(20, 600, 740, 80);
         add(logScrollPane);
 
@@ -418,6 +420,7 @@ public class AutomatedWarningTesting extends JDialog {
                         int correctCount = 0;
                         int incorrectCount = 0;
                         int skippedCount = 0;
+                        int picNotFoundCount = 0;
 
                         for (int r = 1; r <= langSheet.getLastRowNum(); r++) {
                             // Check for pause/resume.
@@ -494,16 +497,12 @@ public class AutomatedWarningTesting extends JDialog {
                                 continue;
                             }
 
-                            // Build the expected text line by line.
-                            String[] expectedLines = expectedText.split("\\r?\\n");
-
                             String imageFileName = warningName + "_" + sheetName.toLowerCase() + ".png";
                             File imageFile = new File(picturesFolder, imageFileName);
                             if (!imageFile.exists()) {
-                                publish("Image file not found: " + imageFile.getAbsolutePath());
                                 resultRow.createCell(2).setCellValue("");
-                                resultRow.createCell(3).setCellValue("IMAGE NOT FOUND");
-                                skippedCount++;
+                                resultRow.createCell(3).setCellValue("PIC NOT FOUND");
+                                picNotFoundCount++;
                                 continue;
                             }
 
@@ -538,6 +537,7 @@ public class AutomatedWarningTesting extends JDialog {
                             }
 
                             // Compare OCR text to expected text line by line.
+                            String[] expectedLines = expectedText.split("\\r?\\n");
                             String[] ocrLines = ocrText.split("\\r?\\n");
                             boolean linesMatch = true;
                             if (expectedLines.length != ocrLines.length) {
@@ -564,22 +564,13 @@ public class AutomatedWarningTesting extends JDialog {
 
                             resultRow.createCell(3).setCellValue(resultText);
 
-                            // Build a log message to show the comparison.
-                            String logMsg = "Sheet: " + sheetName + "\n" +
-                                    "Warning: " + warningName + "\n" +
-                                    "Expected (line-by-line):";
-                            for (String line : expectedLines) {
-                                logMsg += "\n" + line;
-                            }
-                            logMsg += "\nOCR Result:";
-                            for (String line : ocrLines) {
-                                logMsg += "\n" + line;
-                            }
-                            logMsg += "\nTest: " + resultText + "\n-------------------------";
-                            publish(logMsg);
+                            // The detailed per-warning log message is intentionally omitted.
                         }
+                        // Publish the summary for this language sheet.
                         String summary = "Sheet " + sheetName + " summary: Correct: " + correctCount +
-                                ", Incorrect: " + incorrectCount + ", Skipped: " + skippedCount;
+                                ", Incorrect: " + incorrectCount +
+                                ", Skipped: " + skippedCount +
+                                ", Pic Not Found: " + picNotFoundCount;
                         publish(summary);
                         publish("-------------------------");
                     }
@@ -658,6 +649,8 @@ public class AutomatedWarningTesting extends JDialog {
             // Start with Aptos Narrow; may be updated to Tahoma if Thai language is processed.
             logTextArea.setFont(new Font("Aptos Narrow", Font.PLAIN, 12));
             JScrollPane logScrollPane = new JScrollPane(logTextArea);
+            // Enable smooth scrolling.
+            logScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             add(logScrollPane, BorderLayout.CENTER);
 
             // Panel for control buttons.
@@ -708,7 +701,7 @@ public class AutomatedWarningTesting extends JDialog {
             try {
                 int lineCount = logTextArea.getLineCount();
                 if (lineCount > MAX_LOG_LINES) {
-                    // Remove the oldest lines—calculate the end offset of the first (lineCount - MAX_LOG_LINES) lines.
+                    // Remove the oldest lines.
                     int endOffset = logTextArea.getLineEndOffset(lineCount - MAX_LOG_LINES - 1);
                     logTextArea.getDocument().remove(0, endOffset);
                 }
@@ -722,6 +715,7 @@ public class AutomatedWarningTesting extends JDialog {
             logTextArea.setFont(font);
         }
     }
+
     // Inner dialog for selecting a crop area over the reference image.
     class CropAreaDialog extends JDialog {
         private BufferedImage image;

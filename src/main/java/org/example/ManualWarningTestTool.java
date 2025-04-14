@@ -44,7 +44,7 @@ public class ManualWarningTestTool {
         });
     }
 
-    // Create and show GUI components
+    // Create and show the GUI components
     private void createAndShowGUI() {
         frame = new JFrame("Automated Warning Testing App");
         mainPanel = new JPanel(new BorderLayout());
@@ -52,16 +52,16 @@ public class ManualWarningTestTool {
         // UI Components
         sheetSelector = new JComboBox<>();
         sheetSelector.addItem("Please select an Excel file and configure columns");
-        sheetSelector.setEnabled(false); // Disable until Excel is loaded
+        sheetSelector.setEnabled(false); // Disabled until an Excel is loaded
 
         warningList = new JList<>();
         mainImageLabel = new JLabel();
 
-        // Reference and OCR text labels with larger font
+        // Labels for expected & OCR text
         referenceLabel = new JLabel("Expected Text: ");
         ocrLabel = new JLabel("OCR Text: ");
 
-        // Initially use the default font for non-Thai and non-Arab sheets (Aptos Narrow)
+        // Set default font (used for non-Thai/non-Arab sheets)
         Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
         referenceLabel.setFont(defaultFont);
         ocrLabel.setFont(defaultFont);
@@ -75,7 +75,7 @@ public class ManualWarningTestTool {
         customResultButton = new JButton("Save Custom Result");
         customResultTextField = new JTextField(20);
 
-        // Set action listeners for buttons
+        // Set up button action listeners
         selectExcelButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
@@ -98,12 +98,11 @@ public class ManualWarningTestTool {
         });
 
         configureColumnsButton.addActionListener(e -> openColumnCustomizationWindow());
-
         okButton.addActionListener(e -> saveResult("OK"));
         nokButton.addActionListener(e -> saveResult("NOK"));
         customResultButton.addActionListener(e -> saveResult(customResultTextField.getText()));
 
-        // Add components to main panel
+        // Assemble main panel
         mainPanel.add(createLeftPanel(), BorderLayout.WEST);
         mainPanel.add(createRightPanel(), BorderLayout.CENTER);
 
@@ -117,7 +116,7 @@ public class ManualWarningTestTool {
             }
         });
 
-        // Set frame properties
+        // Finalize frame
         frame.add(mainPanel);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -142,31 +141,29 @@ public class ManualWarningTestTool {
     private void loadDataFromXLSX(String filePath, String sheetName) {
         warningRows = new ArrayList<>(); // Initialize warningRows
 
-        // Log the base image path to ensure it's correct
         System.out.println("Base Image Path: " + baseImagePath);
 
         try (FileInputStream fis = new FileInputStream(new File(filePath));
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 
             XSSFSheet sheet = workbook.getSheet(sheetName);
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Starting from row 2 (index 1)
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // starting from row 2 (index 1)
                 Row row = sheet.getRow(i);
                 if (row == null) continue;
 
                 WarningData warningData = new WarningData();
                 warningData.setWarningName(getStringValueFromCell(row.getCell(getColumnIndex(warningNameColumn))));
-                // Read expected text preserving newlines.
+                // Read expected text preserving newlines
                 warningData.setExpectedText(getStringValueFromCell(row.getCell(getColumnIndex(expectedTextColumn))));
                 warningData.setOcrText(getStringValueFromCell(row.getCell(getColumnIndex(ocrTextColumn))));
                 warningData.setResult(getStringValueFromCell(row.getCell(getColumnIndex(resultColumn))));
 
                 // Only add valid rows
                 if (warningData.getWarningName() != null && !warningData.getWarningName().isEmpty()) {
-                    // Use sheet name as the language identifier for image file naming
+                    // Use sheet name as language identifier for image file naming
                     String language = sheetName.toLowerCase();
                     String imagePath = baseImagePath + File.separator + warningData.getWarningName() + "_" + language + ".png";
                     System.out.println("Image Path: " + imagePath);
-
                     warningData.setImagePath(imagePath);
                     warningRows.add(warningData);
                 }
@@ -209,15 +206,9 @@ public class ManualWarningTestTool {
     }
 
     /**
-     * Displays the details for the selected row.
-     *
-     * For Thai text, segmentation is applied.
-     * For Arabic, Saudi (SA), and Israeli (IL) texts, the text is wrapped in HTML with inline CSS that forces
-     * right-to-left direction while keeping the text left aligned. This prevents English (LTR) characters
-     * from being repositioned unexpectedly.
-     *
-     * In addition, the code replaces new line characters with HTML <br> so that the text is displayed
-     * exactly as in the Excel.
+     * Displays details for the selected row.
+     * For Thai, the text is segmented using ICU4J before diff highlighting is applied.
+     * New line characters are replaced with HTML <br> tags.
      */
     private void displayRowDetails(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < warningRows.size()) {
@@ -225,66 +216,188 @@ public class ManualWarningTestTool {
             String expectedText = data.getExpectedText();
             String ocrText = data.getOcrText();
 
-            // Replace newline characters with <br> tags for proper HTML rendering.
-            String formattedExpected = expectedText.replaceAll("\\r?\\n", "<br>");
-            String formattedOCR = ocrText.replaceAll("\\r?\\n", "<br>");
-
             String selectedSheet = (String) sheetSelector.getSelectedItem();
+
+            String formattedExpected;
+            String formattedOCR;
             String expectedHtml;
             String ocrHtml;
 
-            if (selectedSheet != null) {
-                if (selectedSheet.equalsIgnoreCase("th")) {
-                    // For Thai: use Tahoma and segment text.
-                    Font thaiFont = new Font("Tahoma", Font.PLAIN, 20);
-                    referenceLabel.setFont(thaiFont);
-                    ocrLabel.setFont(thaiFont);
-                    // Optionally perform additional segmentation.
-                    formattedExpected = segmentThaiText(formattedExpected);
-                    formattedOCR = segmentThaiText(formattedOCR);
-                    expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
-                    ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
-                } else if (selectedSheet.equalsIgnoreCase("arab") ||
-                        selectedSheet.equalsIgnoreCase("sa") ||
-                        selectedSheet.equalsIgnoreCase("il")) {
-                    // For RTL languages: set appropriate font and wrap text in an HTML div that enforces RTL.
-                    Font rtlFont;
-                    if (selectedSheet.equalsIgnoreCase("il")) {
-                        rtlFont = new Font("Arial", Font.PLAIN, 20);
-                    } else {
-                        rtlFont = new Font("Noto Sans Arabic", Font.PLAIN, 20);
-                    }
-                    referenceLabel.setFont(rtlFont);
-                    ocrLabel.setFont(rtlFont);
-                    expectedHtml = "<html><b>Expected Text:</b><br><div style='direction: rtl; text-align: left;'>" + formattedExpected + "</div></html>";
-                    ocrHtml = "<html><b>OCR Result:</b><br><div style='direction: rtl; text-align: left;'>" + formattedOCR + "</div></html>";
-                    referenceLabel.setHorizontalAlignment(SwingConstants.LEFT);
-                    ocrLabel.setHorizontalAlignment(SwingConstants.LEFT);
+            // For Thai, we first segment the text before applying diff highlighting
+            if (selectedSheet != null && selectedSheet.equalsIgnoreCase("th")) {
+                // Segment Thai text
+                String segExpected = segmentThaiText(expectedText);
+                String segOCR = segmentThaiText(ocrText);
+
+                // Apply diff highlighting if the result is marked wrong and texts differ
+                if (data.getResult() != null &&
+                        (data.getResult().equalsIgnoreCase("NOK") || data.getResult().equalsIgnoreCase("incorrect"))
+                        && !expectedText.equals(ocrText)) {
+                    String[] diffHTML = computeDiffHighlight(segExpected, segOCR);
+                    formattedExpected = diffHTML[0];
+                    formattedOCR = diffHTML[1];
                 } else {
-                    // For other languages, use default font and left-to-right styling.
-                    Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
-                    referenceLabel.setFont(defaultFont);
-                    ocrLabel.setFont(defaultFont);
-                    expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
-                    ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
+                    formattedExpected = segExpected;
+                    formattedOCR = segOCR;
                 }
+                // Replace newline characters with <br> for proper rendering
+                formattedExpected = formattedExpected.replaceAll("\\r?\\n", "<br>");
+                formattedOCR = formattedOCR.replaceAll("\\r?\\n", "<br>");
+
+                // Use Thai font
+                Font thaiFont = new Font("Tahoma", Font.PLAIN, 20);
+                referenceLabel.setFont(thaiFont);
+                ocrLabel.setFont(thaiFont);
+
+                expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
+                ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
             } else {
-                // Fallback styling if no sheet is selected.
-                expectedHtml = "<html><b>Expected Text:</b><br>" + formattedExpected + "</html>";
-                ocrHtml = "<html><b>OCR Result:</b><br>" + formattedOCR + "</html>";
+                // For non-Thai languages, work with the original text.
+                formattedExpected = expectedText.replaceAll("\\r?\\n", "<br>");
+                formattedOCR = ocrText.replaceAll("\\r?\\n", "<br>");
+                if (data.getResult() != null &&
+                        (data.getResult().equalsIgnoreCase("NOK") || data.getResult().equalsIgnoreCase("incorrect"))
+                        && !expectedText.equals(ocrText)) {
+                    String[] diffHTML = computeDiffHighlight(expectedText, ocrText);
+                    formattedExpected = diffHTML[0].replaceAll("\\r?\\n", "<br>");
+                    formattedOCR = diffHTML[1].replaceAll("\\r?\\n", "<br>");
+                }
+
+                if (selectedSheet != null) {
+                    if (selectedSheet.equalsIgnoreCase("arab") ||
+                            selectedSheet.equalsIgnoreCase("sa") ||
+                            selectedSheet.equalsIgnoreCase("il")) {
+                        Font rtlFont = selectedSheet.equalsIgnoreCase("il")
+                                ? new Font("Arial", Font.PLAIN, 20)
+                                : new Font("Noto Sans Arabic", Font.PLAIN, 20);
+                        referenceLabel.setFont(rtlFont);
+                        ocrLabel.setFont(rtlFont);
+                        expectedHtml = "<html><b>Expected Text:</b><br><div style='direction: rtl; text-align: left;'>" + formattedExpected + "</div></html>";
+                        ocrHtml = "<html><b>OCR Result:</b><br><div style='direction: rtl; text-align: left;'>" + formattedOCR + "</div></html>";
+                        referenceLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                        ocrLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                    } else {
+                        Font defaultFont = new Font("Aptos Narrow", Font.BOLD, 20);
+                        referenceLabel.setFont(defaultFont);
+                        ocrLabel.setFont(defaultFont);
+                        expectedHtml = "<html><b>Expected Text:</b><br><div style='text-align: left;'>" + formattedExpected + "</div></html>";
+                        ocrHtml = "<html><b>OCR Result:</b><br><div style='text-align: left;'>" + formattedOCR + "</div></html>";
+                    }
+                } else {
+                    expectedHtml = "<html><b>Expected Text:</b><br>" + formattedExpected + "</html>";
+                    ocrHtml = "<html><b>OCR Result:</b><br>" + formattedOCR + "</html>";
+                }
             }
 
-            // Load and display the corresponding image.
+            // Load and display the image.
             ImageIcon warningImage = new ImageIcon(data.getImagePath());
             mainImageLabel.setIcon(warningImage);
             mainImageLabel.setPreferredSize(new Dimension(warningImage.getIconWidth(), warningImage.getIconHeight()));
             mainImageLabel.revalidate();
             mainImageLabel.repaint();
 
-            // Set the labels.
+            // Update text labels.
             referenceLabel.setText(expectedHtml);
             ocrLabel.setText(ocrHtml);
         }
+    }
+
+    /**
+     * Computes and highlights the differences between the expected and OCR texts.
+     * It tokenizes by whitespace and uses a dynamic programming approach (LCS) to build the diff,
+     * wrapping non-matching tokens in a highlighted span.
+     *
+     * @param expected the expected text (can be segmented already)
+     * @param ocr the OCR text (can be segmented already)
+     * @return a String array where index 0 is the highlighted expected text and index 1 is the highlighted OCR text.
+     */
+    private String[] computeDiffHighlight(String expected, String ocr) {
+        // Determine tokenization method: split by whitespace if present; otherwise, split into individual characters.
+        String[] expTokens;
+        String[] ocrTokens;
+        if (expected.contains(" ")) {
+            expTokens = expected.split(" ");
+        } else {
+            expTokens = new String[expected.length()];
+            for (int i = 0; i < expected.length(); i++) {
+                expTokens[i] = String.valueOf(expected.charAt(i));
+            }
+        }
+        if (ocr.contains(" ")) {
+            ocrTokens = ocr.split(" ");
+        } else {
+            ocrTokens = new String[ocr.length()];
+            for (int i = 0; i < ocr.length(); i++) {
+                ocrTokens[i] = String.valueOf(ocr.charAt(i));
+            }
+        }
+
+        int m = expTokens.length, n = ocrTokens.length;
+
+        // Build the Longest Common Subsequence (LCS) matrix.
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else if (expTokens[i - 1].equals(ocrTokens[j - 1])) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        // Reconstruct the LCS from the matrix.
+        List<String> lcs = new ArrayList<>();
+        int i = m, j = n;
+        while (i > 0 && j > 0) {
+            if (expTokens[i - 1].equals(ocrTokens[j - 1])) {
+                lcs.add(0, expTokens[i - 1]);
+                i--;
+                j--;
+            } else {
+                if (dp[i - 1][j] >= dp[i][j - 1]) {
+                    i--;
+                } else {
+                    j--;
+                }
+            }
+        }
+
+        // Build the highlighted expected text.
+        StringBuilder highlightedExpected = new StringBuilder();
+        int lcsIndex = 0;
+        for (String token : expTokens) {
+            if (lcsIndex < lcs.size() && token.equals(lcs.get(lcsIndex))) {
+                highlightedExpected.append(token);
+                lcsIndex++;
+            } else {
+                // Wrap non-matching tokens in a highlighted span.
+                highlightedExpected.append("<span style='background-color: yellow;'>")
+                        .append(token)
+                        .append("</span>");
+            }
+            // Add a space only if the original texts were whitespace tokenized.
+            highlightedExpected.append(expected.contains(" ") ? " " : "");
+        }
+
+        // Build the highlighted OCR text.
+        StringBuilder highlightedOCR = new StringBuilder();
+        lcsIndex = 0;
+        for (String token : ocrTokens) {
+            if (lcsIndex < lcs.size() && token.equals(lcs.get(lcsIndex))) {
+                highlightedOCR.append(token);
+                lcsIndex++;
+            } else {
+                highlightedOCR.append("<span style='background-color: yellow;'>")
+                        .append(token)
+                        .append("</span>");
+            }
+            highlightedOCR.append(ocr.contains(" ") ? " " : "");
+        }
+
+        return new String[]{highlightedExpected.toString().trim(), highlightedOCR.toString().trim()};
     }
 
     private void saveResult(String result) {
@@ -325,12 +438,12 @@ public class ManualWarningTestTool {
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout());
 
-        // Add the image in a scroll pane to handle large images.
+        // Place the image in a scroll pane to handle large images.
         JScrollPane scrollPane = new JScrollPane(mainImageLabel);
         scrollPane.setPreferredSize(new Dimension(700, 700));
         rightPanel.add(scrollPane, BorderLayout.NORTH);
 
-        // Container for reference and OCR text labels.
+        // Container for expected and OCR text labels.
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -385,7 +498,7 @@ public class ManualWarningTestTool {
         JOptionPane.showConfirmDialog(frame, panel, "Configure Columns", JOptionPane.OK_CANCEL_OPTION);
     }
 
-    // Helper method for Thai language segmentation using ICU4J's BreakIterator.
+    // Helper method for Thai segmentation using ICU4J's BreakIterator.
     private String segmentThaiText(String text) {
         BreakIterator wordIterator = BreakIterator.getWordInstance(new Locale("th", "TH"));
         wordIterator.setText(text);
