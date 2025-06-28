@@ -2879,3 +2879,12 @@
 2025-04-14 17:16:35 - Closing OCR Tool UI
 2025-04-14 17:17:19 - Initializing OCR Tool UI
 2025-04-14 17:17:21 - Closing OCR Tool UI
+2025-06-07 01:30:23 - Initializing OCR Tool UI
+2025-06-07 01:31:42 - Closing OCR Tool UI
+2025-06-21 21:39:20 - Initializing OCR Tool UI
+2025-06-21 21:39:24 - Clicked tool button: Parse XML file
+2025-06-21 21:39:26 - Clicked tool button: Create image excel
+2025-06-21 21:39:28 - Clicked tool button: Create warning excel
+2025-06-21 21:39:29 - Clicked tool button: Full auto icon testing
+2025-06-21 21:39:29 - Clicked tool button: Full auto icon testing
+2025-06-21 21:39:31 - Closing OCR Tool UI

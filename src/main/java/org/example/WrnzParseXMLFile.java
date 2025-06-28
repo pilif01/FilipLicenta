@@ -115,7 +115,7 @@ public class WrnzParseXMLFile {
                             publish(progress);
                         }
 
-                        Workbook workbook = new XSSFWorkbook();
+                        Workbook workbook = new XSSFWorkbook(); // creearea workbook nou
                         Sheet sheet = workbook.createSheet("Warnings");
                         CellStyle wrapStyle = workbook.createCellStyle();
                         wrapStyle.setWrapText(true);
@@ -154,7 +154,7 @@ public class WrnzParseXMLFile {
                         }
 
                         try (FileOutputStream fos = new FileOutputStream(excelFile)) {
-                            workbook.write(fos);
+                            workbook.write(fos); //scrierea workbook-ului intr-un fisier
                         }
 
                         workbook.close();

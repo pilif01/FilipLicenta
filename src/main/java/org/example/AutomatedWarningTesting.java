@@ -527,7 +527,7 @@ public class AutomatedWarningTesting extends JDialog {
 
                             String ocrText = "";
                             try {
-                                ocrText = tesseract.doOCR(cropped).trim();
+                                ocrText = tesseract.doOCR(cropped).trim(); //efectuarea operatiei ocr
                             } catch (TesseractException te) {
                                 te.printStackTrace();
                             }
