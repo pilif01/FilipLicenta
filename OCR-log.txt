@@ -2896,3 +2896,5 @@
 2025-06-28 12:53:15 - Clicked tool button: Create image excel
 2025-06-28 12:53:17 - Clicked tool button: Manual Testing
 2025-06-28 12:53:20 - Closing OCR Tool UI
+2025-06-28 13:28:06 - Initializing OCR Tool UI
+2025-06-28 13:28:08 - Closing OCR Tool UI
