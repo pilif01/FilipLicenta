@@ -231,16 +231,19 @@ public class AutomatedIconTesting extends JDialog {
     // --- Load Reference Image Method ---
     // Loads the reference image from a fixed path with filenames "Reference_SINGLE.png" or "Reference_TWIN.png".
     private void loadReferenceImage(String type) throws IOException {
-        String basePath = "c:\\licenta\\excelmanager\\src\\main\\java\\org\\example\\pics";
         String imageFile = "Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
-        File file = new File(basePath + System.getProperty("file.separator") + imageFile);
-        if (!file.exists()) {
-            JOptionPane.showMessageDialog(this, "Reference image " + imageFile + " not found in " + basePath, "Error", JOptionPane.ERROR_MESSAGE);
+        String resourcePath = "/org/example/pics/" + imageFile;
+
+        InputStream is = getClass().getResourceAsStream(resourcePath);
+        if (is == null) {
+            JOptionPane.showMessageDialog(this, "Reference image " + imageFile + " not found in resources.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        referenceImage = ImageIO.read(file);
+
+        referenceImage = ImageIO.read(is);
         openCropAreaDialog();
     }
+
 
     // --- Open Crop Area Dialog Method ---
     private void openCropAreaDialog() {

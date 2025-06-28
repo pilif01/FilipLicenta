@@ -273,12 +273,16 @@ public class AutomatedWarningTesting extends JDialog {
 
     // Loads the reference image based on the selected type and opens the crop area dialog.
     private void loadReferenceImage(String type) throws IOException {
-        String basePath = "C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics";
-        String imagePath = basePath + "\\Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
-        referenceImage = ImageIO.read(new File(imagePath));
+        String resourcePath = "/org/example/pics/Reference_" + (type.equals("SINGLE") ? "SINGLE" : "TWIN") + ".png";
+        InputStream is = getClass().getResourceAsStream(resourcePath);
+        if (is == null) {
+            throw new FileNotFoundException("Image not found: " + resourcePath);
+        }
+        referenceImage = ImageIO.read(is);
         referenceType = type;
         openCropAreaDialog();
     }
+
 
     // Opens a dialog that displays the reference image and allows the user to select a crop area.
     private void openCropAreaDialog() {

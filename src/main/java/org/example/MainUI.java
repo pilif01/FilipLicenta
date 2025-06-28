@@ -109,12 +109,13 @@ public class MainUI extends JFrame {
         // Load icon
         JLabel iconLabel = new JLabel();
         try {
-            Image iconImage = ImageIO.read(new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\" + iconName));
+            Image iconImage = ImageIO.read(getClass().getResourceAsStream("/org/example/pics/" + iconName));
             Image scaledImage = iconImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
             iconLabel.setIcon(new ImageIcon(scaledImage));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         JPanel textPanel = new JPanel(new BorderLayout());
         textPanel.setOpaque(false);
@@ -185,13 +186,15 @@ public class MainUI extends JFrame {
 
     private void loadFont() {
         try {
-            promptFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\Prompt-Medium.ttf"));
+            InputStream fontStream = getClass().getResourceAsStream("/org/example/pics/Prompt-Medium.ttf");
+            promptFont = Font.createFont(Font.TRUETYPE_FONT, fontStream);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(promptFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            promptFont = new Font("Arial", Font.PLAIN, 16);  // Fallback to Arial if loading fails
+            promptFont = new Font("Arial", Font.PLAIN, 16);  // fallback
         }
+
     }
 
     public static void log(String message) {

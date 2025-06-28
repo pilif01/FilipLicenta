@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +27,18 @@ public class MainLoginPage extends JFrame {
         // Load Icon
         JLabel iconLabel = new JLabel();
         try {
-            BufferedImage iconImage = ImageIO.read(new File("C:\\Licenta\\ExcelManager\\src\\main\\java\\org\\example\\pics\\OCR_Tool_Icon.png"));
-            Image scaledImage = iconImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-            iconLabel.setIcon(new ImageIcon(scaledImage));
+            InputStream is = getClass().getResourceAsStream("/org/example/pics/OCR_Tool_Icon.png");
+            if (is != null) {
+                BufferedImage iconImage = ImageIO.read(is);
+                Image scaledImage = iconImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                iconLabel.setIcon(new ImageIcon(scaledImage));
+            } else {
+                System.err.println("Image not found in resources!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         // Main panel
         JPanel mainPanel = new JPanel(new GridBagLayout());
